@@ -229,7 +229,24 @@ public class TAData implements AppDataComponent {
         }
         return false;
     }
+    
+    public boolean containsTAName(String testName, String testEmail) {
+        for (TeachingAssistant ta : teachingAssistants) {
+            if (ta.getName().equals(testName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public void editTA(String editName, String editEmail, TeachingAssistant ta){
+        if(containsTA(ta.getName(), ta.getEmail())){
+            TeachingAssistant taToEdit = 
+                    teachingAssistants.get(teachingAssistants.indexOf(ta));
+            taToEdit.setName(editName);
+            taToEdit.setEmail(editEmail);
+        }
+    }
 
 
     public void addTA(String initName, String initEmail) {

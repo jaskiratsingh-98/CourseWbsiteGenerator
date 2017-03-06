@@ -260,9 +260,9 @@ public class TAWorkspace extends AppWorkspaceComponent {
             controller.handleKeyPress(e.getCode());
         });
         
-//        taTable.setOnMouseClicked(e -> {
-//            controller.handleEditTA();
-//        });
+        taTable.setOnMouseClicked(e -> {
+            controller.handleEditTA();
+        });
     }
     
     

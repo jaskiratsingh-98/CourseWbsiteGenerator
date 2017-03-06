@@ -238,6 +238,15 @@ public class TAData implements AppDataComponent {
         }
         return false;
     }
+    
+        public boolean containsTAEmail(String testName, String testEmail) {
+        for (TeachingAssistant ta : teachingAssistants) {
+            if (ta.getEmail().equals(testEmail)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void editTA(String editName, String editEmail, TeachingAssistant ta){
         if(containsTA(ta.getName(), ta.getEmail())){
@@ -246,6 +255,8 @@ public class TAData implements AppDataComponent {
             taToEdit.setName(editName);
             taToEdit.setEmail(editEmail);
         }
+        
+        Collections.sort(teachingAssistants);
     }
 
 

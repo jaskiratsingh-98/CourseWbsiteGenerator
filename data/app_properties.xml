@@ -76,6 +76,8 @@
         <property name="TA_NAME_AND_EMAIL_NOT_UNIQUE_MESSAGE"   value="You must provide a unique TA Name and Email"></property>
         <property name="EMAIL_ADDRESS_NOT_VALID"        value="Email Address Not Valid"></property>
         <property name="EMAIL_ADDRESS_NOT_VALID_MESSAGE"   value="You must provide a valid Email address"></property>
+        <property name="TA_NOT_CHANGED_TITLE"            value="TA Not Changed"></property>
+        <property name="TA_NOT_CHANGED_MESSAGE"            value="You did not change TA Name or Email"></property>
     </property_list>
     <property_options_list>
         <property_options name="OFFICE_HOURS_TABLE_HEADERS">

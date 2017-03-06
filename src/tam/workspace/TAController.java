@@ -59,79 +59,105 @@ public class TAController {
         gui.getFileController().markAsEdited(gui);
     }
 
-//    public void handleEditTA() {
-//        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-//        TableView taTable = workspace.getTATable();
-//
-//        Object selectedItem = taTable.getSelectionModel().getSelectedItem();
-//        TeachingAssistant ta = (TeachingAssistant) selectedItem;
-//
-//        TextField nameTextField = workspace.getNameTextField();
-//        TextField emailTextField = workspace.getEmailTextField();
-//
-//        Button addButton = workspace.getAddButton();
-//
-//        if (ta.getName() != null) {
-//            nameTextField.setText(ta.getName());
-//            emailTextField.setText(ta.getEmail());
-//            addButton.setText("Update");
-//
-//            addButton.setOnAction(e -> {
-//                updateTA(ta);
-//            });
-//        }
-//    }
+    public void handleEditTA() {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        TableView taTable = workspace.getTATable();
 
-//    public void updateTA(TeachingAssistant ta) {
-//        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-//        TextField nameTextField = workspace.getNameTextField();
-//        TextField emailTextField = workspace.getEmailTextField();
-//        String name = nameTextField.getText();
-//        String email = emailTextField.getText();
-//
-//        TAData data = (TAData) app.getDataComponent();
-//
-//        PropertiesManager props = PropertiesManager.getPropertiesManager();
-//
-//        data.addTA(name, email);
-//        
-////        // DID THE USER NEGLECT TO PROVIDE A TA NAME?
-////        if (name.isEmpty()) {
-////            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-////            dialog.show(props.getProperty(MISSING_TA_NAME_TITLE), props.getProperty(MISSING_TA_NAME_MESSAGE));
-////        } // DID THE USER NEGLECT TO PROVIDE A TA EMAIL?
-////        else if (email.isEmpty()) {
-////            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-////            dialog.show(props.getProperty(MISSING_TA_EMAIL_TITLE), props.getProperty(MISSING_TA_EMAIL_MESSAGE));
-////        } // DOES A TA ALREADY HAVE THE SAME NAME OR EMAIL?
-////        else if (data.containsTAName(name, email)) {
-////            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-////            dialog.show(props.getProperty(TA_NAME_AND_EMAIL_NOT_UNIQUE_TITLE), props.getProperty(TA_NAME_AND_EMAIL_NOT_UNIQUE_MESSAGE));
-////        } // EVERYTHING IS FINE, ADD A NEW TA
-////        else if (validateEmailAddress(email) == false) {
-////            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-////            dialog.show(props.getProperty(EMAIL_ADDRESS_NOT_VALID), props.getProperty(EMAIL_ADDRESS_NOT_VALID_MESSAGE));
-////        } else {
-////            if (validateEmailAddress(email) == true) {
-////                // ADD THE NEW TA TO THE DATA
-////                data.editTA(name, email, ta);
-////            }
-////
-////            // CLEAR THE TEXT FIELDS
-////            nameTextField.setText("");
-////            emailTextField.setText("");
-////
-////            // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
-////            nameTextField.requestFocus();
-////
-////            // WE'VE CHANGED STUFF
-////            markWorkAsEdited();
-////            
-////            workspace.resetWorkspace();
-////            workspace.reloadWorkspace(data);
-////        }
-//
-//    }
+        Object selectedItem = taTable.getSelectionModel().getSelectedItem();
+        TeachingAssistant ta = (TeachingAssistant) selectedItem;
+
+        TAData data = (TAData) app.getDataComponent();
+
+        TextField nameTextField = workspace.getNameTextField();
+        TextField emailTextField = workspace.getEmailTextField();
+
+        Button addButton = workspace.getAddButton();
+
+        if (ta.getName() != null) {
+            nameTextField.setText(ta.getName());
+            emailTextField.setText(ta.getEmail());
+            addButton.setText("Update");
+
+            addButton.setOnAction(e -> {
+                updateTA(ta);
+            });
+
+        }
+    }
+
+    public void updateTA(TeachingAssistant ta) {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        TextField nameTextField = workspace.getNameTextField();
+        TextField emailTextField = workspace.getEmailTextField();
+        String editName = nameTextField.getText();
+        String editEmail = emailTextField.getText();
+        TableView table = workspace.getTATable();
+
+        TAData data = (TAData) app.getDataComponent();
+
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        if (editName.equals(ta.getName()) && editEmail.equals(ta.getEmail())) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(TA_NOT_CHANGED_TITLE), props.getProperty(TA_NOT_CHANGED_MESSAGE));
+        } else if (editName.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_TA_NAME_TITLE), props.getProperty(MISSING_TA_NAME_MESSAGE));
+        } // DID THE USER NEGLECT TO PROVIDE A TA EMAIL?
+        else if (editEmail.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(MISSING_TA_EMAIL_TITLE), props.getProperty(MISSING_TA_EMAIL_MESSAGE));
+        } // DOES A TA ALREADY HAVE THE SAME NAME OR EMAIL?
+        else if (data.containsTAName(editName, editEmail)) {
+            if (data.containsTAEmail(editName, editEmail)) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(TA_NAME_AND_EMAIL_NOT_UNIQUE_TITLE), props.getProperty(TA_NAME_AND_EMAIL_NOT_UNIQUE_MESSAGE));
+            } else if (validateEmailAddress(editEmail) == false) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(EMAIL_ADDRESS_NOT_VALID), props.getProperty(EMAIL_ADDRESS_NOT_VALID_MESSAGE));
+            } else {
+                if (validateEmailAddress(editEmail) == true) {
+                    // ADD THE NEW TA TO THE DATA
+                    data.editTA(editName, editEmail, ta);
+                }
+
+                // CLEAR THE TEXT FIELDS
+                nameTextField.setText("");
+                emailTextField.setText("");
+
+                // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
+                nameTextField.requestFocus();
+
+                // WE'VE CHANGED STUFF
+                markWorkAsEdited();
+                table.refresh();
+            }
+        } else if (data.containsTAEmail(editName, editEmail)) {
+            if (data.containsTAName(editName, editEmail)) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(TA_NAME_AND_EMAIL_NOT_UNIQUE_TITLE), props.getProperty(TA_NAME_AND_EMAIL_NOT_UNIQUE_MESSAGE));
+            } else if (validateEmailAddress(editEmail) == false) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(EMAIL_ADDRESS_NOT_VALID), props.getProperty(EMAIL_ADDRESS_NOT_VALID_MESSAGE));
+            } else {
+                if (validateEmailAddress(editEmail) == true) {
+                    // ADD THE NEW TA TO THE DATA
+                    data.editTA(editName, editEmail, ta);
+                }
+
+                // CLEAR THE TEXT FIELDS
+                nameTextField.setText("");
+                emailTextField.setText("");
+
+                // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
+                nameTextField.requestFocus();
+
+                // WE'VE CHANGED STUFF
+                markWorkAsEdited();
+                table.refresh();
+            }
+        }
+    }
 
     /**
      * This method responds to when the user requests to add a new TA via the
@@ -332,14 +358,14 @@ public class TAController {
             cell.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
         }
     }
-    
-    public void clear(){
-        TAWorkspace workspace = (TAWorkspace)app.getWorkspaceComponent();
+
+    public void clear() {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
         workspace.getNameTextField().setText("");
         workspace.getEmailTextField().setText("");
-        
+
         workspace.getAddButton().setText("Add TA");
-        
+
         workspace.getNameTextField().requestFocus();
     }
 }

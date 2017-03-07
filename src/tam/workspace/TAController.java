@@ -22,6 +22,12 @@ import tam.workspace.TAWorkspace;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import jtps.jTPS;
+import jtps.jTPS_Transaction;
+import tam.transaction.AddTA_Transaction;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -34,6 +40,7 @@ public class TAController {
 
     // THE APP PROVIDES ACCESS TO OTHER COMPONENTS AS NEEDED
     TAManagerApp app;
+    static jTPS jTPS;
 
     private Pattern pattern;
     private Matcher matcher;
@@ -48,6 +55,7 @@ public class TAController {
     public TAController(TAManagerApp initApp) {
         // KEEP THIS FOR LATER
         app = initApp;
+        jTPS = new jTPS();
     }
 
     /**
@@ -178,6 +186,8 @@ public class TAController {
         // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
+        jTPS_Transaction taTrans = new AddTA_Transaction(name, email, data);
+
         // DID THE USER NEGLECT TO PROVIDE A TA NAME?
         if (name.isEmpty()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
@@ -198,6 +208,8 @@ public class TAController {
             if (validateEmailAddress(email) == true) {
                 // ADD THE NEW TA TO THE DATA
                 data.addTA(name, email);
+                jTPS.addTransaction(taTrans);
+
             }
 
             // CLEAR THE TEXT FIELDS
@@ -225,7 +237,11 @@ public class TAController {
      *
      * @param code The keyboard code pressed.
      */
-    public void handleKeyPress(KeyCode code) {
+    public void handleKeyPress(KeyCode code, KeyEvent e) {
+        
+        final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
+        final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
+        
         // DID THE USER PRESS THE DELETE KEY?
         if (code == KeyCode.DELETE) {
             // GET THE TABLE
@@ -253,6 +269,12 @@ public class TAController {
                 // WE'VE CHANGED STUFF
                 markWorkAsEdited();
             }
+        } else if (ctrlZ.match(e)) {
+            jTPS.undoTransaction();
+            e.consume();
+        } else if (ctrlY.match(e)) {
+            jTPS.doTransaction();
+            e.consume();
         }
     }
 
@@ -367,5 +389,13 @@ public class TAController {
         workspace.getAddButton().setText("Add TA");
 
         workspace.getNameTextField().requestFocus();
+    }
+
+    public void handleUndo() {
+        System.out.println("UNDO");
+    }
+
+    public void handleRedo() {
+
     }
 }

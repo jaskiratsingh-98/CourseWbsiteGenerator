@@ -12,27 +12,26 @@ import tam.data.TAData;
  *
  * @author jaski
  */
-public class AddTA_Transaction implements jTPS_Transaction{
+public class DeleteTA_Transaction implements jTPS_Transaction{
     
     private String taName;
     private String taEmail;
     private TAData data;
     
-    
-    public AddTA_Transaction(String name, String email, TAData data){
-        taName = name;
-        taEmail = email;
+    public DeleteTA_Transaction(String taName, String taEmail, TAData data){
+        this.taName = taName;
+        this.taEmail = taEmail;
         this.data = data;
-        
     }
     
     @Override
     public void doTransaction(){
-        data.addTA(taName, taEmail);
+        data.removeTA(taName);
     }
     
     @Override
     public void undoTransaction(){
-        data.removeTA(taName);
+        data.addTA(taName, taEmail);
     }
+    
 }

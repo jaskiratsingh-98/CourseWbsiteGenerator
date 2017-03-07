@@ -28,6 +28,7 @@ import javafx.scene.input.KeyEvent;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import tam.transaction.AddTA_Transaction;
+import tam.transaction.DeleteTA_Transaction;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -255,7 +256,9 @@ public class TAController {
                 TeachingAssistant ta = (TeachingAssistant) selectedItem;
                 String taName = ta.getName();
                 TAData data = (TAData) app.getDataComponent();
+                jTPS_Transaction delTATrans = new DeleteTA_Transaction(ta.getName(), ta.getEmail(), data);
                 data.removeTA(taName);
+                jTPS.addTransaction(delTATrans);
 
                 // AND BE SURE TO REMOVE ALL THE TA'S OFFICE HOURS
                 HashMap<String, Label> labels = workspace.getOfficeHoursGridTACellLabels();
@@ -390,12 +393,5 @@ public class TAController {
 
         workspace.getNameTextField().requestFocus();
     }
-
-    public void handleUndo() {
-        System.out.println("UNDO");
-    }
-
-    public void handleRedo() {
-
-    }
+    
 }

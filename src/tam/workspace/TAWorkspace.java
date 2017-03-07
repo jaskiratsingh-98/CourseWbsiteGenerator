@@ -212,11 +212,7 @@ public class TAWorkspace extends AppWorkspaceComponent {
         endComboBox.setValue("End Time");
         endComboBox.getItems().addAll(hours);
         HBox timeBoxPane = new HBox();
-        
-//        timeBoxPane.getChildren().add(startComboBox);
-//        timeBoxPane.getChildren().add(endComboBox);
 
-        
         // ORGANIZE THE LEFT AND RIGHT PANES
         VBox leftPane = new VBox();
         leftPane.getChildren().add(tasHeaderBox);        
@@ -449,8 +445,11 @@ public class TAWorkspace extends AppWorkspaceComponent {
             row += 2;
         }
         
-        startComboBox.setValue(dataComponent.getStartHour());
-        endComboBox.setValue(dataComponent.getEndHour());
+        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 8, 0, startComboBox);
+        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 9, 0, endComboBox);
+        
+//        startComboBox.setValue(dataComponent.getStartHour());
+//        endComboBox.setValue(dataComponent.getEndHour());
 
         // CONTROLS FOR TOGGLING TA OFFICE HOURS
         for (Pane p : officeHoursGridTACellPanes.values()) {
@@ -474,6 +473,13 @@ public class TAWorkspace extends AppWorkspaceComponent {
         taStyle.initOfficeHoursGridStyle();
     }
     
+    public void addComboBoxToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row, ComboBox combo) {  
+        HBox cellPane = new HBox();
+        cellPane.setAlignment(Pos.CENTER);
+        cellPane.getChildren().add(combo);
+        
+        officeHoursGridPane.add(combo, col, row);
+    }
     public void addCellToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {       
         // MAKE THE LABEL IN A PANE
         Label cellLabel = new Label("");

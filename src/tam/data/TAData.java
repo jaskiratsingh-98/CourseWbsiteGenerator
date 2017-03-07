@@ -297,6 +297,7 @@ public class TAData implements AppDataComponent {
     public void toggleTAOfficeHours(String cellKey, String taName) {
         StringProperty cellProp = officeHours.get(cellKey);
         String cellText = cellProp.getValue();
+        System.out.println("Reached");
 
         // IF IT ALREADY HAS THE TA, REMOVE IT
         if (cellText.contains(taName)) {

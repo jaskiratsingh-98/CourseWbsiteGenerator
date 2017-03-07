@@ -29,6 +29,7 @@ import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import tam.transaction.AddTA_Transaction;
 import tam.transaction.DeleteTA_Transaction;
+import tam.transaction.ToggleCell;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -208,7 +209,7 @@ public class TAController {
         } else {
             if (validateEmailAddress(email) == true) {
                 // ADD THE NEW TA TO THE DATA
-                data.addTA(name, email);
+                //data.addTA(name, email);
                 jTPS.addTransaction(taTrans);
 
             }
@@ -257,7 +258,7 @@ public class TAController {
                 String taName = ta.getName();
                 TAData data = (TAData) app.getDataComponent();
                 jTPS_Transaction delTATrans = new DeleteTA_Transaction(ta.getName(), ta.getEmail(), data);
-                data.removeTA(taName);
+                //data.removeTA(taName);
                 jTPS.addTransaction(delTATrans);
 
                 // AND BE SURE TO REMOVE ALL THE TA'S OFFICE HOURS
@@ -300,9 +301,11 @@ public class TAController {
             String taName = ta.getName();
             TAData data = (TAData) app.getDataComponent();
             String cellKey = pane.getId();
+            
+            jTPS_Transaction togTrans = new ToggleCell(cellKey, taName, data);
 
             // AND TOGGLE THE OFFICE HOURS IN THE CLICKED CELL
-            data.toggleTAOfficeHours(cellKey, taName);
+            jTPS.addTransaction(togTrans);
 
             // WE'VE CHANGED STUFF
             markWorkAsEdited();

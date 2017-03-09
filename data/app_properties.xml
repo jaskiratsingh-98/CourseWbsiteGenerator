@@ -94,6 +94,8 @@
             <option>WEDNESDAY</option>
             <option>THURSDAY</option>
             <option>FRIDAY</option>
+            <option>Start Time</option>
+            <option>End Time</option>
         </property_options>
     </property_options_list>
 </properties>

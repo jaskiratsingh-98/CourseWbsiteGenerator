@@ -383,15 +383,10 @@ public class TAWorkspace extends AppWorkspaceComponent {
         }
         
         // THEN THE DAY OF WEEK HEADERS
-        for (int i = 2; i < 7; i++) {
+        for (int i = 2; i < 9; i++) {
             addCellToGrid(dataComponent, officeHoursGridDayHeaderPanes, officeHoursGridDayHeaderLabels, i, 0);
             dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));            
         }
-        
-//        for (int i=7; i <9; i++) {
-//            addCellToGrid(dataComponent, officeHoursGridTimeHeaderPanes, officeHoursGridTimeHeaderLabels, i, 0);
-//            dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));
-//        }
         
         // THEN THE TIME AND TA CELLS
         int row = 1;
@@ -421,11 +416,10 @@ public class TAWorkspace extends AppWorkspaceComponent {
             row += 2;
         }
         
-        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 8, 0, startComboBox);
-        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 9, 0, endComboBox);
-        
-//        startComboBox.setValue(dataComponent.getStartHour());
-//        endComboBox.setValue(dataComponent.getEndHour());
+        addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 7, 1);
+        addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 8, 1);
+        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 7, 1, startComboBox);
+        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 8, 1, endComboBox);
 
         // CONTROLS FOR TOGGLING TA OFFICE HOURS
         for (Pane p : officeHoursGridTACellPanes.values()) {

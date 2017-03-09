@@ -22,6 +22,7 @@ import tam.workspace.TAWorkspace;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -240,10 +241,10 @@ public class TAController {
      * @param code The keyboard code pressed.
      */
     public void handleKeyPress(KeyCode code, KeyEvent e) {
-        
+
         final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
         final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
-        
+
         // DID THE USER PRESS THE DELETE KEY?
         if (code == KeyCode.DELETE) {
             // GET THE TABLE
@@ -301,7 +302,7 @@ public class TAController {
             String taName = ta.getName();
             TAData data = (TAData) app.getDataComponent();
             String cellKey = pane.getId();
-            
+
             jTPS_Transaction togTrans = new ToggleCell(cellKey, taName, data);
 
             // AND TOGGLE THE OFFICE HOURS IN THE CLICKED CELL
@@ -398,5 +399,44 @@ public class TAController {
 
         workspace.getNameTextField().requestFocus();
     }
-    
+
+    public void handleStartTime() {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        ComboBox startComboBox = workspace.getStartComboBox();
+        TAData data = (TAData) app.getDataComponent();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        String start = (String) startComboBox.getValue();
+        int startTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
+
+        if (startTime > data.getEndHour()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
+        } else {
+            data.setStartHour(startTime);
+            workspace.resetWorkspace();
+            workspace.reloadWorkspace(data);
+        }
+
+    }
+
+    public void handleEndTime() {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        ComboBox endComboBox = workspace.getEndComboBox();
+        TAData data = (TAData) app.getDataComponent();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        String start = (String) endComboBox.getValue();
+        int startTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
+
+        if (startTime < data.getStartHour()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
+        } else {
+            data.setEndHour(startTime);
+            workspace.resetWorkspace();
+            workspace.reloadWorkspace(data);
+        }
+
+    }
 }

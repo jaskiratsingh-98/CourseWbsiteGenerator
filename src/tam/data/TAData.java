@@ -124,6 +124,14 @@ public class TAData implements AppDataComponent {
         return officeHours;
     }
     
+    public void setStartHour(int startTime){
+        startHour = startTime;
+    }
+    
+    public void setEndHour(int startTime){
+        endHour = startTime;
+    }
+    
     public int getNumRows() {
         return ((endHour - startHour) * 2) + 1;
     }

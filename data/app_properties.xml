@@ -82,6 +82,10 @@
         <property name="EMAIL_ADDRESS_NOT_VALID_MESSAGE"   value="You must provide a valid Email address"></property>
         <property name="TA_NOT_CHANGED_TITLE"            value="TA Not Changed"></property>
         <property name="TA_NOT_CHANGED_MESSAGE"            value="You did not change TA Name or Email"></property>
+        <property name="INVALID_START_HOUR_TITLE"            value="Invalid Start Time"></property>
+        <property name="INVALID_START_HOUR_MESSAGE"            value="The Start Time is greater than End Time"></property>
+        <property name="INVALID_END_HOUR_TITLE"            value="Invalid End Time"></property>
+        <property name="INVALID_END_HOUR_MESSAGE"            value="The End Time is less than Start Time"></property>
     </property_list>
     <property_options_list>
         <property_options name="OFFICE_HOURS_TABLE_HEADERS">

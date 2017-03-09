@@ -235,12 +235,27 @@ public class TAWorkspace extends AppWorkspaceComponent {
         taTable.setOnMouseClicked(e -> {
             controller.handleEditTA();
         });
+        
+        startComboBox.setOnAction(e -> {
+            controller.handleStartTime();
+        });
+        
+        endComboBox.setOnAction(e -> {
+            controller.handleEndTime();
+        });
     }
     
     
     // WE'LL PROVIDE AN ACCESSOR METHOD FOR EACH VISIBLE COMPONENT
     // IN CASE A CONTROLLER OR STYLE CLASS NEEDS TO CHANGE IT
     
+    public ComboBox getStartComboBox() {
+        return startComboBox;
+    }
+    
+    public ComboBox getEndComboBox() {
+        return endComboBox;
+    }
     
     public HBox getTAsHeaderBox() {
         return tasHeaderBox;

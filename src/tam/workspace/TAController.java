@@ -389,6 +389,8 @@ public class TAController {
 
     public void clear() {
         TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        TableView taTable = workspace.getTATable();
+        taTable.getSelectionModel().clearSelection();
         workspace.getNameTextField().setText("");
         workspace.getEmailTextField().setText("");
 

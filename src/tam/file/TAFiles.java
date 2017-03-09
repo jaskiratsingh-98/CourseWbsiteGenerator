@@ -24,6 +24,7 @@ import javax.json.stream.JsonGenerator;
 import tam.TAManagerApp;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
+import tam.workspace.TAWorkspace;
 
 /**
  * This class serves as the file component for the TA
@@ -62,6 +63,10 @@ public class TAFiles implements AppFileComponent {
 	String startHour = json.getString(JSON_START_HOUR);
         String endHour = json.getString(JSON_END_HOUR);
         dataManager.initHours(startHour, endHour);
+        
+        TAWorkspace workspace = (TAWorkspace)app.getWorkspaceComponent();
+        workspace.getStartComboBox().setValue(startHour + ":00");
+        workspace.getEndComboBox().setValue(endHour + ":00");
 
         // NOW RELOAD THE WORKSPACE WITH THE LOADED DATA
         app.getWorkspaceComponent().reloadWorkspace(app.getDataComponent());

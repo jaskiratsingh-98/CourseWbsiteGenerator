@@ -416,6 +416,7 @@ public class TAController {
             data.setStartHour(startTime);
             workspace.resetWorkspace();
             workspace.reloadWorkspace(data);
+            startComboBox.setValue(startTime + ":00");
         }
 
     }
@@ -436,6 +437,7 @@ public class TAController {
             data.setEndHour(startTime);
             workspace.resetWorkspace();
             workspace.reloadWorkspace(data);
+            endComboBox.setValue(startTime + ":00");
         }
 
     }

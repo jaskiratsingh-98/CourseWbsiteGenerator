@@ -160,6 +160,7 @@ public class TAWorkspace extends AppWorkspaceComponent {
         emailTextField.prefWidthProperty().bind(addBox.widthProperty().multiply(.3));
         addButton.prefWidthProperty().bind(addBox.widthProperty().multiply(.2));
         clearButton.prefWidthProperty().bind(addBox.widthProperty().multiply(.2));
+        clearButton.prefHeightProperty().bind(addBox.heightProperty().multiply(1));
         addBox.getChildren().add(nameTextField);
         addBox.getChildren().add(emailTextField);
         addBox.getChildren().add(addButton);

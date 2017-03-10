@@ -100,6 +100,7 @@ public class TAController {
         TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
         TextField nameTextField = workspace.getNameTextField();
         TextField emailTextField = workspace.getEmailTextField();
+        String origName = ta.getName();
         String editName = nameTextField.getText();
         String editEmail = emailTextField.getText();
         TableView table = workspace.getTATable();
@@ -136,6 +137,11 @@ public class TAController {
                 nameTextField.setText("");
                 emailTextField.setText("");
 
+                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
+                    String cellKey = p.getId();
+                    data.toggleEditHours(cellKey, editName, origName);
+                }
+
                 // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
                 nameTextField.requestFocus();
 
@@ -159,6 +165,11 @@ public class TAController {
                 // CLEAR THE TEXT FIELDS
                 nameTextField.setText("");
                 emailTextField.setText("");
+
+                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
+                    String cellKey = p.getId();
+                    data.toggleEditHours(cellKey, editName, origName);
+                }
 
                 // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
                 nameTextField.requestFocus();

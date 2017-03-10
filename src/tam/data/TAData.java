@@ -13,10 +13,10 @@ import tam.TAManagerProp;
 import tam.workspace.TAWorkspace;
 
 /**
- * This is the data component for TAManagerApp. It has all the data needed
- * to be set by the user via the User Interface and file I/O can set and get
- * all the data from this object
- * 
+ * This is the data component for TAManagerApp. It has all the data needed to be
+ * set by the user via the User Interface and file I/O can set and get all the
+ * data from this object
+ *
  * @author Richard McKenna
  */
 public class TAData implements AppDataComponent {
@@ -33,7 +33,7 @@ public class TAData implements AppDataComponent {
     // TO UI LABELS, WHICH MEANS IF WE CHANGE VALUES IN THESE
     // PROPERTIES IT CHANGES WHAT APPEARS IN THOSE LABELS
     HashMap<String, StringProperty> officeHours;
-    
+
     // THESE ARE THE LANGUAGE-DEPENDENT VALUES FOR
     // THE OFFICE HOURS GRID HEADERS. NOTE THAT WE
     // LOAD THESE ONCE AND THEN HANG ON TO THEM TO
@@ -46,17 +46,17 @@ public class TAData implements AppDataComponent {
     // NO MEANS FOR CHANGING THESE VALUES
     int startHour;
     int endHour;
-    
+
     // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
     public static final int MIN_START_HOUR = 9;
     public static final int MAX_END_HOUR = 20;
 
     /**
-     * This constructor will setup the required data structures for
-     * use, but will have to wait on the office hours grid, since
-     * it receives the StringProperty objects from the Workspace.
-     * 
-     * @param initApp The application this data manager belongs to. 
+     * This constructor will setup the required data structures for use, but
+     * will have to wait on the office hours grid, since it receives the
+     * StringProperty objects from the Workspace.
+     *
+     * @param initApp The application this data manager belongs to.
      */
     public TAData(TAManagerApp initApp) {
         // KEEP THIS FOR LATER
@@ -68,10 +68,10 @@ public class TAData implements AppDataComponent {
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
         endHour = MAX_END_HOUR;
-        
+
         //THIS WILL STORE OUR OFFICE HOURS
         officeHours = new HashMap();
-        
+
         // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ArrayList<String> timeHeaders = props.getPropertyOptionsList(TAManagerProp.OFFICE_HOURS_TABLE_HEADERS);
@@ -80,10 +80,10 @@ public class TAData implements AppDataComponent {
         gridHeaders.addAll(timeHeaders);
         gridHeaders.addAll(dowHeaders);
     }
-    
+
     /**
-     * Called each time new work is created or loaded, it resets all data
-     * and data structures such that they can be used for new values.
+     * Called each time new work is created or loaded, it resets all data and
+     * data structures such that they can be used for new values.
      */
     @Override
     public void resetData() {
@@ -92,9 +92,8 @@ public class TAData implements AppDataComponent {
         teachingAssistants.clear();
         officeHours.clear();
     }
-    
-    // ACCESSOR METHODS
 
+    // ACCESSOR METHODS
     public int getStartHour() {
         return startHour;
     }
@@ -102,7 +101,7 @@ public class TAData implements AppDataComponent {
     public int getEndHour() {
         return endHour;
     }
-    
+
     public ArrayList<String> getGridHeaders() {
         return gridHeaders;
     }
@@ -110,7 +109,7 @@ public class TAData implements AppDataComponent {
     public ObservableList getTeachingAssistants() {
         return teachingAssistants;
     }
-    
+
     public String getCellKey(int col, int row) {
         return col + "_" + row;
     }
@@ -123,15 +122,15 @@ public class TAData implements AppDataComponent {
     public HashMap<String, StringProperty> getOfficeHours() {
         return officeHours;
     }
-    
-    public void setStartHour(int startTime){
+
+    public void setStartHour(int startTime) {
         startHour = startTime;
     }
-    
-    public void setEndHour(int startTime){
+
+    public void setEndHour(int startTime) {
         endHour = startTime;
     }
-    
+
     public int getNumRows() {
         return ((endHour - startHour) * 2) + 1;
     }
@@ -155,20 +154,22 @@ public class TAData implements AppDataComponent {
         }
         return cellText;
     }
-    
+
     public String getCellKey(String day, String time) {
         int col = gridHeaders.indexOf(day);
         int row = 1;
         int hour = Integer.parseInt(time.substring(0, time.indexOf("_")));
         int milHour = hour;
-        if (hour < startHour)
+        if (hour < startHour) {
             milHour += 12;
+        }
         row += (milHour - startHour) * 2;
-        if (time.contains("_30"))
+        if (time.contains("_30")) {
             row += 1;
+        }
         return getCellKey(col, row);
     }
-    
+
     public TeachingAssistant getTA(String testName) {
         for (TeachingAssistant ta : teachingAssistants) {
             if (ta.getName().equals(testName)) {
@@ -177,42 +178,39 @@ public class TAData implements AppDataComponent {
         }
         return null;
     }
-    
+
     /**
-     * This method is for giving this data manager the string property
-     * for a given cell.
+     * This method is for giving this data manager the string property for a
+     * given cell.
      */
     public void setCellProperty(int col, int row, StringProperty prop) {
         String cellKey = getCellKey(col, row);
         officeHours.put(cellKey, prop);
-    }    
-    
+    }
+
     /**
      * This method is for setting the string property for a given cell.
      */
     public void setGridProperty(ArrayList<ArrayList<StringProperty>> grid,
-                                int column, int row, StringProperty prop) {
+            int column, int row, StringProperty prop) {
         grid.get(row).set(column, prop);
     }
-    
 
-    
     private void initOfficeHours(int initStartHour, int initEndHour) {
         // NOTE THAT THESE VALUES MUST BE PRE-VERIFIED
         startHour = initStartHour;
         endHour = initEndHour;
-        
+
         // EMPTY THE CURRENT OFFICE HOURS VALUES
         officeHours.clear();
-            
+
         // WE'LL BUILD THE USER INTERFACE COMPONENT FOR THE
         // OFFICE HOURS GRID AND FEED THEM TO OUR DATA
         // STRUCTURE AS WE GO
-        TAWorkspace workspaceComponent = (TAWorkspace)app.getWorkspaceComponent();
+        TAWorkspace workspaceComponent = (TAWorkspace) app.getWorkspaceComponent();
         workspaceComponent.reloadOfficeHoursGrid(this);
     }
-    
-    
+
     public void initHours(String startHourText, String endHourText) {
         int initStartHour = Integer.parseInt(startHourText);
         int initEndHour = Integer.parseInt(endHourText);
@@ -223,8 +221,6 @@ public class TAData implements AppDataComponent {
             initOfficeHours(initStartHour, initEndHour);
         }
     }
-
-
 
     public boolean containsTA(String testName, String testEmail) {
         for (TeachingAssistant ta : teachingAssistants) {
@@ -237,7 +233,7 @@ public class TAData implements AppDataComponent {
         }
         return false;
     }
-    
+
     public boolean containsTAName(String testName, String testEmail) {
         for (TeachingAssistant ta : teachingAssistants) {
             if (ta.getName().equals(testName)) {
@@ -246,8 +242,8 @@ public class TAData implements AppDataComponent {
         }
         return false;
     }
-    
-        public boolean containsTAEmail(String testName, String testEmail) {
+
+    public boolean containsTAEmail(String testName, String testEmail) {
         for (TeachingAssistant ta : teachingAssistants) {
             if (ta.getEmail().equals(testEmail)) {
                 return true;
@@ -256,17 +252,16 @@ public class TAData implements AppDataComponent {
         return false;
     }
 
-    public void editTA(String editName, String editEmail, TeachingAssistant ta){
-        if(containsTA(ta.getName(), ta.getEmail())){
-            TeachingAssistant taToEdit = 
-                    teachingAssistants.get(teachingAssistants.indexOf(ta));
+    public void editTA(String editName, String editEmail, TeachingAssistant ta) {
+        if (containsTA(ta.getName(), ta.getEmail())) {
+            TeachingAssistant taToEdit
+                    = teachingAssistants.get(teachingAssistants.indexOf(ta));
             taToEdit.setName(editName);
             taToEdit.setEmail(editEmail);
         }
-        
+
         Collections.sort(teachingAssistants);
     }
-
 
     public void addTA(String initName, String initEmail) {
         // MAKE THE TA
@@ -289,23 +284,19 @@ public class TAData implements AppDataComponent {
             }
         }
     }
-    
+
     public void addOfficeHoursReservation(String day, String time, String taName) {
         String cellKey = getCellKey(day, time);
         toggleTAOfficeHours(cellKey, taName);
     }
-    
-
 
     /**
-     * This function toggles the taName in the cell represented
-     * by cellKey. Toggle means if it's there it removes it, if
-     * it's not there it adds it.
+     * This function toggles the taName in the cell represented by cellKey.
+     * Toggle means if it's there it removes it, if it's not there it adds it.
      */
     public void toggleTAOfficeHours(String cellKey, String taName) {
         StringProperty cellProp = officeHours.get(cellKey);
         String cellText = cellProp.getValue();
-        System.out.println("Reached");
 
         // IF IT ALREADY HAS THE TA, REMOVE IT
         if (cellText.contains(taName)) {
@@ -317,10 +308,22 @@ public class TAData implements AppDataComponent {
             cellProp.setValue(cellText + "\n" + taName);
         }
     }
-    
+
+    public void toggleEditHours(String cellKey, String newName, String oldName) {
+        StringProperty cellProp = officeHours.get(cellKey);
+        String cellText = cellProp.getValue();
+
+        // IF IT ALREADY HAS THE TA, REMOVE IT
+        if (cellText.contains(oldName)) {
+            cellProp.setValue(cellText + "\n" + newName);
+            removeTAFromCell(cellProp, oldName);
+
+        } // OTHERWISE ADD IT
+    }
+
     /**
-     * This method removes taName from the office grid cell
-     * represented by cellProp.
+     * This method removes taName from the office grid cell represented by
+     * cellProp.
      */
     public void removeTAFromCell(StringProperty cellProp, String taName) {
         // GET THE CELL TEXT
@@ -328,21 +331,18 @@ public class TAData implements AppDataComponent {
         // IS IT THE ONLY TA IN THE CELL?
         if (cellText.equals(taName)) {
             cellProp.setValue("");
-        }
-        // IS IT THE FIRST TA IN A CELL WITH MULTIPLE TA'S?
+        } // IS IT THE FIRST TA IN A CELL WITH MULTIPLE TA'S?
         else if (cellText.indexOf(taName) == 0) {
             int startIndex = cellText.indexOf("\n") + 1;
             cellText = cellText.substring(startIndex);
             cellProp.setValue(cellText);
-        }
-        // IS IT IN THE MIDDLE OF A LIST OF TAs
+        } // IS IT IN THE MIDDLE OF A LIST OF TAs
         else if (cellText.indexOf(taName) < cellText.indexOf("\n", cellText.indexOf(taName))) {
             int startIndex = cellText.indexOf("\n" + taName);
             int endIndex = startIndex + taName.length() + 1;
             cellText = cellText.substring(0, startIndex) + cellText.substring(endIndex);
             cellProp.setValue(cellText);
-        }
-        // IT MUST BE THE LAST TA
+        } // IT MUST BE THE LAST TA
         else {
             int startIndex = cellText.indexOf("\n" + taName);
             cellText = cellText.substring(0, startIndex);

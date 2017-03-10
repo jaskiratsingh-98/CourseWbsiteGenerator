@@ -57,6 +57,7 @@
         <property name="WORK_SAVED_MESSAGE"		value="The Work has been Saved"></property>
         <property name="SAVE_UNSAVED_WORK_MESSAGE"	value="Do you want to save your unsaved work first?"></property>
 	<property name="SAVE_WORK_TITLE"		value="Save your work"></property>
+        <property name="EXPORT_WORK_TITLE"		value="Exporting your work"></property>
 	<property name="LOAD_WORK_TITLE"		value="Select work file to load"></property>
 	<property name="WORK_FILE_EXT"			value="json"></property>
 	<property name="WORK_FILE_EXT_DESC"		value="TA Office Hours"></property>
@@ -86,6 +87,20 @@
         <property name="INVALID_START_HOUR_MESSAGE"            value="The Start Time is greater than End Time"></property>
         <property name="INVALID_END_HOUR_TITLE"            value="Invalid End Time"></property>
         <property name="INVALID_END_HOUR_MESSAGE"            value="The End Time is less than Start Time"></property>
+        <!-- FILE PATHS  -->
+        <property name="SYLLABUS"                          value="./exportdata/syllabus.html"></property>
+        <property name="JS_GRID_BUILDER"                       value="./exportdata/js/OfficeHoursGridBuilder.js"></property>
+        <property name="JS_RECITATIONS_BUILDER"              value="./exportdata/js/RecitationsBuilder.js"></property>
+        <property name="JS_RECITATIONS_DATA"              value="./exportdata/js/RecitationsData.json"></property>
+        <property name="SYLLABUS_PATH"                          value="\\syllabus.html"></property>
+        <property name="JS_GRID_BUILDER_PATH"                       value="\\js\\OfficeHoursGridBuilder.js"></property>
+        <property name="JS_OFFICE_HOURS_PATH"                       value="\\js\\OfficeHoursGridData.json"></property>
+        <property name="JS_RECITATIONS_BUILDER_PATH"              value="\\js\\RecitationsBuilder.js"></property>
+        <property name="JS_RECITATIONS_DATA_PATH"              value="\\js\\RecitationsData.json"></property>
+        <property name="CSS_FOLDER"                      value="./exportdata/css"></property>
+        <property name="IMAGES_FOLDER"                   value="./exportdata/images"></property>
+        <property name="JS_FOLDER"                   value="./exportdata/js"></property>
+        
     </property_list>
     <property_options_list>
         <property_options name="OFFICE_HOURS_TABLE_HEADERS">

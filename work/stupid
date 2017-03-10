@@ -1,0 +1,17 @@
+
+{
+    "startHour":"9",
+    "endHour":"20",
+    "undergrad_tas":[
+        {
+            "name":"dss",
+            "email":"ds2@sbs.edu"
+        },
+        {
+            "name":"ja",
+            "email":"jas@sbu.edu"
+        }
+    ],
+    "officeHours":[
+    ]
+}

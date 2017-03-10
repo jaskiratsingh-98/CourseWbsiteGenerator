@@ -92,6 +92,14 @@ public class TAController {
             addButton.setOnAction(e -> {
                 updateTA(ta);
             });
+            
+            nameTextField.setOnAction(e -> {
+                updateTA(ta);
+            });
+            
+            emailTextField.setOnAction(e -> {
+                updateTA(ta);
+            });
 
         }
     }

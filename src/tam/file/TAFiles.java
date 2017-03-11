@@ -98,7 +98,16 @@ public class TAFiles implements AppFileComponent {
             String day = jsonOfficeHours.getString(JSON_DAY);
             String time = jsonOfficeHours.getString(JSON_TIME);
             String name = jsonOfficeHours.getString(JSON_NAME);
-            dataManager.addOfficeHoursReservation(day, time, name);
+            int t1 = Integer.parseInt(time.substring(0, time.indexOf("_")));
+            if(time.endsWith("pm")){
+                t1 = t1 + 12;
+                if(t1>24){
+                    t1 = 0;
+                }
+            }
+            if(t1 >= dataManager.getStartHour() && t1 <= dataManager.getEndHour()){
+                dataManager.addOfficeHoursReservation(day, time, name);
+            }
         }
     }
 
@@ -166,6 +175,64 @@ public class TAFiles implements AppFileComponent {
         pw.write(prettyPrinted);
         pw.close();
     }
+
+//    public void modifiedSave(AppDataComponent data) throws IOException {
+//        // GET THE DATA
+//        TAData dataManager = (TAData) data;
+//        String filePath = "./temp/sampleSave.json";
+//
+//        // NOW BUILD THE TA JSON OBJCTS TO SAVE
+//        JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();
+//        ObservableList<TeachingAssistant> tas = dataManager.getTeachingAssistants();
+//        for (TeachingAssistant ta : tas) {
+//            JsonObject taJson = Json.createObjectBuilder()
+//                    .add(JSON_NAME, ta.getName())
+//                    .add(JSON_EMAIL, ta.getEmail()).build();
+//            taArrayBuilder.add(taJson);
+//        }
+//        JsonArray undergradTAsArray = taArrayBuilder.build();
+//
+//        // NOW BUILD THE TIME SLOT JSON OBJCTS TO SAVE
+//        JsonArrayBuilder timeSlotArrayBuilder = Json.createArrayBuilder();
+//        ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(dataManager);
+//        for (TimeSlot ts : officeHours) {
+//            JsonObject tsJson = Json.createObjectBuilder()
+//                    .add(JSON_DAY, ts.getDay())
+//                    .add(JSON_TIME, ts.getTime())
+//                    .add(JSON_NAME, ts.getName()).build();
+//            int time = Integer.parseInt(JSON_TIME.substring(0, JSON_TIME.indexOf("_")));
+//            if (time > dataManager.getStartHour() && time < dataManager.getEndHour()) {
+//                timeSlotArrayBuilder.add(tsJson);
+//            }
+//        }
+//        JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
+//
+//        // THEN PUT IT ALL TOGETHER IN A JsonObject
+//        JsonObject dataManagerJSO = Json.createObjectBuilder()
+//                .add(JSON_START_HOUR, "" + dataManager.getStartHour())
+//                .add(JSON_END_HOUR, "" + dataManager.getEndHour())
+//                .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
+//                .add(JSON_OFFICE_HOURS, timeSlotsArray)
+//                .build();
+//
+//        // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+//        Map<String, Object> properties = new HashMap<>(1);
+//        properties.put(JsonGenerator.PRETTY_PRINTING, true);
+//        JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+//        StringWriter sw = new StringWriter();
+//        JsonWriter jsonWriter = writerFactory.createWriter(sw);
+//        jsonWriter.writeObject(dataManagerJSO);
+//        jsonWriter.close();
+//
+//        // INIT THE WRITER
+//        OutputStream os = new FileOutputStream(filePath);
+//        JsonWriter jsonFileWriter = Json.createWriter(os);
+//        jsonFileWriter.writeObject(dataManagerJSO);
+//        String prettyPrinted = sw.toString();
+//        PrintWriter pw = new PrintWriter(filePath);
+//        pw.write(prettyPrinted);
+//        pw.close();
+//    }
 
     // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
     // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION

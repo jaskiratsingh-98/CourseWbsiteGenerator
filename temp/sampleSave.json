@@ -1,0 +1,13 @@
+
+{
+    "startHour":"10",
+    "endHour":"20",
+    "undergrad_tas":[
+        {
+            "name":"ja",
+            "email":"ja@sbu.edi"
+        }
+    ],
+    "officeHours":[
+    ]
+}

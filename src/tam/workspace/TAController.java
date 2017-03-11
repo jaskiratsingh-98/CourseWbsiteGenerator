@@ -13,6 +13,7 @@ import static tam.TAManagerProp.*;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -38,6 +39,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
+import tam.file.TAFiles;
 import tam.transaction.AddTA_Transaction;
 import tam.transaction.DeleteTA_Transaction;
 import tam.transaction.ToggleCell;
@@ -434,10 +436,11 @@ public class TAController {
         workspace.getNameTextField().requestFocus();
     }
 
-    public void handleStartTime() {
+    public void handleStartTime() throws IOException {
         TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
         ComboBox startComboBox = workspace.getStartComboBox();
         TAData data = (TAData) app.getDataComponent();
+        TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
         String start = (String) startComboBox.getValue();
@@ -450,8 +453,10 @@ public class TAController {
                     dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
                 } else {
                     data.setStartHour(startTime);
+                    file.saveData(data, "./temp/sampleSave.json");
                     workspace.resetWorkspace();
                     workspace.reloadWorkspace(data);
+                    file.loadData(data, "./temp/sampleSave.json");
                     startComboBox.setValue(startTime + ":00");
                 }
             }
@@ -461,18 +466,21 @@ public class TAController {
                 dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
             } else {
                 data.setStartHour(startTime);
+                file.saveData(data, "./temp/sampleSave.json");
                 workspace.resetWorkspace();
                 workspace.reloadWorkspace(data);
+                file.loadData(data, "./temp/sampleSave.json");
                 startComboBox.setValue(startTime + ":00");
             }
         }
 
     }
 
-    public void handleEndTime() {
+    public void handleEndTime() throws IOException {
         TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
         ComboBox endComboBox = workspace.getEndComboBox();
         TAData data = (TAData) app.getDataComponent();
+        TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
         String start = (String) endComboBox.getValue();
@@ -485,8 +493,10 @@ public class TAController {
                     dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
                 } else {
                     data.setEndHour(endTime);
+                    file.saveData(data, "./temp/sampleSave.json");
                     workspace.resetWorkspace();
                     workspace.reloadWorkspace(data);
+                    file.loadData(data, "./temp/sampleSave.json");
                     endComboBox.setValue(endTime + ":00");
                 }
             }
@@ -496,8 +506,10 @@ public class TAController {
                 dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
             } else {
                 data.setEndHour(endTime);
+                file.saveData(data, "./temp/sampleSave.json");
                 workspace.resetWorkspace();
                 workspace.reloadWorkspace(data);
+                file.loadData(data, "./temp/sampleSave.json");
                 endComboBox.setValue(endTime + ":00");
             }
         }

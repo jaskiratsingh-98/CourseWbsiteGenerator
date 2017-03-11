@@ -56,7 +56,9 @@
         <property name="WORK_LOADED_MESSAGE"		value="The Work has been Loaded"></property>
         <property name="WORK_SAVED_MESSAGE"		value="The Work has been Saved"></property>
         <property name="SAVE_UNSAVED_WORK_MESSAGE"	value="Do you want to save your unsaved work first?"></property>
-	<property name="SAVE_WORK_TITLE"		value="Save your work"></property>
+        <property name="TA_TOBE_DELETED_MESSAGE"	value="Continuing with this step will erase office hours for one or more TAs. Do you want to continue?"></property>
+	<property name="CONTINUE_TITLE"                 value="Are You Sure?"></property>
+        <property name="SAVE_WORK_TITLE"		value="Save your work"></property>
         <property name="EXPORT_WORK_TITLE"		value="Exporting your work"></property>
 	<property name="LOAD_WORK_TITLE"		value="Select work file to load"></property>
 	<property name="WORK_FILE_EXT"			value="json"></property>

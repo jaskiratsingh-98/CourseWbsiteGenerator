@@ -1,12 +1,18 @@
 package tam.workspace;
 
+import djf.components.AppDataComponent;
 import djf.controller.AppFileController;
 import static djf.settings.AppPropertyType.SAVE_UNSAVED_WORK_MESSAGE;
 import static djf.settings.AppPropertyType.SAVE_UNSAVED_WORK_TITLE;
+import static djf.settings.AppPropertyType.SAVE_WORK_TITLE;
+import static djf.settings.AppPropertyType.WORK_FILE_EXT;
+import static djf.settings.AppPropertyType.WORK_FILE_EXT_DESC;
+import static djf.settings.AppStartupConstants.PATH_WORK;
 import djf.ui.AppGUI;
 import static tam.TAManagerProp.*;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
+import java.io.File;
 import java.util.HashMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -29,6 +35,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import tam.transaction.AddTA_Transaction;
@@ -436,14 +443,28 @@ public class TAController {
         String start = (String) startComboBox.getValue();
         int startTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
 
-        if (startTime > data.getEndHour()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
+        if (startTime > data.getStartHour()) {
+            if (promptToContinue()) {
+                if (startTime > data.getEndHour()) {
+                    AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                    dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
+                } else {
+                    data.setStartHour(startTime);
+                    workspace.resetWorkspace();
+                    workspace.reloadWorkspace(data);
+                    startComboBox.setValue(startTime + ":00");
+                }
+            }
         } else {
-            data.setStartHour(startTime);
-            workspace.resetWorkspace();
-            workspace.reloadWorkspace(data);
-            startComboBox.setValue(startTime + ":00");
+            if (startTime > data.getEndHour()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
+            } else {
+                data.setStartHour(startTime);
+                workspace.resetWorkspace();
+                workspace.reloadWorkspace(data);
+                startComboBox.setValue(startTime + ":00");
+            }
         }
 
     }
@@ -458,18 +479,45 @@ public class TAController {
         int endTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
 
         if (endTime < data.getEndHour()) {
-
-        }
-
-        if (endTime < data.getStartHour()) {
-            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
+            if (promptToContinue()) {
+                if (endTime < data.getStartHour()) {
+                    AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                    dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
+                } else {
+                    data.setEndHour(endTime);
+                    workspace.resetWorkspace();
+                    workspace.reloadWorkspace(data);
+                    endComboBox.setValue(endTime + ":00");
+                }
+            }
         } else {
-            data.setEndHour(endTime);
-            workspace.resetWorkspace();
-            workspace.reloadWorkspace(data);
-            endComboBox.setValue(endTime + ":00");
+            if (endTime < data.getStartHour()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
+            } else {
+                data.setEndHour(endTime);
+                workspace.resetWorkspace();
+                workspace.reloadWorkspace(data);
+                endComboBox.setValue(endTime + ":00");
+            }
         }
+    }
 
+    public boolean promptToContinue() {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        AppYesNoCancelDialogSingleton yesNoDialog = AppYesNoCancelDialogSingleton.getSingleton();
+        yesNoDialog.show(props.getProperty(CONTINUE_TITLE), props.getProperty(TA_TOBE_DELETED_MESSAGE));
+
+        String selection = yesNoDialog.getSelection();
+
+        if (selection.equals(AppYesNoCancelDialogSingleton.YES)) {
+            return true;
+        } else if (selection.equals(AppYesNoCancelDialogSingleton.CANCEL)) {
+            return false;
+        } else if (selection.equals(AppYesNoCancelDialogSingleton.NO)) {
+            return false;
+        }
+        return false;
     }
 }

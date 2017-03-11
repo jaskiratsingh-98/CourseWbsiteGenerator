@@ -230,7 +230,7 @@ public class TAWorkspace extends AppWorkspaceComponent {
 
         taTable.setFocusTraversable(true);
         taTable.setOnKeyPressed(e -> {
-            controller.handleKeyPress(e.getCode(), e);
+            controller.handleKeyPress(e.getCode());
         });
         
         taTable.setOnMouseClicked(e -> {
@@ -243,6 +243,10 @@ public class TAWorkspace extends AppWorkspaceComponent {
         
         endComboBox.setOnAction(e -> {
             controller.handleEndTime();
+        });
+        
+        sPane.setOnKeyPressed(e -> {
+            controller.handleUndoRedo(e.getCode(), e);
         });
     }
     
@@ -441,7 +445,7 @@ public class TAWorkspace extends AppWorkspaceComponent {
         for (Pane p : officeHoursGridTACellPanes.values()) {
             p.setFocusTraversable(true);
             p.setOnKeyPressed(e -> {
-                controller.handleKeyPress(e.getCode(), e);
+                controller.handleKeyPress(e.getCode());
             });
             p.setOnMouseClicked(e -> {
                 controller.handleCellToggle((Pane) e.getSource());

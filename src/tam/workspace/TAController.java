@@ -1,9 +1,12 @@
 package tam.workspace;
 
 import djf.controller.AppFileController;
+import static djf.settings.AppPropertyType.SAVE_UNSAVED_WORK_MESSAGE;
+import static djf.settings.AppPropertyType.SAVE_UNSAVED_WORK_TITLE;
 import djf.ui.AppGUI;
 import static tam.TAManagerProp.*;
 import djf.ui.AppMessageDialogSingleton;
+import djf.ui.AppYesNoCancelDialogSingleton;
 import java.util.HashMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -92,11 +95,11 @@ public class TAController {
             addButton.setOnAction(e -> {
                 updateTA(ta);
             });
-            
+
             nameTextField.setOnAction(e -> {
                 updateTA(ta);
             });
-            
+
             emailTextField.setOnAction(e -> {
                 updateTA(ta);
             });
@@ -259,10 +262,7 @@ public class TAController {
      *
      * @param code The keyboard code pressed.
      */
-    public void handleKeyPress(KeyCode code, KeyEvent e) {
-
-        final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
-        final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
+    public void handleKeyPress(KeyCode code) {
 
         // DID THE USER PRESS THE DELETE KEY?
         if (code == KeyCode.DELETE) {
@@ -293,7 +293,15 @@ public class TAController {
                 // WE'VE CHANGED STUFF
                 markWorkAsEdited();
             }
-        } else if (ctrlZ.match(e)) {
+        }
+    }
+
+    public void handleUndoRedo(KeyCode key, KeyEvent e) {
+
+        final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
+        final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
+
+        if (ctrlZ.match(e)) {
             jTPS.undoTransaction();
             e.consume();
         } else if (ctrlY.match(e)) {
@@ -447,16 +455,20 @@ public class TAController {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
         String start = (String) endComboBox.getValue();
-        int startTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
+        int endTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
 
-        if (startTime < data.getStartHour()) {
+        if (endTime < data.getEndHour()) {
+
+        }
+
+        if (endTime < data.getStartHour()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
         } else {
-            data.setEndHour(startTime);
+            data.setEndHour(endTime);
             workspace.resetWorkspace();
             workspace.reloadWorkspace(data);
-            endComboBox.setValue(startTime + ":00");
+            endComboBox.setValue(endTime + ":00");
         }
 
     }

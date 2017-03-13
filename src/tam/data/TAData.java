@@ -160,8 +160,11 @@ public class TAData implements AppDataComponent {
         int row = 1;
         int hour = Integer.parseInt(time.substring(0, time.indexOf("_")));
         int milHour = hour;
-        if (hour < startHour) {
+        if (hour != 12 && time.contains("pm")){
             milHour += 12;
+        }
+        if(milHour > 23){
+            milHour = milHour%24;
         }
         row += (milHour - startHour) * 2;
         if (time.contains("_30")) {

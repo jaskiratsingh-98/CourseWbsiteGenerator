@@ -1,0 +1,18 @@
+
+{
+    "startHour":"0",
+    "endHour":"20",
+    "undergrad_tas":[
+        {
+            "name":"ja",
+            "email":"ja@sbu.edu"
+        }
+    ],
+    "officeHours":[
+        {
+            "day":"MONDAY",
+            "time":"0_00am",
+            "name":"ja"
+        }
+    ]
+}

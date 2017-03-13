@@ -99,19 +99,19 @@ public class TAFiles implements AppFileComponent {
             String time = jsonOfficeHours.getString(JSON_TIME);
             String name = jsonOfficeHours.getString(JSON_NAME);
             int t1 = Integer.parseInt(time.substring(0, time.indexOf("_")));
-            if(time.endsWith("pm")){
-                t1 = t1 + 12;
-                if(t1>24){
-                    t1 = 0;
-                }
-            }
-            if(t1 >= dataManager.getStartHour() && t1 <= dataManager.getEndHour()){
-                dataManager.addOfficeHoursReservation(day, time, name);
-            }
+//            if(time.endsWith("pm")){
+//                t1 = t1 + 12;
+//                if(t1>24){
+//                    t1 = 0;
+//                }
+//            }
+//            if(t1 >= dataManager.getStartHour() && t1 <= dataManager.getEndHour()){
+            dataManager.addOfficeHoursReservation(day, time, name);
+//        }
         }
     }
 
-    // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
+// HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
     private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
         InputStream is = new FileInputStream(jsonFilePath);
         JsonReader jsonReader = Json.createReader(is);
@@ -233,7 +233,6 @@ public class TAFiles implements AppFileComponent {
 //        pw.write(prettyPrinted);
 //        pw.close();
 //    }
-
     // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
     // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION
     @Override

@@ -14,6 +14,7 @@ import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -40,6 +41,7 @@ import javafx.stage.FileChooser;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import tam.file.TAFiles;
+import tam.file.TimeSlot;
 import tam.transaction.AddTA_Transaction;
 import tam.transaction.DeleteTA_Transaction;
 import tam.transaction.ToggleCell;
@@ -442,6 +444,7 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
         TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(data);
 
         String start = (String) startComboBox.getValue();
         int startTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
@@ -453,10 +456,14 @@ public class TAController {
                     dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
                 } else {
                     data.setStartHour(startTime);
-                    file.saveData(data, "./temp/sampleSave.json");
                     workspace.resetWorkspace();
                     workspace.reloadWorkspace(data);
-                    file.loadData(data, "./temp/sampleSave.json");
+                    for (int i = 0; i < officeHours.size(); i++) {
+                        String day = officeHours.get(i).getDay();
+                        String time = officeHours.get(i).getTime();
+                        String name = officeHours.get(i).getName();
+                        data.addOfficeHoursReservation(day, time, name);
+                    }
                     startComboBox.setValue(startTime + ":00");
                 }
             }
@@ -466,10 +473,14 @@ public class TAController {
                 dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
             } else {
                 data.setStartHour(startTime);
-                file.saveData(data, "./temp/sampleSave.json");
                 workspace.resetWorkspace();
                 workspace.reloadWorkspace(data);
-                file.loadData(data, "./temp/sampleSave.json");
+                for (int i = 0; i < officeHours.size(); i++) {
+                    String day = officeHours.get(i).getDay();
+                    String time = officeHours.get(i).getTime();
+                    String name = officeHours.get(i).getName();
+                    data.addOfficeHoursReservation(day, time, name);
+                }
                 startComboBox.setValue(startTime + ":00");
             }
         }
@@ -482,6 +493,7 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
         TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(data);
 
         String start = (String) endComboBox.getValue();
         int endTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
@@ -493,10 +505,14 @@ public class TAController {
                     dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
                 } else {
                     data.setEndHour(endTime);
-                    file.saveData(data, "./temp/sampleSave.json");
                     workspace.resetWorkspace();
                     workspace.reloadWorkspace(data);
-                    file.loadData(data, "./temp/sampleSave.json");
+                    for (int i = 0; i < officeHours.size(); i++) {
+                        String day = officeHours.get(i).getDay();
+                        String time = officeHours.get(i).getTime();
+                        String name = officeHours.get(i).getName();
+                        data.addOfficeHoursReservation(day, time, name);
+                    }
                     endComboBox.setValue(endTime + ":00");
                 }
             }
@@ -506,10 +522,14 @@ public class TAController {
                 dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
             } else {
                 data.setEndHour(endTime);
-                file.saveData(data, "./temp/sampleSave.json");
                 workspace.resetWorkspace();
                 workspace.reloadWorkspace(data);
-                file.loadData(data, "./temp/sampleSave.json");
+                for (int i = 0; i < officeHours.size(); i++) {
+                    String day = officeHours.get(i).getDay();
+                    String time = officeHours.get(i).getTime();
+                    String name = officeHours.get(i).getName();
+                    data.addOfficeHoursReservation(day, time, name);
+                }
                 endComboBox.setValue(endTime + ":00");
             }
         }

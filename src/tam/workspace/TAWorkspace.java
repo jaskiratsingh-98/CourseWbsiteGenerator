@@ -2,8 +2,11 @@ package tam.workspace;
 
 import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import tam.TAManagerApp;
 import javafx.collections.ObservableList;
@@ -238,11 +241,19 @@ public class TAWorkspace extends AppWorkspaceComponent {
         });
         
         startComboBox.setOnAction(e -> {
-            controller.handleStartTime();
+            try {
+                controller.handleStartTime();
+            } catch (IOException ex) {
+                Logger.getLogger(TAWorkspace.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         endComboBox.setOnAction(e -> {
-            controller.handleEndTime();
+            try {
+                controller.handleEndTime();
+            } catch (IOException ex) {
+                Logger.getLogger(TAWorkspace.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         sPane.setOnKeyPressed(e -> {

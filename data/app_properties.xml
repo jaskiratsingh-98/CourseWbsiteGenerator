@@ -104,11 +104,12 @@
         <property name="JS_FOLDER"                   value="./exportdata/js"></property>
         
     </property_list>
-    <property_options_list>
+    <property_options_list>                
         <property_options name="OFFICE_HOURS_TABLE_HEADERS">
             <option>Start Time</option>
             <option>End Time</option>
         </property_options>
+        
         <property_options name="DAYS_OF_WEEK">
             <option>MONDAY</option>
             <option>TUESDAY</option>

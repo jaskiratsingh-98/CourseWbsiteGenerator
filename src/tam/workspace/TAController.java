@@ -43,6 +43,7 @@ import jtps.jTPS_Transaction;
 import tam.file.TAFiles;
 import tam.file.TimeSlot;
 import tam.transaction.*;
+import tam.TAManagerProp.*;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -63,7 +64,6 @@ public class TAController {
     private static final String EMAIL_PATTERN
             = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
     /**
      * Constructor, note that the app must already be constructed.
      */
@@ -253,6 +253,7 @@ public class TAController {
     }
 
     private boolean validateEmailAddress(String email) {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
         pattern = Pattern.compile(EMAIL_PATTERN);
 
         matcher = pattern.matcher(email);
@@ -418,6 +419,16 @@ public class TAController {
         workspace.getAddButton().setText("Add TA");
 
         workspace.getNameTextField().requestFocus();
+        
+        workspace.getNameTextField().setOnAction(e -> {
+            handleAddTA();
+        });
+        workspace.getEmailTextField().setOnAction(e -> {
+            handleAddTA();
+        });
+        workspace.getAddButton().setOnAction(e -> {
+            handleAddTA();
+        });
     }
 
     public void handleStartTime() throws IOException {
@@ -470,7 +481,7 @@ public class TAController {
                 if (promptToContinue()) {
                     jTPS.addTransaction(changeEnd);
                 }
-            }else{
+            } else {
                 jTPS.addTransaction(changeEnd);
             }
         } else {

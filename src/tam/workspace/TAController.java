@@ -45,6 +45,7 @@ import tam.file.TimeSlot;
 import tam.transaction.AddTA_Transaction;
 import tam.transaction.DeleteTA_Transaction;
 import tam.transaction.ToggleCell;
+import tam.transaction.UpdateTA_Transaction;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -130,6 +131,7 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        jTPS_Transaction updateTA = new UpdateTA_Transaction(origName, ta.getEmail(), editName, editEmail, data, workspace, ta);
 
         if (editName.equals(ta.getName()) && editEmail.equals(ta.getEmail())) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
@@ -152,18 +154,18 @@ public class TAController {
             } else {
                 if (validateEmailAddress(editEmail) == true) {
                     // ADD THE NEW TA TO THE DATA
-                    data.editTA(editName, editEmail, ta);
+//                    data.editTA(editName, editEmail, ta);
+                    jTPS.addTransaction(updateTA);
                 }
 
                 // CLEAR THE TEXT FIELDS
                 nameTextField.setText("");
                 emailTextField.setText("");
 
-                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
-                    String cellKey = p.getId();
-                    data.toggleEditHours(cellKey, editName, origName);
-                }
-
+//                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
+//                    String cellKey = p.getId();
+//                    data.toggleEditHours(cellKey, editName, origName);
+//                }
                 // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
                 nameTextField.requestFocus();
 
@@ -181,17 +183,18 @@ public class TAController {
             } else {
                 if (validateEmailAddress(editEmail) == true) {
                     // ADD THE NEW TA TO THE DATA
-                    data.editTA(editName, editEmail, ta);
+//                    data.editTA(editName, editEmail, ta);
+                    jTPS.addTransaction(updateTA);
                 }
 
                 // CLEAR THE TEXT FIELDS
                 nameTextField.setText("");
                 emailTextField.setText("");
 
-                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
-                    String cellKey = p.getId();
-                    data.toggleEditHours(cellKey, editName, origName);
-                }
+//                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
+//                    String cellKey = p.getId();
+//                    data.toggleEditHours(cellKey, editName, origName);
+//                }
 
                 // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
                 nameTextField.requestFocus();
@@ -288,22 +291,7 @@ public class TAController {
                 TeachingAssistant ta = (TeachingAssistant) selectedItem;
                 String taName = ta.getName();
                 TAData data = (TAData) app.getDataComponent();
-                //data.removeTA(taName);
-                
 
-                // AND BE SURE TO REMOVE ALL THE TA'S OFFICE HOURS
-//                ArrayList<TimeSlot> removedList = TimeSlot.buildCustomList(data, taName);
-//                
-//                HashMap<String, Label> labels = workspace.getOfficeHoursGridTACellLabels();
-//                    
-//                for (Label label : labels.values()) {
-//                    if (label.getText().equals(taName)
-//                            || (label.getText().contains(taName + "\n"))
-//                            || (label.getText().contains("\n" + taName))) {
-//                        data.removeTAFromCell(label.textProperty(), taName);
-//                    }
-//                }
-                
                 jTPS_Transaction delTATrans = new DeleteTA_Transaction(ta.getName(), ta.getEmail(), data, workspace);
                 jTPS.addTransaction(delTATrans);
                 // WE'VE CHANGED STUFF

@@ -40,7 +40,13 @@ public class ChangeEndTime_Transaction implements jTPS_Transaction{
             String day = officeHours.get(i).getDay();
             String time = officeHours.get(i).getTime();
             String name = officeHours.get(i).getName();
-            data.addOfficeHoursReservation(day, time, name);
+            int setTime = Integer.parseInt(time.substring(0, time.indexOf("_")));
+            if(time.contains("pm") && (!time.contains("12"))){
+                setTime =+ 12;
+            }
+            if(setTime <= newTime){
+                data.addOfficeHoursReservation(day, time, name);
+            }
         }
         workspace.getEndComboBox().setValue(newTime + ":00");
     }
@@ -54,7 +60,13 @@ public class ChangeEndTime_Transaction implements jTPS_Transaction{
             String day = officeHours.get(i).getDay();
             String time = officeHours.get(i).getTime();
             String name = officeHours.get(i).getName();
-            data.addOfficeHoursReservation(day, time, name);
+            int setTime = Integer.parseInt(time.substring(0, time.indexOf("_")));
+            if(time.contains("pm") && (!time.contains("12"))){
+                setTime =+ 12;
+            }
+            if(setTime <= oldTime){
+                data.addOfficeHoursReservation(day, time, name);
+            }
         }
         workspace.getEndComboBox().setValue(oldTime + ":00");
     }

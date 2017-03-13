@@ -113,6 +113,10 @@ public class TAController {
                 updateTA(ta);
             });
 
+//            workspace.getClearButton().setOnAction(e -> {
+//                clear();
+//                return;
+//            });
         }
     }
 
@@ -430,13 +434,12 @@ public class TAController {
         jTPS_Transaction changeStart = new ChangeStartTime_Transaction(startTime, data.getStartHour(), officeHours, data, workspace);
 
         if (startTime > data.getStartHour()) {
-            if (promptToContinue()) {
-                if (startTime > data.getEndHour()) {
-                    AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-                    dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
-                } else {
+            if (data.hasTAInRange(data.getStartHour(), startTime)) {
+                if (promptToContinue()) {
                     jTPS.addTransaction(changeStart);
                 }
+            } else {
+                jTPS.addTransaction(changeStart);
             }
         } else {
             if (startTime > data.getEndHour()) {
@@ -463,13 +466,12 @@ public class TAController {
         jTPS_Transaction changeEnd = new ChangeEndTime_Transaction(endTime, data.getEndHour(), officeHours, data, workspace);
 
         if (endTime < data.getEndHour()) {
-            if (promptToContinue()) {
-                if (endTime < data.getStartHour()) {
-                    AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-                    dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
-                } else {
+            if (data.hasTAInRangeEnd(data.getEndHour(), endTime)) {
+                if (promptToContinue()) {
                     jTPS.addTransaction(changeEnd);
                 }
+            }else{
+                jTPS.addTransaction(changeEnd);
             }
         } else {
             if (endTime < data.getStartHour()) {

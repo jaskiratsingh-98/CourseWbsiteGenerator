@@ -273,6 +273,10 @@ public class TAWorkspace extends AppWorkspaceComponent {
         return endComboBox;
     }
     
+    public Button getClearButton(){
+        return clearButton;
+    }
+    
     public HBox getTAsHeaderBox() {
         return tasHeaderBox;
     }

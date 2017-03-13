@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
+import javafx.scene.layout.Pane;
 import properties_manager.PropertiesManager;
 import tam.TAManagerApp;
 import tam.TAManagerProp;
@@ -160,11 +161,11 @@ public class TAData implements AppDataComponent {
         int row = 1;
         int hour = Integer.parseInt(time.substring(0, time.indexOf("_")));
         int milHour = hour;
-        if (hour != 12 && time.contains("pm")){
+        if (hour != 12 && time.contains("pm")) {
             milHour += 12;
         }
-        if(milHour > 23){
-            milHour = milHour%24;
+        if (milHour > 23) {
+            milHour = milHour % 24;
         }
         row += (milHour - startHour) * 2;
         if (time.contains("_30")) {
@@ -351,5 +352,42 @@ public class TAData implements AppDataComponent {
             cellText = cellText.substring(0, startIndex);
             cellProp.setValue(cellText);
         }
+    }
+
+    public boolean hasTAInRange(int startTime, int editTime) {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        int range = (editTime - startTime) * 2;
+
+        for (int row = 1; row <= range; row++) {
+            for (int col = 2; col < 7; col++) {
+                String cellKey = getCellKey(col, row);
+                StringProperty cellProp = officeHours.get(cellKey);
+                String cellText = cellProp.getValue();
+                if(cellText.length()>0){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean hasTAInRangeEnd(int endTime, int editTime) {
+        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        int range = (endTime - editTime) * 2;
+        
+        int row = (endHour - startHour)*2;
+
+        for (int i=0; i < range; i++) {
+            for (int col = 2; col < 7; col++) {
+                String cellKey = getCellKey(col, row);
+                StringProperty cellProp = officeHours.get(cellKey);
+                String cellText = cellProp.getValue();
+                if(cellText.length()>0){
+                    return true;
+                }
+                row--;
+            }
+        }
+        return false;
     }
 }

@@ -42,10 +42,7 @@ import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import tam.file.TAFiles;
 import tam.file.TimeSlot;
-import tam.transaction.AddTA_Transaction;
-import tam.transaction.DeleteTA_Transaction;
-import tam.transaction.ToggleCell;
-import tam.transaction.UpdateTA_Transaction;
+import tam.transaction.*;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -154,7 +151,6 @@ public class TAController {
             } else {
                 if (validateEmailAddress(editEmail) == true) {
                     // ADD THE NEW TA TO THE DATA
-//                    data.editTA(editName, editEmail, ta);
                     jTPS.addTransaction(updateTA);
                 }
 
@@ -162,10 +158,6 @@ public class TAController {
                 nameTextField.setText("");
                 emailTextField.setText("");
 
-//                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
-//                    String cellKey = p.getId();
-//                    data.toggleEditHours(cellKey, editName, origName);
-//                }
                 // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
                 nameTextField.requestFocus();
 
@@ -183,18 +175,12 @@ public class TAController {
             } else {
                 if (validateEmailAddress(editEmail) == true) {
                     // ADD THE NEW TA TO THE DATA
-//                    data.editTA(editName, editEmail, ta);
                     jTPS.addTransaction(updateTA);
                 }
 
                 // CLEAR THE TEXT FIELDS
                 nameTextField.setText("");
                 emailTextField.setText("");
-
-//                for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
-//                    String cellKey = p.getId();
-//                    data.toggleEditHours(cellKey, editName, origName);
-//                }
 
                 // AND SEND THE CARET BACK TO THE NAME TEXT FIELD FOR EASY DATA ENTRY
                 nameTextField.requestFocus();
@@ -246,7 +232,6 @@ public class TAController {
         } else {
             if (validateEmailAddress(email) == true) {
                 // ADD THE NEW TA TO THE DATA
-                //data.addTA(name, email);
                 jTPS.addTransaction(taTrans);
 
             }
@@ -442,22 +427,15 @@ public class TAController {
         String start = (String) startComboBox.getValue();
         int startTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
 
+        jTPS_Transaction changeStart = new ChangeStartTime_Transaction(startTime, data.getStartHour(), officeHours, data, workspace);
+
         if (startTime > data.getStartHour()) {
             if (promptToContinue()) {
                 if (startTime > data.getEndHour()) {
                     AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                     dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
                 } else {
-                    data.setStartHour(startTime);
-                    workspace.resetWorkspace();
-                    workspace.reloadWorkspace(data);
-                    for (int i = 0; i < officeHours.size(); i++) {
-                        String day = officeHours.get(i).getDay();
-                        String time = officeHours.get(i).getTime();
-                        String name = officeHours.get(i).getName();
-                        data.addOfficeHoursReservation(day, time, name);
-                    }
-                    startComboBox.setValue(startTime + ":00");
+                    jTPS.addTransaction(changeStart);
                 }
             }
         } else {
@@ -465,16 +443,7 @@ public class TAController {
                 AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                 dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
             } else {
-                data.setStartHour(startTime);
-                workspace.resetWorkspace();
-                workspace.reloadWorkspace(data);
-                for (int i = 0; i < officeHours.size(); i++) {
-                    String day = officeHours.get(i).getDay();
-                    String time = officeHours.get(i).getTime();
-                    String name = officeHours.get(i).getName();
-                    data.addOfficeHoursReservation(day, time, name);
-                }
-                startComboBox.setValue(startTime + ":00");
+                jTPS.addTransaction(changeStart);
             }
         }
 
@@ -491,22 +460,15 @@ public class TAController {
         String start = (String) endComboBox.getValue();
         int endTime = (Integer.parseInt(start.substring(0, start.indexOf(":"))));
 
+        jTPS_Transaction changeEnd = new ChangeEndTime_Transaction(endTime, data.getEndHour(), officeHours, data, workspace);
+
         if (endTime < data.getEndHour()) {
             if (promptToContinue()) {
                 if (endTime < data.getStartHour()) {
                     AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                     dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
                 } else {
-                    data.setEndHour(endTime);
-                    workspace.resetWorkspace();
-                    workspace.reloadWorkspace(data);
-                    for (int i = 0; i < officeHours.size(); i++) {
-                        String day = officeHours.get(i).getDay();
-                        String time = officeHours.get(i).getTime();
-                        String name = officeHours.get(i).getName();
-                        data.addOfficeHoursReservation(day, time, name);
-                    }
-                    endComboBox.setValue(endTime + ":00");
+                    jTPS.addTransaction(changeEnd);
                 }
             }
         } else {
@@ -514,16 +476,7 @@ public class TAController {
                 AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                 dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
             } else {
-                data.setEndHour(endTime);
-                workspace.resetWorkspace();
-                workspace.reloadWorkspace(data);
-                for (int i = 0; i < officeHours.size(); i++) {
-                    String day = officeHours.get(i).getDay();
-                    String time = officeHours.get(i).getTime();
-                    String name = officeHours.get(i).getName();
-                    data.addOfficeHoursReservation(day, time, name);
-                }
-                endComboBox.setValue(endTime + ":00");
+                jTPS.addTransaction(changeEnd);
             }
         }
     }

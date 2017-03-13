@@ -86,9 +86,9 @@
         <property name="TA_NOT_CHANGED_TITLE"            value="TA Not Changed"></property>
         <property name="TA_NOT_CHANGED_MESSAGE"            value="You did not change TA Name or Email"></property>
         <property name="INVALID_START_HOUR_TITLE"            value="Invalid Start Time"></property>
-        <property name="INVALID_START_HOUR_MESSAGE"            value="The Start Time is greater than End Time"></property>
+        <property name="INVALID_START_HOUR_MESSAGE"            value="The Start Time is greater than (or equals) End Time"></property>
         <property name="INVALID_END_HOUR_TITLE"            value="Invalid End Time"></property>
-        <property name="INVALID_END_HOUR_MESSAGE"            value="The End Time is less than Start Time"></property>
+        <property name="INVALID_END_HOUR_MESSAGE"            value="The End Time is less than (or equals) Start Time"></property>
         <!-- FILE PATHS  -->
         <property name="SYLLABUS"                          value="./exportdata/syllabus.html"></property>
         <property name="JS_GRID_BUILDER"                       value="./exportdata/js/OfficeHoursGridBuilder.js"></property>

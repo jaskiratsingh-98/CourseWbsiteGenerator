@@ -64,6 +64,7 @@ public class TAController {
     private static final String EMAIL_PATTERN
             = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
     /**
      * Constructor, note that the app must already be constructed.
      */
@@ -419,7 +420,7 @@ public class TAController {
         workspace.getAddButton().setText("Add TA");
 
         workspace.getNameTextField().requestFocus();
-        
+
         workspace.getNameTextField().setOnAction(e -> {
             handleAddTA();
         });
@@ -445,7 +446,11 @@ public class TAController {
         jTPS_Transaction changeStart = new ChangeStartTime_Transaction(startTime, data.getStartHour(), officeHours, data, workspace);
 
         if (startTime > data.getStartHour()) {
-            if (data.hasTAInRange(data.getStartHour(), startTime)) {
+            if (startTime >= data.getEndHour()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(INVALID_START_HOUR_TITLE), props.getProperty(INVALID_START_HOUR_MESSAGE));
+                startComboBox.setValue(data.getStartHour() + ":00");
+            } else if (data.hasTAInRange(data.getStartHour(), startTime)) {
                 if (promptToContinue()) {
                     jTPS.addTransaction(changeStart);
                 }
@@ -477,7 +482,11 @@ public class TAController {
         jTPS_Transaction changeEnd = new ChangeEndTime_Transaction(endTime, data.getEndHour(), officeHours, data, workspace);
 
         if (endTime < data.getEndHour()) {
-            if (data.hasTAInRangeEnd(data.getEndHour(), endTime)) {
+            if (endTime <= data.getStartHour()) {
+                AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                dialog.show(props.getProperty(INVALID_END_HOUR_TITLE), props.getProperty(INVALID_END_HOUR_MESSAGE));
+                endComboBox.setValue(data.getEndHour() + ":00");
+            } else if (data.hasTAInRangeEnd(data.getEndHour(), endTime)) {
                 if (promptToContinue()) {
                     jTPS.addTransaction(changeEnd);
                 }

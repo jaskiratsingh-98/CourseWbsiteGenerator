@@ -288,19 +288,24 @@ public class TAController {
                 TeachingAssistant ta = (TeachingAssistant) selectedItem;
                 String taName = ta.getName();
                 TAData data = (TAData) app.getDataComponent();
-                jTPS_Transaction delTATrans = new DeleteTA_Transaction(ta.getName(), ta.getEmail(), data);
                 //data.removeTA(taName);
-                jTPS.addTransaction(delTATrans);
+                
 
                 // AND BE SURE TO REMOVE ALL THE TA'S OFFICE HOURS
-                HashMap<String, Label> labels = workspace.getOfficeHoursGridTACellLabels();
-                for (Label label : labels.values()) {
-                    if (label.getText().equals(taName)
-                            || (label.getText().contains(taName + "\n"))
-                            || (label.getText().contains("\n" + taName))) {
-                        data.removeTAFromCell(label.textProperty(), taName);
-                    }
-                }
+//                ArrayList<TimeSlot> removedList = TimeSlot.buildCustomList(data, taName);
+//                
+//                HashMap<String, Label> labels = workspace.getOfficeHoursGridTACellLabels();
+//                    
+//                for (Label label : labels.values()) {
+//                    if (label.getText().equals(taName)
+//                            || (label.getText().contains(taName + "\n"))
+//                            || (label.getText().contains("\n" + taName))) {
+//                        data.removeTAFromCell(label.textProperty(), taName);
+//                    }
+//                }
+                
+                jTPS_Transaction delTATrans = new DeleteTA_Transaction(ta.getName(), ta.getEmail(), data, workspace);
+                jTPS.addTransaction(delTATrans);
                 // WE'VE CHANGED STUFF
                 markWorkAsEdited();
             }

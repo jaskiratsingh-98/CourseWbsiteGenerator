@@ -5,33 +5,65 @@
  */
 package tam.transaction;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import javafx.scene.control.Label;
 import jtps.jTPS_Transaction;
+import tam.TAManagerApp;
 import tam.data.TAData;
+import tam.file.TimeSlot;
+import tam.workspace.TAWorkspace;
 
 /**
  *
  * @author jaski
  */
-public class DeleteTA_Transaction implements jTPS_Transaction{
-    
+public class DeleteTA_Transaction implements jTPS_Transaction {
+
     private String taName;
     private String taEmail;
     private TAData data;
+    private ArrayList<TimeSlot> hours;
+    TAWorkspace workspace;
+    TAManagerApp app;
     
-    public DeleteTA_Transaction(String taName, String taEmail, TAData data){
+
+    public DeleteTA_Transaction(String taName, String taEmail, TAData data, TAWorkspace workspace) {
         this.taName = taName;
         this.taEmail = taEmail;
         this.data = data;
+        this.workspace = workspace;
     }
-    
+
     @Override
-    public void doTransaction(){
+    public void doTransaction() {
         data.removeTA(taName);
+
+        hours = TimeSlot.buildCustomList(data, taName);
+
+        HashMap<String, Label> labels = workspace.getOfficeHoursGridTACellLabels();
+
+        for (Label label : labels.values()) {
+            if (label.getText().equals(taName)
+                    || (label.getText().contains(taName + "\n"))
+                    || (label.getText().contains("\n" + taName))) {
+                data.removeTAFromCell(label.textProperty(), taName);
+            }
+        }
     }
-    
+
     @Override
-    public void undoTransaction(){
+    public void undoTransaction() {
         data.addTA(taName, taEmail);
+
+        for (int i = 0; i < hours.size(); i++) {
+            TimeSlot officeHours = hours.get(i);
+            String day = officeHours.getDay();
+            String time = officeHours.getTime();
+            String name = officeHours.getName();
+            int t1 = Integer.parseInt(time.substring(0, time.indexOf("_")));
+            data.addOfficeHoursReservation(day, time, name);
+        }
     }
-    
+
 }

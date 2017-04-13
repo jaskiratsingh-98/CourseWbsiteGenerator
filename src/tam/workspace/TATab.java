@@ -48,6 +48,7 @@ public class TATab {
     Tab taTab;
     HBox tasHeaderBox;
     Label tasHeaderLabel;
+    Button hideTATableButton;
 
     // FOR THE TA TABLE
     TableView<TeachingAssistant> taTable;
@@ -79,6 +80,8 @@ public class TATab {
     ComboBox startComboBox;
     ComboBox endComboBox;
 
+    VBox leftPane;
+    VBox rightPane;
     HBox mainPane;
 
     ObservableList<String> hours = FXCollections.observableArrayList(
@@ -119,7 +122,8 @@ public class TATab {
         tasHeaderBox = new HBox();
         String tasHeaderText = props.getProperty(CSGProp.TAS_HEADER_TEXT.toString());
         tasHeaderLabel = new Label(tasHeaderText);
-        tasHeaderBox.getChildren().add(tasHeaderLabel);
+        hideTATableButton = new Button("-");
+        tasHeaderBox.getChildren().addAll(tasHeaderLabel, hideTATableButton);
 
         // MAKE THE TABLE AND SETUP THE DATA MODEL
         taTable = new TableView();
@@ -188,11 +192,11 @@ public class TATab {
         HBox timeBoxPane = new HBox();
 
         // ORGANIZE THE LEFT AND RIGHT PANES
-        VBox leftPane = new VBox();
+        leftPane = new VBox();
         leftPane.getChildren().add(tasHeaderBox);
         leftPane.getChildren().add(taTable);
         leftPane.getChildren().add(addBox);
-        VBox rightPane = new VBox();
+        rightPane = new VBox();
         rightPane.getChildren().add(officeHoursHeaderBox);
         rightPane.getChildren().add(officeHoursGridPane);
         rightPane.getChildren().add(timeBoxPane);
@@ -249,6 +253,18 @@ public class TATab {
         mainPane.setOnKeyPressed(e -> {
             controller.handleUndoRedo(e.getCode(), e);
         });
+        
+        hideTATableButton.setOnAction(e -> {
+            controller.handleHideTATable();
+        });
+    }
+    
+    public VBox getLeftPane(){
+        return leftPane;
+    }
+    
+    public HBox getMainPane(){
+        return mainPane;
     }
 
     public ComboBox getStartComboBox() {

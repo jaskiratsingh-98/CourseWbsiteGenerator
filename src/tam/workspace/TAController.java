@@ -37,6 +37,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
@@ -118,6 +120,21 @@ public class TAController {
 //                clear();
 //                return;
 //            });
+        }
+    }
+    
+    public void handleHideTATable(){
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        VBox taPane = workspace.getTATab().getLeftPane();
+        HBox addBox = workspace.getTATab().getAddBox();
+        
+        TableView table = workspace.getTATab().getTATable();
+        
+        if(taPane.getChildren().contains(table)){
+            taPane.getChildren().removeAll(table, addBox);
+        }
+        else{
+            taPane.getChildren().addAll(table, addBox);
         }
     }
 

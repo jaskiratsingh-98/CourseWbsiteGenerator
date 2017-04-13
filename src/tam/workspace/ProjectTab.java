@@ -204,4 +204,7 @@ public class ProjectTab {
         return studentsPane;
     }
 
+    public Label getTitle() {
+        return title;
+    }
 }

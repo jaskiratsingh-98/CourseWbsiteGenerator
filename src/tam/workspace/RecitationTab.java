@@ -145,6 +145,9 @@ public class RecitationTab {
     public TableView<String> getRecitations() {
         return recitations;
     }
-    
+
+    public Label getRecitationLabel() {
+        return recitationLabel;
+    }
     
 }

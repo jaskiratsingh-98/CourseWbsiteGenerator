@@ -198,8 +198,6 @@ public class CourseInfoTab {
         box2.add(stylesheet, 1, 3);
         box2.add(chooseSheet, 3, 3);
 
-        
-
         stylePane = new VBox();
         stylePane.getChildren().addAll(title3, box2, note);
 

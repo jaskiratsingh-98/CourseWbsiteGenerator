@@ -17,6 +17,10 @@
     -fx-font-family: "Courier New";
 }
 
+.main_label{
+    -fx-font-size: 24;
+}
+
 .ci_title_label{
     -fx-font-size: 10pt;
     -fx-font-weight: bold;
@@ -121,8 +125,7 @@
 }
 
 .ta_table{
-    -fx-font-size:16pt;
-    -fx-background-color:#000066;
+    -fx-min-width: 300;
 }
 
 .table-view .column-header.ta_table_column_header .label {
@@ -178,10 +181,8 @@
 }
 
 .office_hours_grid_time_cell_pane{
-    -fx-background-color:#000099; 
+    -fx-background-color:#ececec; 
     -fx-border: 1px;   
-    -fx-border-color:darkgray;
-    -fx-border-style:dashed;
 }
 
 .office_hours_grid_time_cell_label{

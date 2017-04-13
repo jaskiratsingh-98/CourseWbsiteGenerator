@@ -128,6 +128,7 @@
         <property name="END_LABEL"                     value="End:"></property>
         <property name="TAS_HEADER_TEXT"                value="Teaching Assistants"></property>
         <property name="NAME_COLUMN_TEXT"               value="Name"></property>
+        <property name="UNDERGRAD_TEXT"               value="Undergrad"></property>
         <property name="EMAIL_COLUMN_TEXT"              value="Email"></property>
         <property name="NAME_PROMPT_TEXT"               value="Name"></property>
         <property name="EMAIL_PROMPT_TEXT"              value="Email"></property>

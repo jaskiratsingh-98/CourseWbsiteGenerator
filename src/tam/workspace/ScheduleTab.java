@@ -176,6 +176,10 @@ public class ScheduleTab {
     public VBox getMainPane() {
         return mainPane;
     }
+
+    public Label getSchedule() {
+        return schedule;
+    }
     
     
 }

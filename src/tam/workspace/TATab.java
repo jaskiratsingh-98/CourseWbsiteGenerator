@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -33,7 +34,9 @@ import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import tam.CSGProp;
+import static tam.CSGProp.UNDERGRAD_TEXT;
 import tam.data.TAData;
+import tam.data.TAUndergradValueFactory;
 import tam.data.TeachingAssistant;
 import tam.style.CSGStyle;
 
@@ -54,6 +57,7 @@ public class TATab {
     TableView<TeachingAssistant> taTable;
     TableColumn<TeachingAssistant, String> nameColumn;
     TableColumn<TeachingAssistant, String> emailColumn;
+    TableColumn<TeachingAssistant, CheckBox> undergradColumn;
 
     // THE TA INPUT
     HBox addBox;
@@ -134,6 +138,7 @@ public class TATab {
         taTable.setItems(tableData);
         String nameColumnText = props.getProperty(CSGProp.NAME_COLUMN_TEXT.toString());
         String emailColumnText = props.getProperty(CSGProp.EMAIL_COLUMN_TEXT.toString());
+        undergradColumn = new TableColumn(props.getProperty(UNDERGRAD_TEXT));
         nameColumn = new TableColumn(nameColumnText);
         emailColumn = new TableColumn(emailColumnText);
         nameColumn.setCellValueFactory(
@@ -142,6 +147,9 @@ public class TATab {
         emailColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("email")
         );
+        undergradColumn.setCellValueFactory(new TAUndergradValueFactory());
+       
+        taTable.getColumns().add(undergradColumn);
         taTable.getColumns().add(nameColumn);
         taTable.getColumns().add(emailColumn);
 

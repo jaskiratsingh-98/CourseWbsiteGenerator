@@ -14,6 +14,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
@@ -99,8 +100,6 @@ public class ScheduleTab {
         addEditLabel = new Label(props.getProperty(ADDEDIT_LABEL));
         typeLabel = new Label(props.getProperty(TYPETEXT));
         typeComboBox = new ComboBox();
-        HBox box3 = new HBox();
-        box3.getChildren().addAll(typeLabel, typeComboBox);
         
         dateLabel = new Label(props.getProperty(DATETEXT));
         date = new DatePicker();
@@ -129,13 +128,32 @@ public class ScheduleTab {
         
         criteriaLabel = new Label(props.getProperty(CRITERIALABEL));
         criteriaTextField = new TextField();
-        HBox box9 = new HBox();
-        box9.getChildren().addAll(criteriaLabel, criteriaTextField);
+        
+        addUpdate = new Button(props.getProperty(ADDUPDATE_BUTTON));
+        clear = new Button(props.getProperty(CLEAR_BUTTON));
+        
+        GridPane box3 = new GridPane();
+        box3.setHgap(5.0);
+        box3.setVgap(2.0);
+        box3.add(typeLabel, 1, 0);
+        box3.add(typeComboBox, 3, 0);
+        box3.add(dateLabel, 1, 1);
+        box3.add(date, 3, 1);
+        box3.add(timeLabel, 1, 2);
+        box3.add(timeTextField, 3, 2);
+        box3.add(titleLabel, 1, 3);
+        box3.add(titleTextField, 3, 3);
+        box3.add(topicLabel, 1, 4);
+        box3.add(topicTextField, 3, 4);
+        box3.add(linkLabel, 1, 5);
+        box3.add(linkTextField, 3, 5);
+        box3.add(criteriaLabel, 1, 6);
+        box3.add(criteriaTextField, 3, 6);
+        box3.add(addUpdate, 1, 7);
+        box3.add(clear, 3, 7);
         
         schedulePane = new VBox();
-        schedulePane.getChildren().addAll(box2, scheduleItems, box3,
-                box4, box5, box6, box7,
-                box8, box9);
+        schedulePane.getChildren().addAll(box2, scheduleItems, addEditLabel, box3);
         
         mainPane = new VBox();
         mainPane.getChildren().addAll(schedule, boundariesPane, schedulePane);

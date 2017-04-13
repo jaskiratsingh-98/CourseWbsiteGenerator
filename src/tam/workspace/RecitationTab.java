@@ -13,6 +13,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
@@ -83,41 +84,45 @@ public class RecitationTab {
         
         sectionLabel = new Label(props.getProperty(SECTION_TEXT));
         sectionTextField = new TextField();
-        HBox box2 = new HBox();
-        box2.getChildren().addAll(sectionLabel, sectionTextField);
         
         instructorLabel = new Label(props.getProperty(INSTRUCTOR_TEXT));
         instructorTextField = new TextField();
-        HBox box3 = new HBox();
-        box3.getChildren().addAll(instructorLabel, instructorTextField);
         
         dayTimeLabel = new Label(props.getProperty(DAY_TIME_TEXT));
         dayTimeTextField = new TextField();
-        HBox box4 = new HBox();
-        box4.getChildren().addAll(dayTimeLabel, dayTimeTextField);
         
         locationLabel = new Label(props.getProperty(LOCATION_TEXT));
         locationTextField = new TextField();
-        HBox box5 = new HBox();
-        box5.getChildren().addAll(locationLabel, locationTextField);
         
         supervisingLabel = new Label(props.getProperty(SUPERVISING_LABEL));
         supervisingLabel2 = new Label(props.getProperty(SUPERVISING_LABEL));
         ta1ComboBox = new ComboBox();
         ta2ComboBox = new ComboBox();
-        HBox box6 = new HBox();
-        box6.getChildren().addAll(supervisingLabel, ta1ComboBox);
-        HBox box7 = new HBox();
-        box7.getChildren().addAll(supervisingLabel2, ta2ComboBox);
         
         addUpdate = new Button(props.getProperty(ADDUPDATE_BUTTON));
         clear = new Button(props.getProperty(CLEAR_BUTTON));
-        HBox box8 = new HBox();
-        box8.getChildren().addAll(addUpdate, clear);
+        
+        GridPane box2 = new GridPane();
+        box2.setHgap(5.0);
+        box2.setVgap(2.0);
+        box2.add(sectionLabel, 1, 0);
+        box2.add(sectionTextField, 3, 0);
+        box2.add(instructorLabel, 1, 1);
+        box2.add(instructorTextField, 3, 1);
+        box2.add(dayTimeLabel, 1, 2);
+        box2.add(dayTimeTextField, 3, 2);
+        box2.add(locationLabel, 1, 3);
+        box2.add(locationTextField, 3, 3);
+        box2.add(supervisingLabel, 1, 4);
+        box2.add(ta1ComboBox, 3, 4);
+        box2.add(supervisingLabel2, 1, 5);
+        box2.add(ta2ComboBox, 3, 5);
+        box2.add(addUpdate, 1, 6);
+        box2.add(clear, 3, 6);
         
         addEditPane = new VBox();
         
-        addEditPane.getChildren().addAll(addEdit, box2, box3, box4, box5, box6, box7, box8);
+        addEditPane.getChildren().addAll(addEdit, box2);
         
         mainPane = new VBox();
         mainPane.getChildren().addAll(box1, recitations, addEditPane);
@@ -136,4 +141,10 @@ public class RecitationTab {
     public VBox getAddEditPane() {
         return addEditPane;
     }
+
+    public TableView<String> getRecitations() {
+        return recitations;
+    }
+    
+    
 }

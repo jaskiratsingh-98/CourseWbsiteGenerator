@@ -117,5 +117,6 @@ public enum CSGProp {
     FIRSTNAME_TEXT,
     LASTNAME_TEXT,
     TEAM_TEXT,
-    ROLE_TEXT
+    ROLE_TEXT,
+    DIR_LABEL
 }

@@ -5,7 +5,7 @@ import tam.data.TAData;
 import tam.file.TAFiles;
 import tam.workspace.CSGWorkspace;
 import djf.AppTemplate;
-import tam.style.TAStyle;
+import tam.style.CSGStyle;
 import static javafx.application.Application.launch;
 
 /**
@@ -34,7 +34,7 @@ public class CSGApp extends AppTemplate {
         dataComponent = new TAData(this);
         workspaceComponent = new CSGWorkspace(this);
         fileComponent = new TAFiles(this);
-        styleComponent = new TAStyle(this);
+        styleComponent = new CSGStyle(this);
     }
     
     /**

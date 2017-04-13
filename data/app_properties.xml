@@ -74,6 +74,7 @@
         <property name="HOME_LABEL"                     value="Instructor Home:"></property> 
         <property name="COURSE_INFO_LABEL"              value="Course Info"></property> 
         <property name="SITE_LABEL"                     value="Site Template"></property>
+        <property name="DIR_LABEL"                     value="Export Dir:"></property>
         <property name="DESC_LABEL"                     value="The selected directory should contain the full site template, including the HTML files."></property>
         <property name="SITE_PAGES_LABEL"               value="Site Pages:"></property>
         <property name="USE_TEXT"                       value="Use"></property>
@@ -166,16 +167,16 @@
     </property_list>
     <property_options_list>                
         <property_options name="OFFICE_HOURS_TABLE_HEADERS">
-            <option>Start Time</option>
-            <option>End Time</option>
+            <option>Start</option>
+            <option>End</option>
         </property_options>
         
         <property_options name="DAYS_OF_WEEK">
-            <option>MONDAY</option>
-            <option>TUESDAY</option>
-            <option>WEDNESDAY</option>
-            <option>THURSDAY</option>
-            <option>FRIDAY</option>
+            <option>MON</option>
+            <option>TUES</option>
+            <option>WED</option>
+            <option>THURS</option>
+            <option>FRI</option>
         </property_options>
     </property_options_list>
 </properties>

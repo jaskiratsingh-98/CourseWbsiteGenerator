@@ -35,7 +35,7 @@ import tam.CSGApp;
 import tam.CSGProp;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
-import tam.style.TAStyle;
+import tam.style.CSGStyle;
 
 /**
  *
@@ -83,6 +83,7 @@ public class TATab {
     VBox leftPane;
     VBox rightPane;
     HBox mainPane;
+    VBox overallPane;
 
     ObservableList<String> hours = FXCollections.observableArrayList(
             "0:00",
@@ -203,9 +204,12 @@ public class TATab {
 
         mainPane = new HBox();
         mainPane.getChildren().addAll(leftPane, rightPane);
+        
+        overallPane = new VBox();
+        overallPane.getChildren().add(mainPane);
 
         taTab.setText("TA Data");
-        taTab.setContent(mainPane);
+        taTab.setContent(overallPane);
 
         // NOW LET'S SETUP THE EVENT HANDLING
         controller = new TAController(app);
@@ -468,7 +472,7 @@ public class TATab {
         }
 
         // AND MAKE SURE ALL THE COMPONENTS HAVE THE PROPER STYLE
-        TAStyle taStyle = (TAStyle) app.getStyleComponent();
+        CSGStyle taStyle = (CSGStyle) app.getStyleComponent();
         taStyle.initOfficeHoursGridStyle();
     }
 
@@ -506,5 +510,9 @@ public class TATab {
 
     public Tab getTab() {
         return taTab;
+    }
+    
+    public VBox getOverallPane(){
+        return overallPane;
     }
 }

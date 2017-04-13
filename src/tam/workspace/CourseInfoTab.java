@@ -12,6 +12,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import properties_manager.PropertiesManager;
@@ -43,35 +44,36 @@ public class CourseInfoTab {
 
     Label title1;
     Label subject;
-    ComboBox subjectComboBox;
+    private ComboBox subjectComboBox;
     Label number;
     ComboBox numberComboBox;
-    HBox box1;
 
     Label semester;
-    ComboBox semesterComboBox;
+    private ComboBox semesterComboBox;
     Label year;
     ComboBox yearComboBox;
-    HBox box2;
+    GridPane box2;
 
     Label title;
-    TextField titleTextField;
+    private TextField titleTextField;
     HBox box3;
 
     Label name;
-    TextField nameTextField;
+    private TextField nameTextField;
     HBox box4;
 
     Label home;
-    TextField homeTextField;
+    private TextField homeTextField;
     HBox box5;
 
     Button changeButton;
+    GridPane box1;
 
     Label title2;
     Label description;
     Button selectTemp;
     Label sitePages;
+    Label exportDir;
 
     TableView<String> siteTable;
     TableColumn<String, String> useColumn;
@@ -103,34 +105,45 @@ public class CourseInfoTab {
         subjectComboBox = new ComboBox();
         number = new Label(props.getProperty(NUMBER_LABEL));
         numberComboBox = new ComboBox();
-        box1 = new HBox();
-        box1.getChildren().addAll(subject, subjectComboBox, number, numberComboBox);
 
         semester = new Label(props.getProperty(SEMESTER_LABEL));
         semesterComboBox = new ComboBox();
         year = new Label(props.getProperty(YEAR_LABEL));
         yearComboBox = new ComboBox();
-        box2 = new HBox();
-        box2.getChildren().addAll(semester, semesterComboBox, year, yearComboBox);
 
         title = new Label(props.getProperty(TITLE_LABEL));
         titleTextField = new TextField();
-        box3 = new HBox();
-        box3.getChildren().addAll(title, titleTextField);
 
         name = new Label(props.getProperty(INSNAME_LABEL));
         nameTextField = new TextField();
-        box4 = new HBox();
-        box4.getChildren().addAll(name, nameTextField);
 
         home = new Label(props.getProperty(HOME_LABEL));
         homeTextField = new TextField();
-        box5 = new HBox();
-        box5.getChildren().addAll(home, homeTextField);
 
+        exportDir = new Label(props.getProperty(DIR_LABEL));
         changeButton = new Button("Change");
+        
+        box1 = new GridPane();
+        box1.setHgap(5.0);
+        box1.setVgap(2.0);
+        box1.add(subject, 1, 0);
+        box1.add(subjectComboBox, 3, 0);
+        box1.add(number, 7, 0);
+        box1.add(numberComboBox, 9, 0);
+        box1.add(semester, 1, 1);
+        box1.add(semesterComboBox, 3, 1);
+        box1.add(year, 7, 1);
+        box1.add(yearComboBox, 9, 1);
+        box1.add(title, 1, 2);
+        box1.add(titleTextField, 3, 2);
+        box1.add(name, 1, 3);
+        box1.add(nameTextField, 3, 3);
+        box1.add(home, 1, 4);
+        box1.add(homeTextField, 3, 4);
+        box1.add(exportDir, 1, 5);
+        box1.add(changeButton, 7, 5);
 
-        infoPane.getChildren().addAll(title1, box1, box2, box3, box4, box5, changeButton);
+        infoPane.getChildren().addAll(title1, box1);
 
         title2 = new Label(props.getProperty(SITE_LABEL));
         description = new Label(props.getProperty(DESC_LABEL));
@@ -172,9 +185,23 @@ public class CourseInfoTab {
         box9.getChildren().addAll(stylesheet, chooseSheet);
 
         note = new Label(props.getProperty(NOTE_LABEL));
+        
+        box2 = new GridPane();
+        box2.setHgap(5.0);
+        box2.setVgap(2.0);
+        box2.add(bannerImage, 1, 0);
+        box2.add(changeBanner, 3, 0);
+        box2.add(footerLeft, 1, 1);
+        box2.add(changeLeftFooter, 3, 1);
+        box2.add(footerRight, 1, 2);
+        box2.add(changeRightFooter, 3, 2);
+        box2.add(stylesheet, 1, 3);
+        box2.add(chooseSheet, 3, 3);
+
+        
 
         stylePane = new VBox();
-        stylePane.getChildren().addAll(title3, box6, box7, box8, box9, note);
+        stylePane.getChildren().addAll(title3, box2, note);
 
         courseTab = new Tab();
 
@@ -204,7 +231,7 @@ public class CourseInfoTab {
         return mainPane;
     }
     
-    public HBox getBox1(){
+    public GridPane getBox1(){
         return box1;
     }
     
@@ -220,4 +247,42 @@ public class CourseInfoTab {
         return borderPane;
     }
 
+    public ComboBox getSubjectComboBox() {
+        return subjectComboBox;
+    }
+
+    public ComboBox getSemesterComboBox() {
+        return semesterComboBox;
+    }
+
+    public ComboBox getNumberComboBox() {
+        return numberComboBox;
+    }
+
+    public TextField getTitleTextField() {
+        return titleTextField;
+    }
+
+    public TextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public TextField getHomeTextField() {
+        return homeTextField;
+    }
+
+    public ComboBox getYearComboBox() {
+        return yearComboBox;
+    }
+
+    public Label getTitle2() {
+        return title2;
+    }
+
+    public Label getTitle3() {
+        return title3;
+    }
+
+    
+    
 }

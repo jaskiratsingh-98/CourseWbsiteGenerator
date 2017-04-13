@@ -46,10 +46,21 @@
     -fx-spacing:15;
 }
 
+.combo_box{
+    -fx-min-width: 80;
+}
+
+.ci_textfield{
+    -fx-min-width: 350;
+}
+
 .ta_main_pane{
-    -fx-background-color: #FEECD6;
     -fx-padding: 10;
     -fx-spacing: 15;
+}
+
+.rec_table{
+    -fx-max-length: 300
 }
 
 /*.rt_add_pane{
@@ -138,9 +149,11 @@
     
 }
 
-.office_hours_grid_time_column_header_pane{
-    -fx-background-color:#000066;
+.office_hours_grid_column_header_pane{
+    -fx-background-color:#cccccc;
     -fx-border: 1px;    
+    -fx-border-color: black;
+    -fx-min-width: 75;
 }
 
 .office_hours_grid_time_column_header_label{
@@ -150,11 +163,12 @@
     -fx-padding: 10 20 10 20;
 }
 
-.office_hours_grid_day_column_header_pane{
-    -fx-background-color:#000066;
+/*.office_hours_grid_day_column_header_pane{
+    -fx-background-color:#cccccc;
     -fx-border: 1px;
-    -fx-border-color: #000066;
-}
+    -fx-border-color: black;
+    -fx-min-width: 75;
+}*/
 
 .office_hours_grid_day_column_header_label{
     -fx-text-fill:white;
@@ -176,7 +190,7 @@
 }
 
 .office_hours_grid_ta_cell_pane{
-    -fx-background-color:#abab78;
+    -fx-background-color: white;
     -fx-border: 1px;
     -fx-border-color: black;
 }

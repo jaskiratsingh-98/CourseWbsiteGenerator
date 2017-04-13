@@ -29,7 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
 import tam.CSGProp;
-import tam.style.TAStyle;
+import tam.style.CSGStyle;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
 

@@ -24,9 +24,9 @@ import properties_manager.PropertiesManager;
 public class ProjectTab {
     Tab tab;
     
-    VBox mainPane;
-    VBox teamPane;
-    VBox studentsPane;
+    private VBox mainPane;
+    private VBox teamPane;
+    private VBox studentsPane;
     
     Label title;
     
@@ -179,4 +179,17 @@ public class ProjectTab {
     public Tab getTab(){
         return tab;
     }
+
+    public VBox getMainPane() {
+        return mainPane;
+    }
+
+    public VBox getTeamPane() {
+        return teamPane;
+    }
+
+    public VBox getStudentsPane() {
+        return studentsPane;
+    }
+    
 }

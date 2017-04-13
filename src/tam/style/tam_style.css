@@ -22,34 +22,56 @@
     -fx-font-weight: bold;
 }
 
-.ci_main_pane{
+.csg_overall_pane{
     -fx-background-color: #FEECD6;
+    -fx-border-color: black;
     -fx-padding: 10;
 }
 
-.ci_info_pane {
+.csg_main_pane{
+    -fx-background-color: #FED8AB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 10
+}
+
+.csg_sub_pane{
     -fx-background-color: #EBEBEB;
     -fx-border-color: black;
     -fx-padding: 10;
     -fx-spacing: 5;
 }
 
-.ci_temp_pane{
-    -fx-background-color: #EBEBEB;
-    -fx-border-color: black;
-    -fx-padding: 10;
-    -fx-spacing: 5;
-}
-
-.ci_style_pane{
-    -fx-background-color: #EBEBEB;
-    -fx-border-color: black;
-    -fx-padding: 10;
-    -fx-spacing: 5;
-}
 .ci_box1{
     -fx-spacing:15;
 }
+
+.ta_main_pane{
+    -fx-background-color: #FEECD6;
+    -fx-padding: 10;
+    -fx-spacing: 15;
+}
+
+/*.rt_add_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}*/
+
+/*.pt_team_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+
+.pt_student_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}*/
 
 .dialog_pane {
     -fx-padding:15;

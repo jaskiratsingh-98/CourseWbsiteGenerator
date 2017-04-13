@@ -115,17 +115,25 @@ public class RecitationTab {
         HBox box8 = new HBox();
         box8.getChildren().addAll(addUpdate, clear);
         
-        VBox addPane = new VBox();
+        addEditPane = new VBox();
         
-        addPane.getChildren().addAll(addEdit, box2, box3, box4, box5, box6, box7, box8);
+        addEditPane.getChildren().addAll(addEdit, box2, box3, box4, box5, box6, box7, box8);
         
         mainPane = new VBox();
-        mainPane.getChildren().addAll(box1, recitations, addPane);
+        mainPane.getChildren().addAll(box1, recitations, addEditPane);
         tab.setText("Recitation Data");
         tab.setContent(mainPane);
     }
     
     public Tab getTab(){
         return tab;
+    }
+
+    public VBox getMainPane() {
+        return mainPane;
+    }
+
+    public VBox getAddEditPane() {
+        return addEditPane;
     }
 }

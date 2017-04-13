@@ -35,6 +35,7 @@ public class CourseInfoTab {
     CSGApp app;
     Tab courseTab;
 
+    VBox borderPane;
     VBox mainPane;
     VBox infoPane;
     VBox tempPane;
@@ -178,9 +179,12 @@ public class CourseInfoTab {
         courseTab = new Tab();
 
         mainPane.getChildren().addAll(infoPane, tempPane, stylePane);
+        
+        borderPane = new VBox();
+        borderPane.getChildren().add(mainPane);
 
         courseTab.setText("Course Details");
-        courseTab.setContent(mainPane);
+        courseTab.setContent(borderPane);
 
     }
 
@@ -210,6 +214,10 @@ public class CourseInfoTab {
     
     public VBox getStylePane(){
         return stylePane;
+    }
+    
+    public VBox getBorderPane(){
+        return borderPane;
     }
 
 }

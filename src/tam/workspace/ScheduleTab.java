@@ -27,14 +27,14 @@ public class ScheduleTab {
     
     Label schedule;
     
-    VBox boundariesPane;
+    private VBox boundariesPane;
     Label title1;
     Label calStart;
     DatePicker startDate;
     Label calEnd;
     DatePicker endDate;
     
-    VBox schedulePane;
+    private VBox schedulePane;
     Label title2;
     Button hideButton;
     
@@ -63,7 +63,7 @@ public class ScheduleTab {
     Button addUpdate;
     Button clear;
     
-    VBox mainPane;
+    private VBox mainPane;
     
     
     public ScheduleTab(){
@@ -146,4 +146,18 @@ public class ScheduleTab {
     public Tab getTab(){
         return tab;
     }
+
+    public VBox getBoundariesPane() {
+        return boundariesPane;
+    }
+
+    public VBox getSchedulePane() {
+        return schedulePane;
+    }
+
+    public VBox getMainPane() {
+        return mainPane;
+    }
+    
+    
 }

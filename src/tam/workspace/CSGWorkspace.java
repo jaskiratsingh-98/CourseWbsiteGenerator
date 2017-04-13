@@ -47,9 +47,10 @@ public class CSGWorkspace extends AppWorkspaceComponent {
     TabPane tabPane;
     TATab taTab;
     CourseInfoTab courseTab;
-    RecitationTab recitationTab;
-    ScheduleTab scheduleTab;
-    ProjectTab projectTab;
+    private VBox borderPane; 
+    private RecitationTab recitationTab;
+    private ScheduleTab scheduleTab;
+    private ProjectTab projectTab;
     
     
 
@@ -80,7 +81,9 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        workspace.getChildren().add(tabPane);
+        borderPane = new VBox();
+        borderPane.getChildren().add(tabPane);
+        workspace.getChildren().add(borderPane);
     }
     
     
@@ -104,6 +107,23 @@ public class CSGWorkspace extends AppWorkspaceComponent {
     public CourseInfoTab getCourseTab(){
         return courseTab;
     }
+
+    public RecitationTab getRecitationTab() {
+        return recitationTab;
+    }
+
+    public ScheduleTab getScheduleTab() {
+        return scheduleTab;
+    }
+
+    public ProjectTab getProjectTab() {
+        return projectTab;
+    }
+
+    public VBox getBorderPane() {
+        return borderPane;
+    }
+    
     
     
 }

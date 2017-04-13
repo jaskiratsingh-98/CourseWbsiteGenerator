@@ -48,10 +48,16 @@ public class TAStyle extends AppStyleComponent {
     public static String CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN = "highlighted_grid_row_or_column";
     public static String CLASS_TITLE_LABEL = "ci_title_label";
     public static String CLASS_CI_INFO_PANE = "ci_info_pane";
-    public static String CLASS_CI_MAIN_PANE = "ci_main_pane";
-    public static String CLASS_CI_TEMP_PANE = "ci_temp_pane";
-    public static String CLASS_CI_STYLE_PANE = "ci_style_pane";
+    public static String CLASS_MAIN_PANE = "csg_main_pane";
+    public static String CLASS_SUB_PANE = "csg_sub_pane";
+    public static String CLASS_OVERALL_PANE = "csg_overall_pane";
     public static String CLASS_CI_BOX_PANE = "ci_box1";
+    
+    public static String CLASS_TA_MAIN_PANE = "ta_main_pane";
+    
+    public static String CLASS_PT_MAIN_PANE = "pt_main_pane";
+    public static String CLASS_PT_TEAM_PANE = "pt_team_pane";
+    public static String CLASS_PT_STUDENT_PANE = "pt_student_pane";
     
     // THIS PROVIDES ACCESS TO OTHER COMPONENTS
     private AppTemplate app;
@@ -92,6 +98,8 @@ public class TAStyle extends AppStyleComponent {
             tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
         }
 
+        workspaceComponent.getBorderPane().getStyleClass().add(CLASS_OVERALL_PANE);
+        
         // LEFT SIDE - THE TA DATA ENTRY
         workspaceComponent.getTATab().getAddBox().getStyleClass().add(CLASS_ADD_TA_PANE);
         workspaceComponent.getTATab().getNameTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
@@ -101,13 +109,32 @@ public class TAStyle extends AppStyleComponent {
         // RIGHT SIDE - THE HEADER
         workspaceComponent.getTATab().getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         workspaceComponent.getTATab().getOfficeHoursSubheaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
-
+        
+        //Course Info Tab
         workspaceComponent.getCourseTab().getTitle1().getStyleClass().add(CLASS_TITLE_LABEL);
-        workspaceComponent.getCourseTab().getInfoPane().getStyleClass().add(CLASS_CI_INFO_PANE);
-        workspaceComponent.getCourseTab().getMainPane().getStyleClass().add(CLASS_CI_MAIN_PANE);
-        workspaceComponent.getCourseTab().getTempPane().getStyleClass().add(CLASS_CI_TEMP_PANE);
-        workspaceComponent.getCourseTab().getStylePane().getStyleClass().add(CLASS_CI_STYLE_PANE);
+        workspaceComponent.getCourseTab().getInfoPane().getStyleClass().add(CLASS_SUB_PANE);
+        workspaceComponent.getCourseTab().getMainPane().getStyleClass().add(CLASS_MAIN_PANE);
+        workspaceComponent.getCourseTab().getTempPane().getStyleClass().add(CLASS_SUB_PANE);
+        workspaceComponent.getCourseTab().getStylePane().getStyleClass().add(CLASS_SUB_PANE);
         workspaceComponent.getCourseTab().getBox1().getStyleClass().add(CLASS_CI_BOX_PANE);
+        
+        //TA Tab
+        workspaceComponent.getTATab().getMainPane().getStyleClass().add(CLASS_TA_MAIN_PANE);
+        
+        //Recitations Tab
+        workspaceComponent.getRecitationTab().getMainPane().getStyleClass().add(CLASS_MAIN_PANE);
+        workspaceComponent.getRecitationTab().getAddEditPane().getStyleClass().add(CLASS_SUB_PANE);
+        
+        //Schedule Tab
+        workspaceComponent.getScheduleTab().getMainPane().getStyleClass().add(CLASS_MAIN_PANE);
+        workspaceComponent.getScheduleTab().getSchedulePane().getStyleClass().add(CLASS_SUB_PANE);
+        workspaceComponent.getScheduleTab().getBoundariesPane().getStyleClass().add(CLASS_SUB_PANE);
+        
+        //Projects Tab
+        workspaceComponent.getProjectTab().getMainPane().getStyleClass().add(CLASS_MAIN_PANE);
+        workspaceComponent.getProjectTab().getTeamPane().getStyleClass().add(CLASS_SUB_PANE);
+        workspaceComponent.getProjectTab().getStudentsPane().getStyleClass().add(CLASS_SUB_PANE);
+        
     }
 
     /**

@@ -24,11 +24,31 @@
 
 .ci_main_pane{
     -fx-background-color: #FEECD6;
+    -fx-padding: 10;
 }
 
-.ci_info_pane{
-    -fx-background-color: gainsboro;
+.ci_info_pane {
+    -fx-background-color: #EBEBEB;
     -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+
+.ci_temp_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+
+.ci_style_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+.ci_box1{
+    -fx-spacing:15;
 }
 
 .dialog_pane {
@@ -37,7 +57,7 @@
 
 .dialog_heading {
     -fx-font-size: 24pt;
-    -fx-background-color: bisque;
+    -fx-background-color: #FEECD6;
     -fx-color:red;
 }
 
@@ -52,12 +72,9 @@
 }
 
 .bordered_pane {
-    -fx-background-color: #aaaaff;
-    -fx-background-radius: 5.0;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-    -fx-border-width: 2px;
-    -fx-border-color: #7777dd;
+    -fx-background-color: #FEECD6;
+    -fx-padding: 5;
+    -fx-border-color: black;
 }
 
 .header_pane{

@@ -199,5 +199,17 @@ public class CourseInfoTab {
     public VBox getMainPane(){
         return mainPane;
     }
+    
+    public HBox getBox1(){
+        return box1;
+    }
+    
+    public VBox getTempPane(){
+        return tempPane;
+    }
+    
+    public VBox getStylePane(){
+        return stylePane;
+    }
 
 }

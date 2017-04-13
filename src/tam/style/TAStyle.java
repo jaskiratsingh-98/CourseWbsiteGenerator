@@ -49,6 +49,9 @@ public class TAStyle extends AppStyleComponent {
     public static String CLASS_TITLE_LABEL = "ci_title_label";
     public static String CLASS_CI_INFO_PANE = "ci_info_pane";
     public static String CLASS_CI_MAIN_PANE = "ci_main_pane";
+    public static String CLASS_CI_TEMP_PANE = "ci_temp_pane";
+    public static String CLASS_CI_STYLE_PANE = "ci_style_pane";
+    public static String CLASS_CI_BOX_PANE = "ci_box1";
     
     // THIS PROVIDES ACCESS TO OTHER COMPONENTS
     private AppTemplate app;
@@ -101,7 +104,10 @@ public class TAStyle extends AppStyleComponent {
 
         workspaceComponent.getCourseTab().getTitle1().getStyleClass().add(CLASS_TITLE_LABEL);
         workspaceComponent.getCourseTab().getInfoPane().getStyleClass().add(CLASS_CI_INFO_PANE);
-        workspaceComponent.getCourseTab().getInfoPane().getStyleClass().add(CLASS_CI_MAIN_PANE);
+        workspaceComponent.getCourseTab().getMainPane().getStyleClass().add(CLASS_CI_MAIN_PANE);
+        workspaceComponent.getCourseTab().getTempPane().getStyleClass().add(CLASS_CI_TEMP_PANE);
+        workspaceComponent.getCourseTab().getStylePane().getStyleClass().add(CLASS_CI_STYLE_PANE);
+        workspaceComponent.getCourseTab().getBox1().getStyleClass().add(CLASS_CI_BOX_PANE);
     }
 
     /**

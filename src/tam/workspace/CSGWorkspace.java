@@ -123,6 +123,10 @@ public class CSGWorkspace extends AppWorkspaceComponent {
     public VBox getBorderPane() {
         return borderPane;
     }
+
+    public TAController getController() {
+        return controller;
+    }
     
     
     

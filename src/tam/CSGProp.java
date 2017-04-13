@@ -119,5 +119,6 @@ public enum CSGProp {
     TEAM_TEXT,
     ROLE_TEXT,
     DIR_LABEL,
-    UNDERGRAD_TEXT
+    UNDERGRAD_TEXT,
+    STUDENTS_LABEL
 }

@@ -180,6 +180,19 @@ public class ScheduleTab {
     public Label getSchedule() {
         return schedule;
     }
+
+    public Label getTitle1() {
+        return title1;
+    }
+
+    public Label getTitle2() {
+        return title2;
+    }
+
+    public Label getAddEditLabel() {
+        return addEditLabel;
+    }
+    
     
     
 }

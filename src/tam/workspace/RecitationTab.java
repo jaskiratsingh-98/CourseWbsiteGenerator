@@ -149,5 +149,11 @@ public class RecitationTab {
     public Label getRecitationLabel() {
         return recitationLabel;
     }
+
+    public Label getAddEdit() {
+        return addEdit;
+    }
+    
+    
     
 }

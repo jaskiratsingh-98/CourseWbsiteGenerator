@@ -307,6 +307,14 @@ public class TAController {
             }
         }
     }
+    
+    public void handleUndo(){
+        jTPS.undoTransaction();
+    }
+    
+    public void handleRedo(){
+        jTPS.doTransaction();
+    }
 
     public void handleUndoRedo(KeyCode key, KeyEvent e) {
 

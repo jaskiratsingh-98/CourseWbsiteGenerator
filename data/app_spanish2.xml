@@ -19,6 +19,9 @@ and open the template in the editor.
         <property name="SAVE_AS_ICON"	    value="SaveAs.png"></property>
         <property name="EXPORT_ICON"	    value="Export.png"></property>
         <property name="EXIT_ICON"          value="Exit.png"></property> 
+        <property name="UNDO_ICON"          value="Undo.png"></property> 
+        <property name="REDO_ICON"          value="Redo.png"></property> 
+        <property name="ABOUT_ICON"          value="About.png"></property>  
         
         <!-- TOOLTIPS FOR BUTTONS -->
         <property name="NEW_TOOLTIP"		value="Construir un nuevo espacio de trabajo"></property>
@@ -27,6 +30,9 @@ and open the template in the editor.
         <property name="SAVE_AS_TOOLTIP"        value="Guardar TA Grid en un nuevo archivo"></property>
         <property name="EXPORT_TOOLTIP"         value="Exportar programa de estudios a un directorio"></property>
         <property name="EXIT_TOOLTIP"		value="Salir de la aplicación"></property>
+        <property name="UNDO_TOOLTIP"		value="Previoso"></property>
+        <property name="REDO_TOOLTIP"		value="Nexto"></property>
+        <property name="ABOUT_TOOLTIP"		value="Ayuda"></property>
         
         <!-- ERROR MESSAGES -->
         <property name="CLOSE_BUTTON_TEXT"              value="Close"></property>
@@ -111,6 +117,7 @@ and open the template in the editor.
         <property name="CRITERIALABEL"                  value="Criteria"></property>
         <property name="PROJECTLABEL"                   value="Proyectos"></property>
         <property name="TEAMS_LABEL"                    value="Equipos"></property>
+        <property name="STUDENTS_LABEL"                    value="Estudientes"></property>
         <property name="NAME_TEXT"                      value="Name"></property>
         <property name="COLOR_TEXT"                     value="Color (hex#)"></property>
         <property name="TEXTCOLOR_TEXT"                 value="Text Color (hex#)"></property>

@@ -128,7 +128,7 @@ public class ProjectTab {
         teamPane = new VBox();
         teamPane.getChildren().addAll(box, teams, box1);
 
-        studentTitle = new Label(props.getProperty(TEAMS_LABEL));
+        studentTitle = new Label(props.getProperty(STUDENTS_LABEL));
         hideStudentPane = new Button("-");
         HBox box5 = new HBox();
         box5.getChildren().addAll(studentTitle, hideStudentPane);
@@ -154,13 +154,9 @@ public class ProjectTab {
 
         role = new Label(props.getProperty(ROLE_TEXT));
         roleTextField = new TextField();
-        HBox box9 = new HBox();
-        box9.getChildren().addAll(role, roleTextField);
 
         addUpdate2 = new Button(props.getProperty(ADDUPDATE_BUTTON));
         clear2 = new Button(props.getProperty(CLEAR_BUTTON));
-        HBox box10 = new HBox();
-        box10.getChildren().addAll(addUpdate2, clear2);
 
         GridPane box2 = new GridPane();
         box2 = new GridPane();
@@ -207,4 +203,27 @@ public class ProjectTab {
     public Label getTitle() {
         return title;
     }
+
+    public Label getTeamTitle() {
+        return teamTitle;
+    }
+
+    public Label getStudentTitle() {
+        return studentTitle;
+    }
+
+    public Label getAddEdit() {
+        return addEdit;
+    }
+
+    public ColorPicker getColorPicker() {
+        return colorPicker;
+    }
+
+    public ColorPicker getTextColorPicker() {
+        return textColorPicker;
+    }
+    
+    
+    
 }

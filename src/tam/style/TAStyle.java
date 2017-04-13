@@ -11,16 +11,16 @@ import tam.workspace.CSGWorkspace;
 
 /**
  * This class manages all CSS style for this application.
- * 
+ *
  * @author Richard McKenna
  * @version 1.0
  */
 public class TAStyle extends AppStyleComponent {
     // FIRST WE SHOULD DECLARE ALL OF THE STYLE TYPES WE PLAN TO USE
-    
+
     // WE'LL USE THIS FOR ORGANIZING LEFT AND RIGHT CONTROLS
     public static String CLASS_PLAIN_PANE = "plain_pane";
-    
+
     // THESE ARE THE HEADERS FOR EACH SIDE
     public static String CLASS_HEADER_PANE = "header_pane";
     public static String CLASS_HEADER_LABEL = "header_label";
@@ -46,13 +46,16 @@ public class TAStyle extends AppStyleComponent {
     // FOR HIGHLIGHTING CELLS, COLUMNS, AND ROWS
     public static String CLASS_HIGHLIGHTED_GRID_CELL = "highlighted_grid_cell";
     public static String CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN = "highlighted_grid_row_or_column";
+    public static String CLASS_TITLE_LABEL = "ci_title_label";
+    public static String CLASS_CI_INFO_PANE = "ci_info_pane";
+    public static String CLASS_CI_MAIN_PANE = "ci_main_pane";
     
     // THIS PROVIDES ACCESS TO OTHER COMPONENTS
     private AppTemplate app;
-    
+
     /**
      * This constructor initializes all style for the application.
-     * 
+     *
      * @param initApp The application to be stylized.
      */
     public TAStyle(AppTemplate initApp) {
@@ -70,12 +73,12 @@ public class TAStyle extends AppStyleComponent {
     }
 
     /**
-     * This function specifies all the style classes for
-     * all user interface controls in the workspace.
+     * This function specifies all the style classes for all user interface
+     * controls in the workspace.
      */
     private void initTAWorkspaceStyle() {
         // LEFT SIDE - THE HEADER
-        CSGWorkspace workspaceComponent = (CSGWorkspace)app.getWorkspaceComponent();
+        CSGWorkspace workspaceComponent = (CSGWorkspace) app.getWorkspaceComponent();
         workspaceComponent.getTATab().getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         workspaceComponent.getTATab().getTAsHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
 
@@ -95,16 +98,20 @@ public class TAStyle extends AppStyleComponent {
         // RIGHT SIDE - THE HEADER
         workspaceComponent.getTATab().getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
         workspaceComponent.getTATab().getOfficeHoursSubheaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+
+        workspaceComponent.getCourseTab().getTitle1().getStyleClass().add(CLASS_TITLE_LABEL);
+        workspaceComponent.getCourseTab().getInfoPane().getStyleClass().add(CLASS_CI_INFO_PANE);
+        workspaceComponent.getCourseTab().getInfoPane().getStyleClass().add(CLASS_CI_MAIN_PANE);
     }
-    
+
     /**
-     * This method initializes the style for all UI components in
-     * the office hours grid. Note that this should be called every
-     * time a new TA Office Hours Grid is created or loaded.
+     * This method initializes the style for all UI components in the office
+     * hours grid. Note that this should be called every time a new TA Office
+     * Hours Grid is created or loaded.
      */
     public void initOfficeHoursGridStyle() {
         // RIGHT SIDE - THE OFFICE HOURS GRID TIME HEADERS
-        CSGWorkspace workspaceComponent = (CSGWorkspace)app.getWorkspaceComponent();
+        CSGWorkspace workspaceComponent = (CSGWorkspace) app.getWorkspaceComponent();
         workspaceComponent.getTATab().getOfficeHoursGridPane().getStyleClass().add(CLASS_OFFICE_HOURS_GRID);
         setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTimeHeaderPanes(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_PANE);
         setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTimeHeaderLabels(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_LABEL);
@@ -115,14 +122,14 @@ public class TAStyle extends AppStyleComponent {
         setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTACellPanes(), CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
         setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTACellLabels(), CLASS_OFFICE_HOURS_GRID_TA_CELL_LABEL);
     }
-    
+
     /**
      * This helper method initializes the style of all the nodes in the nodes
      * map to a common style, styleClass.
      */
     private void setStyleClassOnAll(HashMap nodes, String styleClass) {
         for (Object nodeObject : nodes.values()) {
-            Node n = (Node)nodeObject;
+            Node n = (Node) nodeObject;
             n.getStyleClass().add(styleClass);
         }
     }

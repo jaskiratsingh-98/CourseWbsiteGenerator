@@ -67,7 +67,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         workspace = new VBox();
         tabPane = new TabPane();
         taTab = new TATab(app);
-        courseTab = new CourseInfoTab();
+        courseTab = new CourseInfoTab(app);
         recitationTab = new RecitationTab();
         scheduleTab = new ScheduleTab();
         projectTab = new ProjectTab();
@@ -99,6 +99,10 @@ public class CSGWorkspace extends AppWorkspaceComponent {
 
     public TATab getTATab() {
         return taTab;
+    }
+    
+    public CourseInfoTab getCourseTab(){
+        return courseTab;
     }
     
     

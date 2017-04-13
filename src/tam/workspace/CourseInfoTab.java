@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import properties_manager.PropertiesManager;
+import tam.CSGApp;
 import static tam.CSGProp.*;
 import static tam.CSGProp.COURSE_INFO_LABEL;
 import static tam.CSGProp.HOME_LABEL;
@@ -31,7 +32,7 @@ import static tam.CSGProp.YEAR_LABEL;
  * @author jaski
  */
 public class CourseInfoTab {
-
+    CSGApp app;
     Tab courseTab;
 
     VBox mainPane;
@@ -88,7 +89,8 @@ public class CourseInfoTab {
     ComboBox chooseSheet;
     Label note;
 
-    public CourseInfoTab() {
+    public CourseInfoTab(CSGApp app) {
+        this.app = app;
         mainPane = new VBox();
         infoPane = new VBox();
 
@@ -179,10 +181,23 @@ public class CourseInfoTab {
 
         courseTab.setText("Course Details");
         courseTab.setContent(mainPane);
+
     }
 
     public Tab getTab() {
         return courseTab;
+    }
+
+    public Label getTitle1() {
+        return title1;
+    }
+    
+    public VBox getInfoPane(){
+        return infoPane;
+    }
+    
+    public VBox getMainPane(){
+        return mainPane;
     }
 
 }

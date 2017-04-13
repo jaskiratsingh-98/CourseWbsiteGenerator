@@ -17,6 +17,20 @@
     -fx-font-family: "Courier New";
 }
 
+.ci_title_label{
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+}
+
+.ci_main_pane{
+    -fx-background-color: #FEECD6;
+}
+
+.ci_info_pane{
+    -fx-background-color: gainsboro;
+    -fx-border-color: black;
+}
+
 .dialog_pane {
     -fx-padding:15;
 }
@@ -51,7 +65,7 @@
 }
 
 .header_label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 10pt;
     -fx-font-weight: bold;
     -fx-padding: 5 10 5 10;
 }

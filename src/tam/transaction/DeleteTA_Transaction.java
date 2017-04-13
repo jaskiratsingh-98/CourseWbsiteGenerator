@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Label;
 import jtps.jTPS_Transaction;
-import tam.TAManagerApp;
+import tam.CSGApp;
 import tam.data.TAData;
 import tam.file.TimeSlot;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 
 /**
  *
@@ -24,11 +24,11 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
     private String taEmail;
     private TAData data;
     private ArrayList<TimeSlot> hours;
-    TAWorkspace workspace;
-    TAManagerApp app;
+    CSGWorkspace workspace;
+    CSGApp app;
     
 
-    public DeleteTA_Transaction(String taName, String taEmail, TAData data, TAWorkspace workspace) {
+    public DeleteTA_Transaction(String taName, String taEmail, TAData data, CSGWorkspace workspace) {
         this.taName = taName;
         this.taEmail = taEmail;
         this.data = data;
@@ -41,7 +41,7 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
 
         hours = TimeSlot.buildCustomList(data, taName);
 
-        HashMap<String, Label> labels = workspace.getOfficeHoursGridTACellLabels();
+        HashMap<String, Label> labels = workspace.getTATab().getOfficeHoursGridTACellLabels();
 
         for (Label label : labels.values()) {
             if (label.getText().equals(taName)

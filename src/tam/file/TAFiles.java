@@ -31,11 +31,11 @@ import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
 import org.apache.commons.io.FileUtils;
 import properties_manager.PropertiesManager;
-import tam.TAManagerApp;
-import static tam.TAManagerProp.*;
+import tam.CSGApp;
+import static tam.CSGProp.*;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 
 /**
  * This class serves as the file component for the TA manager app. It provides
@@ -46,7 +46,7 @@ import tam.workspace.TAWorkspace;
 public class TAFiles implements AppFileComponent {
 
     // THIS IS THE APP ITSELF
-    TAManagerApp app;
+    CSGApp app;
 
     // THESE ARE USED FOR IDENTIFYING JSON TYPES
     static final String JSON_START_HOUR = "startHour";
@@ -58,7 +58,7 @@ public class TAFiles implements AppFileComponent {
     static final String JSON_UNDERGRAD_TAS = "undergrad_tas";
     static final String JSON_EMAIL = "email";
 
-    public TAFiles(TAManagerApp initApp) {
+    public TAFiles(CSGApp initApp) {
         app = initApp;
     }
 
@@ -77,9 +77,9 @@ public class TAFiles implements AppFileComponent {
         dataManager.setStartHour(Integer.parseInt(startHour));
         dataManager.setEndHour(Integer.parseInt(endHour));
 
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        workspace.getStartComboBox().setValue(startHour + ":00");
-        workspace.getEndComboBox().setValue(endHour + ":00");
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        workspace.getTATab().getStartComboBox().setValue(startHour + ":00");
+        workspace.getTATab().getEndComboBox().setValue(endHour + ":00");
 
         // NOW RELOAD THE WORKSPACE WITH THE LOADED DATA
         app.getWorkspaceComponent().reloadWorkspace(app.getDataComponent());

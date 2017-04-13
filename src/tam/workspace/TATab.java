@@ -1,14 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tam.workspace;
 
 import djf.components.AppDataComponent;
-import djf.components.AppWorkspaceComponent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
-import tam.TAManagerApp;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -17,41 +20,35 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
-import tam.TAManagerProp;
-import tam.style.TAStyle;
+import tam.CSGApp;
+import tam.CSGProp;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
+import tam.style.TAStyle;
 
 /**
- * This class serves as the workspace component for the TA Manager
- * application. It provides all the user interface controls in 
- * the workspace area.
- * 
- * @author Richard McKenna
+ *
+ * @author jaski
  */
-public class TAWorkspace extends AppWorkspaceComponent {
-    // THIS PROVIDES US WITH ACCESS TO THE APP COMPONENTS
-    TAManagerApp app;
+public class TATab {
 
-    // THIS PROVIDES RESPONSES TO INTERACTIONS WITH THIS WORKSPACE
+    CSGApp app;
     TAController controller;
-
-    // NOTE THAT EVERY CONTROL IS PUT IN A BOX TO HELP WITH ALIGNMENT
-    
-    // FOR THE HEADER ON THE LEFT
+    Tab taTab;
     HBox tasHeaderBox;
     Label tasHeaderLabel;
-    
+
     // FOR THE TA TABLE
     TableView<TeachingAssistant> taTable;
     TableColumn<TeachingAssistant, String> nameColumn;
@@ -67,7 +64,7 @@ public class TAWorkspace extends AppWorkspaceComponent {
     // THE HEADER ON THE RIGHT
     HBox officeHoursHeaderBox;
     Label officeHoursHeaderLabel;
-    
+
     // THE OFFICE HOURS GRID
     GridPane officeHoursGridPane;
     HashMap<String, Pane> officeHoursGridTimeHeaderPanes;
@@ -78,12 +75,14 @@ public class TAWorkspace extends AppWorkspaceComponent {
     HashMap<String, Label> officeHoursGridTimeCellLabels;
     HashMap<String, Pane> officeHoursGridTACellPanes;
     HashMap<String, Label> officeHoursGridTACellLabels;
-    
+
     ComboBox startComboBox;
     ComboBox endComboBox;
-    
+
+    HBox mainPane;
+
     ObservableList<String> hours = FXCollections.observableArrayList(
-            "0:00", 
+            "0:00",
             "1:00",
             "2:00",
             "3:00",
@@ -106,25 +105,19 @@ public class TAWorkspace extends AppWorkspaceComponent {
             "20:00",
             "21:00",
             "22:00",
-            "23:00"         
-            );
-    
+            "23:00"
+    );
 
-    /**
-     * The contstructor initializes the user interface, except for
-     * the full office hours grid, since it doesn't yet know what
-     * the hours will be until a file is loaded or a new one is created.
-     */
-    public TAWorkspace(TAManagerApp initApp) {
-        // KEEP THIS FOR LATER
-        app = initApp;
-
-        // WE'LL NEED THIS TO GET LANGUAGE PROPERTIES FOR OUR UI
+    public TATab(CSGApp app) {
+        this.app = app;
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        controller = new TAController(app);
+        taTab = new Tab();
 
         // INIT THE HEADER ON THE LEFT
         tasHeaderBox = new HBox();
-        String tasHeaderText = props.getProperty(TAManagerProp.TAS_HEADER_TEXT.toString());
+        String tasHeaderText = props.getProperty(CSGProp.TAS_HEADER_TEXT.toString());
         tasHeaderLabel = new Label(tasHeaderText);
         tasHeaderBox.getChildren().add(tasHeaderLabel);
 
@@ -134,8 +127,8 @@ public class TAWorkspace extends AppWorkspaceComponent {
         TAData data = (TAData) app.getDataComponent();
         ObservableList<TeachingAssistant> tableData = data.getTeachingAssistants();
         taTable.setItems(tableData);
-        String nameColumnText = props.getProperty(TAManagerProp.NAME_COLUMN_TEXT.toString());
-        String emailColumnText = props.getProperty(TAManagerProp.EMAIL_COLUMN_TEXT.toString());
+        String nameColumnText = props.getProperty(CSGProp.NAME_COLUMN_TEXT.toString());
+        String emailColumnText = props.getProperty(CSGProp.EMAIL_COLUMN_TEXT.toString());
         nameColumn = new TableColumn(nameColumnText);
         emailColumn = new TableColumn(emailColumnText);
         nameColumn.setCellValueFactory(
@@ -148,10 +141,10 @@ public class TAWorkspace extends AppWorkspaceComponent {
         taTable.getColumns().add(emailColumn);
 
         // ADD BOX FOR ADDING A TA
-        String namePromptText = props.getProperty(TAManagerProp.NAME_PROMPT_TEXT.toString());
-        String emailPromptText = props.getProperty(TAManagerProp.EMAIL_PROMPT_TEXT.toString());
-        String addButtonText = props.getProperty(TAManagerProp.ADD_BUTTON_TEXT.toString());
-        String clearButtonText = props.getProperty(TAManagerProp.CLEAR_BUTTON_TEXT.toString());
+        String namePromptText = props.getProperty(CSGProp.NAME_PROMPT_TEXT.toString());
+        String emailPromptText = props.getProperty(CSGProp.EMAIL_PROMPT_TEXT.toString());
+        String addButtonText = props.getProperty(CSGProp.ADD_BUTTON_TEXT.toString());
+        String clearButtonText = props.getProperty(CSGProp.CLEAR_BUTTON_TEXT.toString());
         nameTextField = new TextField();
         emailTextField = new TextField();
         nameTextField.setPromptText(namePromptText);
@@ -171,10 +164,17 @@ public class TAWorkspace extends AppWorkspaceComponent {
 
         // INIT THE HEADER ON THE RIGHT
         officeHoursHeaderBox = new HBox();
-        String officeHoursGridText = props.getProperty(TAManagerProp.OFFICE_HOURS_SUBHEADER.toString());
+        String officeHoursGridText = props.getProperty(CSGProp.OFFICE_HOURS_SUBHEADER.toString());
         officeHoursHeaderLabel = new Label(officeHoursGridText);
-        officeHoursHeaderBox.getChildren().add(officeHoursHeaderLabel);
-        
+        startComboBox = new ComboBox();
+        startComboBox.setValue("Start Time");
+        startComboBox.getItems().addAll(hours);
+        endComboBox = new ComboBox();
+        endComboBox.setValue("End Time");
+        endComboBox.getItems().addAll(hours);
+        officeHoursHeaderBox.getChildren().addAll(officeHoursHeaderLabel, 
+                startComboBox, endComboBox);
+
         // THESE WILL STORE PANES AND LABELS FOR OUR OFFICE HOURS GRID
         officeHoursGridPane = new GridPane();
         officeHoursGridTimeHeaderPanes = new HashMap();
@@ -185,33 +185,23 @@ public class TAWorkspace extends AppWorkspaceComponent {
         officeHoursGridTimeCellLabels = new HashMap();
         officeHoursGridTACellPanes = new HashMap();
         officeHoursGridTACellLabels = new HashMap();
-        startComboBox = new ComboBox();
-        startComboBox.setValue("Start Time");
-        startComboBox.getItems().addAll(hours);
-        endComboBox = new ComboBox();
-        endComboBox.setValue("End Time");
-        endComboBox.getItems().addAll(hours);
         HBox timeBoxPane = new HBox();
 
         // ORGANIZE THE LEFT AND RIGHT PANES
         VBox leftPane = new VBox();
-        leftPane.getChildren().add(tasHeaderBox);        
-        leftPane.getChildren().add(taTable);        
+        leftPane.getChildren().add(tasHeaderBox);
+        leftPane.getChildren().add(taTable);
         leftPane.getChildren().add(addBox);
         VBox rightPane = new VBox();
         rightPane.getChildren().add(officeHoursHeaderBox);
         rightPane.getChildren().add(officeHoursGridPane);
         rightPane.getChildren().add(timeBoxPane);
-        
-        // BOTH PANES WILL NOW GO IN A SPLIT PANE
-        SplitPane sPane = new SplitPane(leftPane, new ScrollPane(rightPane));
-        workspace = new BorderPane();
-        
-        // AND PUT EVERYTHING IN THE WORKSPACE
-        ((BorderPane) workspace).setCenter(sPane);
 
-        // MAKE SURE THE TABLE EXTENDS DOWN FAR ENOUGH
-        taTable.prefHeightProperty().bind(workspace.heightProperty().multiply(1.9));
+        mainPane = new HBox();
+        mainPane.getChildren().addAll(leftPane, rightPane);
+
+        taTab.setText("TA Data");
+        taTab.setContent(mainPane);
 
         // NOW LET'S SETUP THE EVENT HANDLING
         controller = new TAController(app);
@@ -226,8 +216,8 @@ public class TAWorkspace extends AppWorkspaceComponent {
         addButton.setOnAction(e -> {
             controller.handleAddTA();
         });
-        
-        clearButton.setOnAction(e ->{
+
+        clearButton.setOnAction(e -> {
             controller.clear();
         });
 
@@ -235,48 +225,44 @@ public class TAWorkspace extends AppWorkspaceComponent {
         taTable.setOnKeyPressed(e -> {
             controller.handleKeyPress(e.getCode());
         });
-        
+
         taTable.setOnMouseClicked(e -> {
             controller.handleEditTA();
         });
-        
+
         startComboBox.setOnAction(e -> {
             try {
                 controller.handleStartTime();
             } catch (IOException ex) {
-                Logger.getLogger(TAWorkspace.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CSGWorkspace.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         endComboBox.setOnAction(e -> {
             try {
                 controller.handleEndTime();
             } catch (IOException ex) {
-                Logger.getLogger(TAWorkspace.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CSGWorkspace.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
-        sPane.setOnKeyPressed(e -> {
+
+        mainPane.setOnKeyPressed(e -> {
             controller.handleUndoRedo(e.getCode(), e);
         });
     }
-    
-    
-    // WE'LL PROVIDE AN ACCESSOR METHOD FOR EACH VISIBLE COMPONENT
-    // IN CASE A CONTROLLER OR STYLE CLASS NEEDS TO CHANGE IT
-    
+
     public ComboBox getStartComboBox() {
         return startComboBox;
     }
-    
+
     public ComboBox getEndComboBox() {
         return endComboBox;
     }
-    
-    public Button getClearButton(){
+
+    public Button getClearButton() {
         return clearButton;
     }
-    
+
     public HBox getTAsHeaderBox() {
         return tasHeaderBox;
     }
@@ -348,7 +334,7 @@ public class TAWorkspace extends AppWorkspaceComponent {
     public HashMap<String, Label> getOfficeHoursGridTACellLabels() {
         return officeHoursGridTACellLabels;
     }
-    
+
     public String getCellKey(Pane testPane) {
         for (String key : officeHoursGridTACellLabels.keySet()) {
             if (officeHoursGridTACellPanes.get(key) == testPane) {
@@ -385,11 +371,10 @@ public class TAWorkspace extends AppWorkspaceComponent {
         return cellText;
     }
 
-    @Override
-    public void resetWorkspace() {
+    public void resetTAWorkspace() {
         // CLEAR OUT THE GRID PANE
         officeHoursGridPane.getChildren().clear();
-        
+
         // AND THEN ALL THE GRID PANES AND LABELS
         officeHoursGridTimeHeaderPanes.clear();
         officeHoursGridTimeHeaderLabels.clear();
@@ -400,29 +385,27 @@ public class TAWorkspace extends AppWorkspaceComponent {
         officeHoursGridTACellPanes.clear();
         officeHoursGridTACellLabels.clear();
     }
-    
-    @Override
-    public void reloadWorkspace(AppDataComponent dataComponent) {
-        TAData taData = (TAData)dataComponent;
+
+    public void reloadTAWorkspace(AppDataComponent dataComponent) {
+        TAData taData = (TAData) dataComponent;
         reloadOfficeHoursGrid(taData);
     }
 
-    public void reloadOfficeHoursGrid(TAData dataComponent) {        
+    public void reloadOfficeHoursGrid(TAData dataComponent) {
         ArrayList<String> gridHeaders = dataComponent.getGridHeaders();
-        
 
         // ADD THE TIME HEADERS
         for (int i = 0; i < 2; i++) {
             addCellToGrid(dataComponent, officeHoursGridTimeHeaderPanes, officeHoursGridTimeHeaderLabels, i, 0);
             dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));
         }
-        
+
         // THEN THE DAY OF WEEK HEADERS
-        for (int i = 2; i < 9; i++) {
+        for (int i = 2; i < 7; i++) {
             addCellToGrid(dataComponent, officeHoursGridDayHeaderPanes, officeHoursGridDayHeaderLabels, i, 0);
-            dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));            
+            dataComponent.getCellTextProperty(i, 0).set(gridHeaders.get(i));
         }
-        
+
         // THEN THE TIME AND TA CELLS
         int row = 1;
         for (int i = dataComponent.getStartHour(); i < dataComponent.getEndHour(); i++) {
@@ -430,31 +413,26 @@ public class TAWorkspace extends AppWorkspaceComponent {
             int col = 0;
             addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row);
             dataComponent.getCellTextProperty(col, row).set(buildCellText(i, "00"));
-            addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row+1);
-            dataComponent.getCellTextProperty(col, row+1).set(buildCellText(i, "30"));
+            addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row + 1);
+            dataComponent.getCellTextProperty(col, row + 1).set(buildCellText(i, "30"));
 
             // END TIME COLUMN
             col++;
             int endHour = i;
             addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row);
             dataComponent.getCellTextProperty(col, row).set(buildCellText(endHour, "30"));
-            addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row+1);
-            dataComponent.getCellTextProperty(col, row+1).set(buildCellText(endHour+1, "00"));
+            addCellToGrid(dataComponent, officeHoursGridTimeCellPanes, officeHoursGridTimeCellLabels, col, row + 1);
+            dataComponent.getCellTextProperty(col, row + 1).set(buildCellText(endHour + 1, "00"));
             col++;
 
             // AND NOW ALL THE TA TOGGLE CELLS
             while (col < 7) {
                 addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, col, row);
-                addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, col, row+1);
+                addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, col, row + 1);
                 col++;
             }
             row += 2;
         }
-        
-        addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 7, 1);
-        addCellToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 8, 1);
-        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 7, 1, startComboBox);
-        addComboBoxToGrid(dataComponent, officeHoursGridTACellPanes, officeHoursGridTACellLabels, 8, 1, endComboBox);
 
         // CONTROLS FOR TOGGLING TA OFFICE HOURS
         for (Pane p : officeHoursGridTACellPanes.values()) {
@@ -472,20 +450,21 @@ public class TAWorkspace extends AppWorkspaceComponent {
                 controller.handleGridCellMouseEntered((Pane) e.getSource());
             });
         }
-        
+
         // AND MAKE SURE ALL THE COMPONENTS HAVE THE PROPER STYLE
-        TAStyle taStyle = (TAStyle)app.getStyleComponent();
+        TAStyle taStyle = (TAStyle) app.getStyleComponent();
         taStyle.initOfficeHoursGridStyle();
     }
-    
-    public void addComboBoxToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row, ComboBox combo) {  
+
+    public void addComboBoxToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row, ComboBox combo) {
         HBox cellPane = new HBox();
         cellPane.setAlignment(Pos.CENTER);
         cellPane.getChildren().add(combo);
-        
+
         officeHoursGridPane.add(combo, col, row);
     }
-    public void addCellToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {       
+
+    public void addCellToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {
         // MAKE THE LABEL IN A PANE
         Label cellLabel = new Label("");
         HBox cellPane = new HBox();
@@ -496,16 +475,20 @@ public class TAWorkspace extends AppWorkspaceComponent {
         String cellKey = dataComponent.getCellKey(col, row);
         cellPane.setId(cellKey);
         cellLabel.setId(cellKey);
-        
+
         // NOW PUT THE CELL IN THE WORKSPACE GRID
         officeHoursGridPane.add(cellPane, col, row);
-        
+
         // AND ALSO KEEP IN IN CASE WE NEED TO STYLIZE IT
         panes.put(cellKey, cellPane);
         labels.put(cellKey, cellLabel);
-        
+
         // AND FINALLY, GIVE THE TEXT PROPERTY TO THE DATA MANAGER
         // SO IT CAN MANAGE ALL CHANGES
-        dataComponent.setCellProperty(col, row, cellLabel.textProperty());        
+        dataComponent.setCellProperty(col, row, cellLabel.textProperty());
+    }
+
+    public Tab getTab() {
+        return taTab;
     }
 }

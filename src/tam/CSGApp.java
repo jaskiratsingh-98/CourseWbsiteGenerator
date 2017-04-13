@@ -3,7 +3,7 @@ package tam;
 import java.util.Locale;
 import tam.data.TAData;
 import tam.file.TAFiles;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 import djf.AppTemplate;
 import tam.style.TAStyle;
 import static javafx.application.Application.launch;
@@ -19,7 +19,7 @@ import static javafx.application.Application.launch;
  * @author Richard McKenna
  * @version 1.0
  */
-public class TAManagerApp extends AppTemplate {
+public class CSGApp extends AppTemplate {
     /**
      * This hook method must initialize all four components in the
      * proper order ensuring proper dependencies are respected, meaning
@@ -32,7 +32,7 @@ public class TAManagerApp extends AppTemplate {
         // THE WORKSPACE NEEDS THE DATA COMPONENT TO EXIST ALREADY
         // WHEN IT IS CONSTRUCTED, SO BE CAREFUL OF THE ORDER
         dataComponent = new TAData(this);
-        workspaceComponent = new TAWorkspace(this);
+        workspaceComponent = new CSGWorkspace(this);
         fileComponent = new TAFiles(this);
         styleComponent = new TAStyle(this);
     }

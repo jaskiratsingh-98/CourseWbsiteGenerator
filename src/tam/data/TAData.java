@@ -9,9 +9,9 @@ import java.util.HashMap;
 import javafx.beans.property.StringProperty;
 import javafx.scene.layout.Pane;
 import properties_manager.PropertiesManager;
-import tam.TAManagerApp;
-import tam.TAManagerProp;
-import tam.workspace.TAWorkspace;
+import tam.CSGApp;
+import tam.CSGProp;
+import tam.workspace.CSGWorkspace;
 
 /**
  * This is the data component for TAManagerApp. It has all the data needed to be
@@ -23,7 +23,7 @@ import tam.workspace.TAWorkspace;
 public class TAData implements AppDataComponent {
 
     // WE'LL NEED ACCESS TO THE APP TO NOTIFY THE GUI WHEN DATA CHANGES
-    TAManagerApp app;
+    CSGApp app;
 
     // NOTE THAT THIS DATA STRUCTURE WILL DIRECTLY STORE THE
     // DATA IN THE ROWS OF THE TABLE VIEW
@@ -59,7 +59,7 @@ public class TAData implements AppDataComponent {
      *
      * @param initApp The application this data manager belongs to.
      */
-    public TAData(TAManagerApp initApp) {
+    public TAData(CSGApp initApp) {
         // KEEP THIS FOR LATER
         app = initApp;
 
@@ -75,8 +75,8 @@ public class TAData implements AppDataComponent {
 
         // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        ArrayList<String> timeHeaders = props.getPropertyOptionsList(TAManagerProp.OFFICE_HOURS_TABLE_HEADERS);
-        ArrayList<String> dowHeaders = props.getPropertyOptionsList(TAManagerProp.DAYS_OF_WEEK);
+        ArrayList<String> timeHeaders = props.getPropertyOptionsList(CSGProp.OFFICE_HOURS_TABLE_HEADERS);
+        ArrayList<String> dowHeaders = props.getPropertyOptionsList(CSGProp.DAYS_OF_WEEK);
         gridHeaders = new ArrayList();
         gridHeaders.addAll(timeHeaders);
         gridHeaders.addAll(dowHeaders);
@@ -211,8 +211,8 @@ public class TAData implements AppDataComponent {
         // WE'LL BUILD THE USER INTERFACE COMPONENT FOR THE
         // OFFICE HOURS GRID AND FEED THEM TO OUR DATA
         // STRUCTURE AS WE GO
-        TAWorkspace workspaceComponent = (TAWorkspace) app.getWorkspaceComponent();
-        workspaceComponent.reloadOfficeHoursGrid(this);
+        CSGWorkspace workspaceComponent = (CSGWorkspace) app.getWorkspaceComponent();
+        workspaceComponent.getTATab().reloadOfficeHoursGrid(this);
     }
 
     public void initHours(String startHourText, String endHourText) {
@@ -355,7 +355,7 @@ public class TAData implements AppDataComponent {
     }
 
     public boolean hasTAInRange(int startTime, int editTime) {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         int range = (editTime - startTime) * 2;
 
         for (int row = 1; row <= range; row++) {
@@ -372,7 +372,7 @@ public class TAData implements AppDataComponent {
     }
     
     public boolean hasTAInRangeEnd(int endTime, int editTime) {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         int range = (endTime - editTime) * 2;
         
         int row = (endHour - startHour)*2;

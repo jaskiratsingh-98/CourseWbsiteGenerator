@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import jtps.jTPS_Transaction;
 import tam.data.TAData;
 import tam.file.TimeSlot;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 
 /**
  *
@@ -21,9 +21,9 @@ public class ChangeStartTime_Transaction implements jTPS_Transaction {
     private int newTime;
     private ArrayList<TimeSlot> officeHours;
     TAData data;
-    TAWorkspace workspace;
+    CSGWorkspace workspace;
 
-    public ChangeStartTime_Transaction(int newTime, int oldTime, ArrayList<TimeSlot> officeHours, TAData data, TAWorkspace workspace) {
+    public ChangeStartTime_Transaction(int newTime, int oldTime, ArrayList<TimeSlot> officeHours, TAData data, CSGWorkspace workspace) {
         this.newTime = newTime;
         this.oldTime = oldTime;
         this.officeHours = officeHours;
@@ -48,7 +48,7 @@ public class ChangeStartTime_Transaction implements jTPS_Transaction {
                 data.addOfficeHoursReservation(day, time, name);
             }
         }
-        workspace.getStartComboBox().setValue(newTime + ":00");
+        workspace.getTATab().getStartComboBox().setValue(newTime + ":00");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ChangeStartTime_Transaction implements jTPS_Transaction {
                 data.addOfficeHoursReservation(day, time, name);
             }
         }
-        workspace.getStartComboBox().setValue(oldTime + ":00");
+        workspace.getTATab().getStartComboBox().setValue(oldTime + ":00");
     }
 
 }

@@ -9,7 +9,7 @@ import static djf.settings.AppPropertyType.WORK_FILE_EXT;
 import static djf.settings.AppPropertyType.WORK_FILE_EXT_DESC;
 import static djf.settings.AppStartupConstants.PATH_WORK;
 import djf.ui.AppGUI;
-import static tam.TAManagerProp.*;
+import static tam.CSGProp.*;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
 import java.io.File;
@@ -22,14 +22,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import properties_manager.PropertiesManager;
-import tam.TAManagerApp;
+import tam.CSGApp;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
 import tam.style.TAStyle;
 import static tam.style.TAStyle.CLASS_HIGHLIGHTED_GRID_CELL;
 import static tam.style.TAStyle.CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN;
 import static tam.style.TAStyle.CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.Button;
@@ -43,7 +43,7 @@ import jtps.jTPS_Transaction;
 import tam.file.TAFiles;
 import tam.file.TimeSlot;
 import tam.transaction.*;
-import tam.TAManagerProp.*;
+import tam.CSGProp.*;
 
 /**
  * This class provides responses to all workspace interactions, meaning
@@ -55,7 +55,7 @@ import tam.TAManagerProp.*;
 public class TAController {
 
     // THE APP PROVIDES ACCESS TO OTHER COMPONENTS AS NEEDED
-    TAManagerApp app;
+    CSGApp app;
     static jTPS jTPS;
 
     private Pattern pattern;
@@ -68,7 +68,7 @@ public class TAController {
     /**
      * Constructor, note that the app must already be constructed.
      */
-    public TAController(TAManagerApp initApp) {
+    public TAController(CSGApp initApp) {
         // KEEP THIS FOR LATER
         app = initApp;
         jTPS = new jTPS();
@@ -84,18 +84,18 @@ public class TAController {
     }
 
     public void handleEditTA() {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        TableView taTable = workspace.getTATable();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        TableView taTable = workspace.getTATab().getTATable();
 
         Object selectedItem = taTable.getSelectionModel().getSelectedItem();
         TeachingAssistant ta = (TeachingAssistant) selectedItem;
 
         TAData data = (TAData) app.getDataComponent();
 
-        TextField nameTextField = workspace.getNameTextField();
-        TextField emailTextField = workspace.getEmailTextField();
+        TextField nameTextField = workspace.getTATab().getNameTextField();
+        TextField emailTextField = workspace.getTATab().getEmailTextField();
 
-        Button addButton = workspace.getAddButton();
+        Button addButton = workspace.getTATab().getAddButton();
 
         if (ta.getName() != null) {
             nameTextField.setText(ta.getName());
@@ -122,13 +122,13 @@ public class TAController {
     }
 
     public void updateTA(TeachingAssistant ta) {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        TextField nameTextField = workspace.getNameTextField();
-        TextField emailTextField = workspace.getEmailTextField();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        TextField nameTextField = workspace.getTATab().getNameTextField();
+        TextField emailTextField = workspace.getTATab().getEmailTextField();
         String origName = ta.getName();
         String editName = nameTextField.getText();
         String editEmail = emailTextField.getText();
-        TableView table = workspace.getTATable();
+        TableView table = workspace.getTATab().getTATable();
 
         TAData data = (TAData) app.getDataComponent();
 
@@ -204,9 +204,9 @@ public class TAController {
      */
     public void handleAddTA() {
         // WE'LL NEED THE WORKSPACE TO RETRIEVE THE USER INPUT VALUES
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        TextField nameTextField = workspace.getNameTextField();
-        TextField emailTextField = workspace.getEmailTextField();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        TextField nameTextField = workspace.getTATab().getNameTextField();
+        TextField emailTextField = workspace.getTATab().getEmailTextField();
         String name = nameTextField.getText();
         String email = emailTextField.getText();
 
@@ -272,8 +272,8 @@ public class TAController {
         // DID THE USER PRESS THE DELETE KEY?
         if (code == KeyCode.DELETE) {
             // GET THE TABLE
-            TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-            TableView taTable = workspace.getTATable();
+            CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+            TableView taTable = workspace.getTATab().getTATable();
 
             // IS A TA SELECTED IN THE TABLE?
             Object selectedItem = taTable.getSelectionModel().getSelectedItem();
@@ -313,8 +313,8 @@ public class TAController {
      */
     public void handleCellToggle(Pane pane) {
         // GET THE TABLE
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        TableView taTable = workspace.getTATable();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        TableView taTable = workspace.getTATab().getTATable();
 
         // IS A TA SELECTED IN THE TABLE?
         Object selectedItem = taTable.getSelectionModel().getSelectedItem();
@@ -340,26 +340,26 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
 
-        Pane mousedOverPane = workspace.getTACellPane(data.getCellKey(column, row));
+        Pane mousedOverPane = workspace.getTATab().getTACellPane(data.getCellKey(column, row));
         mousedOverPane.getStyleClass().clear();
         mousedOverPane.getStyleClass().add(CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
 
         // THE MOUSED OVER COLUMN HEADER
-        Pane headerPane = workspace.getOfficeHoursGridDayHeaderPanes().get(data.getCellKey(column, 0));
+        Pane headerPane = workspace.getTATab().getOfficeHoursGridDayHeaderPanes().get(data.getCellKey(column, 0));
         headerPane.getStyleClass().remove(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
 
         // THE MOUSED OVER ROW HEADERS
-        headerPane = workspace.getOfficeHoursGridTimeCellPanes().get(data.getCellKey(0, row));
+        headerPane = workspace.getTATab().getOfficeHoursGridTimeCellPanes().get(data.getCellKey(0, row));
         headerPane.getStyleClass().remove(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
-        headerPane = workspace.getOfficeHoursGridTimeCellPanes().get(data.getCellKey(1, row));
+        headerPane = workspace.getTATab().getOfficeHoursGridTimeCellPanes().get(data.getCellKey(1, row));
         headerPane.getStyleClass().remove(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
 
         // AND NOW UPDATE ALL THE CELLS IN THE SAME ROW TO THE LEFT
         for (int i = 2; i < column; i++) {
             cellKey = data.getCellKey(i, row);
-            Pane cell = workspace.getTACellPane(cellKey);
+            Pane cell = workspace.getTATab().getTACellPane(cellKey);
             cell.getStyleClass().remove(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
             cell.getStyleClass().add(CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
         }
@@ -367,7 +367,7 @@ public class TAController {
         // AND THE CELLS IN THE SAME COLUMN ABOVE
         for (int i = 1; i < row; i++) {
             cellKey = data.getCellKey(column, i);
-            Pane cell = workspace.getTACellPane(cellKey);
+            Pane cell = workspace.getTATab().getTACellPane(cellKey);
             cell.getStyleClass().remove(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
             cell.getStyleClass().add(CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
         }
@@ -378,63 +378,63 @@ public class TAController {
         TAData data = (TAData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
 
         // THE MOUSED OVER PANE
-        Pane mousedOverPane = workspace.getTACellPane(data.getCellKey(column, row));
+        Pane mousedOverPane = workspace.getTATab().getTACellPane(data.getCellKey(column, row));
         mousedOverPane.getStyleClass().clear();
         mousedOverPane.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_CELL);
 
         // THE MOUSED OVER COLUMN HEADER
-        Pane headerPane = workspace.getOfficeHoursGridDayHeaderPanes().get(data.getCellKey(column, 0));
+        Pane headerPane = workspace.getTATab().getOfficeHoursGridDayHeaderPanes().get(data.getCellKey(column, 0));
         headerPane.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
 
         // THE MOUSED OVER ROW HEADERS
-        headerPane = workspace.getOfficeHoursGridTimeCellPanes().get(data.getCellKey(0, row));
+        headerPane = workspace.getTATab().getOfficeHoursGridTimeCellPanes().get(data.getCellKey(0, row));
         headerPane.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
-        headerPane = workspace.getOfficeHoursGridTimeCellPanes().get(data.getCellKey(1, row));
+        headerPane = workspace.getTATab().getOfficeHoursGridTimeCellPanes().get(data.getCellKey(1, row));
         headerPane.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
 
         // AND NOW UPDATE ALL THE CELLS IN THE SAME ROW TO THE LEFT
         for (int i = 2; i < column; i++) {
             cellKey = data.getCellKey(i, row);
-            Pane cell = workspace.getTACellPane(cellKey);
+            Pane cell = workspace.getTATab().getTACellPane(cellKey);
             cell.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
         }
 
         // AND THE CELLS IN THE SAME COLUMN ABOVE
         for (int i = 1; i < row; i++) {
             cellKey = data.getCellKey(column, i);
-            Pane cell = workspace.getTACellPane(cellKey);
+            Pane cell = workspace.getTATab().getTACellPane(cellKey);
             cell.getStyleClass().add(CLASS_HIGHLIGHTED_GRID_ROW_OR_COLUMN);
         }
     }
 
     public void clear() {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        TableView taTable = workspace.getTATable();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        TableView taTable = workspace.getTATab().getTATable();
         taTable.getSelectionModel().clearSelection();
-        workspace.getNameTextField().setText("");
-        workspace.getEmailTextField().setText("");
+        workspace.getTATab().getNameTextField().setText("");
+        workspace.getTATab().getEmailTextField().setText("");
 
-        workspace.getAddButton().setText("Add TA");
+        workspace.getTATab().getAddButton().setText("Add TA");
 
-        workspace.getNameTextField().requestFocus();
+        workspace.getTATab().getNameTextField().requestFocus();
 
-        workspace.getNameTextField().setOnAction(e -> {
+        workspace.getTATab().getNameTextField().setOnAction(e -> {
             handleAddTA();
         });
-        workspace.getEmailTextField().setOnAction(e -> {
+        workspace.getTATab().getEmailTextField().setOnAction(e -> {
             handleAddTA();
         });
-        workspace.getAddButton().setOnAction(e -> {
+        workspace.getTATab().getAddButton().setOnAction(e -> {
             handleAddTA();
         });
     }
 
     public void handleStartTime() throws IOException {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        ComboBox startComboBox = workspace.getStartComboBox();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        ComboBox startComboBox = workspace.getTATab().getStartComboBox();
         TAData data = (TAData) app.getDataComponent();
         TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -469,8 +469,8 @@ public class TAController {
     }
 
     public void handleEndTime() throws IOException {
-        TAWorkspace workspace = (TAWorkspace) app.getWorkspaceComponent();
-        ComboBox endComboBox = workspace.getEndComboBox();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        ComboBox endComboBox = workspace.getTATab().getEndComboBox();
         TAData data = (TAData) app.getDataComponent();
         TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();

@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import jtps.jTPS_Transaction;
 import tam.data.TAData;
 import tam.data.TeachingAssistant;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 
 /**
  *
@@ -22,10 +22,10 @@ public class UpdateTA_Transaction implements jTPS_Transaction {
     private String newName;
     private String newEmail;
     TAData data;
-    TAWorkspace workspace;
+    CSGWorkspace workspace;
     TeachingAssistant ta;
 
-    public UpdateTA_Transaction(String oldName, String oldEmail, String newName, String newEmail, TAData data, TAWorkspace workspace, TeachingAssistant ta) {
+    public UpdateTA_Transaction(String oldName, String oldEmail, String newName, String newEmail, TAData data, CSGWorkspace workspace, TeachingAssistant ta) {
         this.oldName = oldName;
         this.oldEmail = oldEmail;
         this.newName = newName;
@@ -39,12 +39,12 @@ public class UpdateTA_Transaction implements jTPS_Transaction {
     public void doTransaction() {
         data.editTA(newName, newEmail, ta);
 
-        for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
+        for (Pane p : workspace.getTATab().getOfficeHoursGridTACellPanes().values()) {
             String cellKey = p.getId();
             data.toggleEditHours(cellKey, newName, oldName);
         }
         
-        workspace.getTATable().refresh();
+        workspace.getTATab().getTATable().refresh();
 
     }
 
@@ -52,12 +52,12 @@ public class UpdateTA_Transaction implements jTPS_Transaction {
     public void undoTransaction() {
         data.editTA(oldName, oldEmail, ta);
 
-        for (Pane p : workspace.getOfficeHoursGridTACellPanes().values()) {
+        for (Pane p : workspace.getTATab().getOfficeHoursGridTACellPanes().values()) {
             String cellKey = p.getId();
             data.toggleEditHours(cellKey, oldName, newName);
         }
         
-        workspace.getTATable().refresh();
+        workspace.getTATab().getTATable().refresh();
 
     }
 

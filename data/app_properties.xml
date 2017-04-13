@@ -65,6 +65,66 @@
 	<property name="WORK_FILE_EXT_DESC"		value="TA Office Hours"></property>
 
         <!-- WORKSPACE CONTROLS STUFF -->        
+        <property name="SUBJECT_LABEL"                  value="Subject:"></property>  
+        <property name="NUMBER_LABEL"                   value="Number:"></property>  
+        <property name="SEMESTER_LABEL"                 value="Semester:"></property>  
+        <property name="YEAR_LABEL"                     value="Year:"></property>  
+        <property name="TITLE_LABEL"                    value="Title:"></property> 
+        <property name="INSNAME_LABEL"                     value="Instructor Name:"></property> 
+        <property name="HOME_LABEL"                     value="Instructor Home:"></property> 
+        <property name="COURSE_INFO_LABEL"              value="Course Info"></property> 
+        <property name="SITE_LABEL"                     value="Site Template"></property>
+        <property name="DESC_LABEL"                     value="The selected directory should contain the full site template, including the HTML files."></property>
+        <property name="SITE_PAGES_LABEL"               value="Site Pages:"></property>
+        <property name="USE_TEXT"                       value="Use"></property>
+        <property name="NAVBAR_TEXT"                    value="Navbar Title"></property>
+        <property name="FILE_TEXT"                      value="File Name"></property>
+        <property name="SCRIPT_TEXT"                    value="Script"></property>
+        <property name="PAGE_LABEL"                     value="Page Style"></property>
+        <property name="BANNER_LABEL"                   value="Banner School Image:"></property>
+        <property name="FOOTER_LEFTLABEL"               value="Left Footer Image:"></property>
+        <property name="FOOTER_RIGHTLABEL"              value="Right Footer Image:"></property>
+        <property name="STYLESHEET_LABEL"               value="Stylesheet:"></property>
+        <property name="NOTE_LABEL"                     value="NOTE: New stylesheet may be placed in work/css to be selectable."></property>
+        <property name="RECITATION_LABEL"               value="Recitations"></property>
+        <property name="SECTION_TEXT"                   value="Section"></property>
+        <property name="INSTRUCTOR_TEXT"                value="Instructor"></property>
+        <property name="DAY_TIME_TEXT"                  value="Day/Time"></property>
+        <property name="LOCATION_TEXT"                  value="Location"></property>
+        <property name="TA_TEXT"                        value="TA"></property>
+        <property name="ADDEDIT_LABEL"                  value="Add/Edit"></property>
+        <property name="SUPERVISING_LABEL"              value="Supervising TA"></property>
+        <property name="ADDUPDATE_BUTTON"               value="Add/Update"></property>
+        <property name="CLEAR_BUTTON"                   value="Clear"></property>
+        <property name="SCHEDULE_LABEL"                 value="Schedule"></property>
+        <property name="CAL_BOUNDS_LABEL"               value="Calendar Boundaries"></property>
+        <property name="CAL_START"                      value="Starting Monday:"></property>
+        <property name="CAL_END"                        value="Ending Friday:"></property>
+        <property name="SCHEDULEITEMS_LABEL"            value="Schedule Items"></property>
+        <property name="TYPETEXT"                       value="Type"></property>
+        <property name="DATETEXT"                       value="Date"></property>
+        <property name="TITLETEXT"                      value="Title"></property>
+        <property name="TOPICTEXT"                      value="Topic"></property>
+        <property name="TIMELABEL"                      value="Time"></property>
+        <property name="TITLELABEL"                     value="Title"></property>
+        <property name="LINKLABEL"                      value="Link"></property>
+        <property name="CRITERIALABEL"                  value="Criteria"></property>
+        <property name="PROJECTLABEL"                   value="Projects"></property>
+        <property name="TEAMS_LABEL"                    value="Teams"></property>
+        <property name="NAME_TEXT"                      value="Name"></property>
+        <property name="COLOR_TEXT"                     value="Color (hex#)"></property>
+        <property name="TEXTCOLOR_TEXT"                 value="Text Color (hex#)"></property>
+        <property name="LINK_TEXT"                      value="Link"></property>
+        <property name="NAME_LABEL"                      value="Name:"></property>
+        <property name="COLOR_LABEL"                     value="Color (hex#):"></property>
+        <property name="TEXTCOLOR_LABEL"                 value="Text Color (hex#):"></property>
+        <property name="LINK_LABEL"                     value="Link:"></property>
+        <property name="FIRSTNAME_TEXT"                     value="First Name"></property>
+        <property name="LASTNAME_TEXT"                     value="Last Name"></property>
+        <property name="TEAM_TEXT"                     value="Team"></property>
+        <property name="ROLE_TEXT"                     value="Role"></property>
+        <property name="START_LABEL"                     value="Start:"></property>
+        <property name="END_LABEL"                     value="End:"></property>
         <property name="TAS_HEADER_TEXT"                value="Teaching Assistants"></property>
         <property name="NAME_COLUMN_TEXT"               value="Name"></property>
         <property name="EMAIL_COLUMN_TEXT"              value="Email"></property>
@@ -116,8 +176,6 @@
             <option>WEDNESDAY</option>
             <option>THURSDAY</option>
             <option>FRIDAY</option>
-            <option>Start Time</option>
-            <option>End Time</option>
         </property_options>
     </property_options_list>
 </properties>

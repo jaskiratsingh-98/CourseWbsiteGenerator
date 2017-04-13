@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import tam.data.TeachingAssistant;
-import tam.workspace.TAWorkspace;
+import tam.workspace.CSGWorkspace;
 
 /**
  * This class manages all CSS style for this application.
@@ -75,26 +75,26 @@ public class TAStyle extends AppStyleComponent {
      */
     private void initTAWorkspaceStyle() {
         // LEFT SIDE - THE HEADER
-        TAWorkspace workspaceComponent = (TAWorkspace)app.getWorkspaceComponent();
-        workspaceComponent.getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
-        workspaceComponent.getTAsHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+        CSGWorkspace workspaceComponent = (CSGWorkspace)app.getWorkspaceComponent();
+        workspaceComponent.getTATab().getTAsHeaderBox().getStyleClass().add(CLASS_HEADER_PANE);
+        workspaceComponent.getTATab().getTAsHeaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
 
         // LEFT SIDE - THE TABLE
-        TableView<TeachingAssistant> taTable = workspaceComponent.getTATable();
+        TableView<TeachingAssistant> taTable = workspaceComponent.getTATab().getTATable();
         taTable.getStyleClass().add(CLASS_TA_TABLE);
         for (TableColumn tableColumn : taTable.getColumns()) {
             tableColumn.getStyleClass().add(CLASS_TA_TABLE_COLUMN_HEADER);
         }
 
         // LEFT SIDE - THE TA DATA ENTRY
-        workspaceComponent.getAddBox().getStyleClass().add(CLASS_ADD_TA_PANE);
-        workspaceComponent.getNameTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
-        workspaceComponent.getEmailTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
-        workspaceComponent.getAddButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
+        workspaceComponent.getTATab().getAddBox().getStyleClass().add(CLASS_ADD_TA_PANE);
+        workspaceComponent.getTATab().getNameTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
+        workspaceComponent.getTATab().getEmailTextField().getStyleClass().add(CLASS_ADD_TA_TEXT_FIELD);
+        workspaceComponent.getTATab().getAddButton().getStyleClass().add(CLASS_ADD_TA_BUTTON);
 
         // RIGHT SIDE - THE HEADER
-        workspaceComponent.getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
-        workspaceComponent.getOfficeHoursSubheaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
+        workspaceComponent.getTATab().getOfficeHoursSubheaderBox().getStyleClass().add(CLASS_HEADER_PANE);
+        workspaceComponent.getTATab().getOfficeHoursSubheaderLabel().getStyleClass().add(CLASS_HEADER_LABEL);
     }
     
     /**
@@ -104,16 +104,16 @@ public class TAStyle extends AppStyleComponent {
      */
     public void initOfficeHoursGridStyle() {
         // RIGHT SIDE - THE OFFICE HOURS GRID TIME HEADERS
-        TAWorkspace workspaceComponent = (TAWorkspace)app.getWorkspaceComponent();
-        workspaceComponent.getOfficeHoursGridPane().getStyleClass().add(CLASS_OFFICE_HOURS_GRID);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeHeaderPanes(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_PANE);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeHeaderLabels(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_LABEL);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridDayHeaderPanes(), CLASS_OFFICE_HOURS_GRID_DAY_COLUMN_HEADER_PANE);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridDayHeaderLabels(), CLASS_OFFICE_HOURS_GRID_DAY_COLUMN_HEADER_LABEL);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeCellPanes(), CLASS_OFFICE_HOURS_GRID_TIME_CELL_PANE);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTimeCellLabels(), CLASS_OFFICE_HOURS_GRID_TIME_CELL_LABEL);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTACellPanes(), CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
-        setStyleClassOnAll(workspaceComponent.getOfficeHoursGridTACellLabels(), CLASS_OFFICE_HOURS_GRID_TA_CELL_LABEL);
+        CSGWorkspace workspaceComponent = (CSGWorkspace)app.getWorkspaceComponent();
+        workspaceComponent.getTATab().getOfficeHoursGridPane().getStyleClass().add(CLASS_OFFICE_HOURS_GRID);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTimeHeaderPanes(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_PANE);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTimeHeaderLabels(), CLASS_OFFICE_HOURS_GRID_TIME_COLUMN_HEADER_LABEL);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridDayHeaderPanes(), CLASS_OFFICE_HOURS_GRID_DAY_COLUMN_HEADER_PANE);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridDayHeaderLabels(), CLASS_OFFICE_HOURS_GRID_DAY_COLUMN_HEADER_LABEL);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTimeCellPanes(), CLASS_OFFICE_HOURS_GRID_TIME_CELL_PANE);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTimeCellLabels(), CLASS_OFFICE_HOURS_GRID_TIME_CELL_LABEL);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTACellPanes(), CLASS_OFFICE_HOURS_GRID_TA_CELL_PANE);
+        setStyleClassOnAll(workspaceComponent.getTATab().getOfficeHoursGridTACellLabels(), CLASS_OFFICE_HOURS_GRID_TA_CELL_LABEL);
     }
     
     /**

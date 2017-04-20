@@ -34,7 +34,11 @@ import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import static tam.CSGProp.*;
 import tam.data.CSGData;
+import tam.data.Recitation;
+import tam.data.Schedule;
+import tam.data.Student;
 import tam.data.TeachingAssistant;
+import tam.data.Team;
 import tam.workspace.CSGWorkspace;
 
 /**
@@ -55,8 +59,32 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_DAY = "day";
     static final String JSON_TIME = "time";
     static final String JSON_NAME = "name";
-    static final String JSON_UNDERGRAD_TAS = "undergrad_tas";
+    static final String JSON_UNDERGRAD = "undergrad";
+    static final String JSON_TAS = "tas";
     static final String JSON_EMAIL = "email";
+    static final String JSON_SECTION = "section";
+    static final String JSON_INSTRUCTOR = "instructor";
+    static final String JSON_DAYTIME = "dayTime";
+    static final String JSON_LOCATION = "location";
+    static final String JSON_TA1 = "ta1";
+    static final String JSON_TA2 = "ta2";
+    static final String JSON_TYPE = "type";
+    static final String JSON_DATE = "date";
+    static final String JSON_TITLE = "title";
+    static final String JSON_TOPIC = "topic";
+    static final String JSON_FIRSTNAME = "firstName";
+    static final String JSON_LASTNAME = "lastName";
+    static final String JSON_TEAM = "team";
+    static final String JSON_ROLE = "role";
+    static final String JSON_COLOR = "color";
+    static final String JSON_TEXTCOLOR = "textColor";
+    static final String JSON_LINK = "link";
+    static final String JSON_RECS = "recitations";
+    static final String JSON_SCHD = "schedule";
+    static final String JSON_STU = "students";
+    static final String JSON_TEAMS = "teams";
+    
+    
 
     public CSGFiles(CSGApp initApp) {
         app = initApp;
@@ -85,7 +113,7 @@ public class CSGFiles implements AppFileComponent {
         app.getWorkspaceComponent().reloadWorkspace(app.getDataComponent());
 
         // NOW LOAD ALL THE UNDERGRAD TAs
-        JsonArray jsonTAArray = json.getJsonArray(JSON_UNDERGRAD_TAS);
+        JsonArray jsonTAArray = json.getJsonArray(JSON_TAS);
         for (int i = 0; i < jsonTAArray.size(); i++) {
             JsonObject jsonTA = jsonTAArray.getJsonObject(i);
             String name = jsonTA.getString(JSON_NAME);
@@ -126,7 +154,8 @@ public class CSGFiles implements AppFileComponent {
         for (TeachingAssistant ta : tas) {
             JsonObject taJson = Json.createObjectBuilder()
                     .add(JSON_NAME, ta.getName())
-                    .add(JSON_EMAIL, ta.getEmail()).build();
+                    .add(JSON_EMAIL, ta.getEmail())
+                    .add(JSON_UNDERGRAD, ta.isUndergrad()).build();
             taArrayBuilder.add(taJson);
         }
         JsonArray undergradTAsArray = taArrayBuilder.build();
@@ -142,13 +171,71 @@ public class CSGFiles implements AppFileComponent {
             timeSlotArrayBuilder.add(tsJson);
         }
         JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
+        
+        //Build Recitations Array
+        JsonArrayBuilder recitationsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Recitation> rec = dataManager.getRecitations();
+        for (Recitation ra : rec) {
+            JsonObject raJson = Json.createObjectBuilder()
+                    .add(JSON_SECTION, ra.getSection())
+                    .add(JSON_INSTRUCTOR, ra.getInstructor())
+                    .add(JSON_DAYTIME, ra.getDayTime())
+                    .add(JSON_LOCATION, ra.getLocation())
+                    .add(JSON_TA1, ra.getTa1().getName())
+                    .add(JSON_TA2, ra.getTa2().getName()).build();
+            taArrayBuilder.add(raJson);
+        }
+        JsonArray recitationsArray = recitationsArrayBuilder.build();
+        
+        //Build Schedule Array
+        JsonArrayBuilder scheduleArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Schedule> sch = dataManager.getSchedule();
+        for (Schedule sa : sch) {
+            JsonObject schJson = Json.createObjectBuilder()
+                    .add(JSON_TYPE, sa.getType())
+                    .add(JSON_DATE, sa.getDate())
+                    .add(JSON_TITLE, sa.getTitle())
+                    .add(JSON_TOPIC, sa.getTopic()).build();
+            taArrayBuilder.add(schJson);
+        }
+        JsonArray scheduleArray = scheduleArrayBuilder.build();
+        
+        //Build Students Array
+        JsonArrayBuilder studentsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Student> stu = dataManager.getStudents();
+        for (Student st : stu) {
+            JsonObject schJson = Json.createObjectBuilder()
+                    .add(JSON_FIRSTNAME, st.getFirstName())
+                    .add(JSON_LASTNAME, st.getLastName())
+                    .add(JSON_TEAM, st.getTeam().getName())
+                    .add(JSON_ROLE, st.getRole()).build();
+            taArrayBuilder.add(schJson);
+        }
+        JsonArray studentArray = studentsArrayBuilder.build();
 
+        //Build Students Array
+        JsonArrayBuilder teamsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Team> team = dataManager.getTeams();
+        for (Team tm : team) {
+            JsonObject schJson = Json.createObjectBuilder()
+                    .add(JSON_NAME, tm.getName())
+                    .add(JSON_COLOR, tm.getColor())
+                    .add(JSON_TEXTCOLOR, tm.getTextColor())
+                    .add(JSON_LINK, tm.getLink()).build();
+            taArrayBuilder.add(schJson);
+        }
+        JsonArray teamArray = teamsArrayBuilder.build();
+        
         // THEN PUT IT ALL TOGETHER IN A JsonObject
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_START_HOUR, "" + dataManager.getStartHour())
                 .add(JSON_END_HOUR, "" + dataManager.getEndHour())
-                .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
+                .add(JSON_TAS, undergradTAsArray)
                 .add(JSON_OFFICE_HOURS, timeSlotsArray)
+                .add(JSON_RECS, recitationsArray)
+                .add(JSON_SCHD, scheduleArray)
+                .add(JSON_STU, studentArray)
+                .add(JSON_TEAM, teamArray)
                 .build();
 
         // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING

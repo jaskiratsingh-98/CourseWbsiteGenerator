@@ -20,7 +20,7 @@ import tam.workspace.CSGWorkspace;
  *
  * @author Richard McKenna
  */
-public class TAData implements AppDataComponent {
+public class CSGData implements AppDataComponent {
 
     // WE'LL NEED ACCESS TO THE APP TO NOTIFY THE GUI WHEN DATA CHANGES
     CSGApp app;
@@ -59,7 +59,7 @@ public class TAData implements AppDataComponent {
      *
      * @param initApp The application this data manager belongs to.
      */
-    public TAData(CSGApp initApp) {
+    public CSGData(CSGApp initApp) {
         // KEEP THIS FOR LATER
         app = initApp;
 

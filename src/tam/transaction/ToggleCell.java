@@ -6,7 +6,7 @@
 package tam.transaction;
 
 import jtps.jTPS_Transaction;
-import tam.data.TAData;
+import tam.data.CSGData;
 
 /**
  *
@@ -16,9 +16,9 @@ public class ToggleCell implements jTPS_Transaction{
     
     private String cellKey;
     private String taName;
-    private TAData data;
+    private CSGData data;
     
-    public ToggleCell(String cellKey, String taName, TAData data){
+    public ToggleCell(String cellKey, String taName, CSGData data){
         this.cellKey = cellKey;
         this.taName = taName;
         this.data = data;

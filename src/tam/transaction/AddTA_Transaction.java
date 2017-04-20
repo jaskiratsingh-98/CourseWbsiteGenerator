@@ -6,7 +6,7 @@
 package tam.transaction;
 
 import jtps.jTPS_Transaction;
-import tam.data.TAData;
+import tam.data.CSGData;
 
 /**
  *
@@ -16,10 +16,10 @@ public class AddTA_Transaction implements jTPS_Transaction{
     
     private String taName;
     private String taEmail;
-    private TAData data;
+    private CSGData data;
     
     
-    public AddTA_Transaction(String name, String email, TAData data){
+    public AddTA_Transaction(String name, String email, CSGData data){
         taName = name;
         taEmail = email;
         this.data = data;

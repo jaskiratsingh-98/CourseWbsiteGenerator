@@ -23,7 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import properties_manager.PropertiesManager;
 import tam.CSGApp;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.data.TeachingAssistant;
 import tam.style.CSGStyle;
 import static tam.style.CSGStyle.CLASS_HIGHLIGHTED_GRID_CELL;
@@ -92,7 +92,7 @@ public class TAController {
         Object selectedItem = taTable.getSelectionModel().getSelectedItem();
         TeachingAssistant ta = (TeachingAssistant) selectedItem;
 
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
 
         TextField nameTextField = workspace.getTATab().getNameTextField();
         TextField emailTextField = workspace.getTATab().getEmailTextField();
@@ -147,7 +147,7 @@ public class TAController {
         String editEmail = emailTextField.getText();
         TableView table = workspace.getTATab().getTATable();
 
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         jTPS_Transaction updateTA = new UpdateTA_Transaction(origName, ta.getEmail(), editName, editEmail, data, workspace, ta);
@@ -228,7 +228,7 @@ public class TAController {
         String email = emailTextField.getText();
 
         // WE'LL NEED TO ASK THE DATA SOME QUESTIONS TOO
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
 
         // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -298,7 +298,7 @@ public class TAController {
                 // GET THE TA AND REMOVE IT
                 TeachingAssistant ta = (TeachingAssistant) selectedItem;
                 String taName = ta.getName();
-                TAData data = (TAData) app.getDataComponent();
+                CSGData data = (CSGData) app.getDataComponent();
 
                 jTPS_Transaction delTATrans = new DeleteTA_Transaction(ta.getName(), ta.getEmail(), data, workspace);
                 jTPS.addTransaction(delTATrans);
@@ -347,7 +347,7 @@ public class TAController {
             // GET THE TA
             TeachingAssistant ta = (TeachingAssistant) selectedItem;
             String taName = ta.getName();
-            TAData data = (TAData) app.getDataComponent();
+            CSGData data = (CSGData) app.getDataComponent();
             String cellKey = pane.getId();
 
             jTPS_Transaction togTrans = new ToggleCell(cellKey, taName, data);
@@ -362,7 +362,7 @@ public class TAController {
 
     void handleGridCellMouseExited(Pane pane) {
         String cellKey = pane.getId();
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
@@ -400,7 +400,7 @@ public class TAController {
 
     void handleGridCellMouseEntered(Pane pane) {
         String cellKey = pane.getId();
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         int column = Integer.parseInt(cellKey.substring(0, cellKey.indexOf("_")));
         int row = Integer.parseInt(cellKey.substring(cellKey.indexOf("_") + 1));
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
@@ -460,7 +460,7 @@ public class TAController {
     public void handleStartTime() throws IOException {
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         ComboBox startComboBox = workspace.getTATab().getStartComboBox();
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(data);
@@ -496,7 +496,7 @@ public class TAController {
     public void handleEndTime() throws IOException {
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         ComboBox endComboBox = workspace.getTATab().getEndComboBox();
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         TAFiles file = (TAFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(data);

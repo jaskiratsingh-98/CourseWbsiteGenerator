@@ -10,7 +10,7 @@ import java.util.HashMap;
 import javafx.scene.control.Label;
 import jtps.jTPS_Transaction;
 import tam.CSGApp;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.file.TimeSlot;
 import tam.workspace.CSGWorkspace;
 
@@ -22,13 +22,13 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
 
     private String taName;
     private String taEmail;
-    private TAData data;
+    private CSGData data;
     private ArrayList<TimeSlot> hours;
     CSGWorkspace workspace;
     CSGApp app;
     
 
-    public DeleteTA_Transaction(String taName, String taEmail, TAData data, CSGWorkspace workspace) {
+    public DeleteTA_Transaction(String taName, String taEmail, CSGData data, CSGWorkspace workspace) {
         this.taName = taName;
         this.taEmail = taEmail;
         this.data = data;

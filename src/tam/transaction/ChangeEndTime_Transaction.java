@@ -7,7 +7,7 @@ package tam.transaction;
 
 import java.util.ArrayList;
 import jtps.jTPS_Transaction;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.file.TimeSlot;
 import tam.workspace.CSGWorkspace;
 
@@ -20,10 +20,10 @@ public class ChangeEndTime_Transaction implements jTPS_Transaction{
     private int oldTime;
     private int newTime;
     private ArrayList<TimeSlot> officeHours;
-    TAData data;
+    CSGData data;
     CSGWorkspace workspace;
 
-    public ChangeEndTime_Transaction(int newTime, int oldTime, ArrayList<TimeSlot> officeHours, TAData data, CSGWorkspace workspace) {
+    public ChangeEndTime_Transaction(int newTime, int oldTime, ArrayList<TimeSlot> officeHours, CSGData data, CSGWorkspace workspace) {
         this.newTime = newTime;
         this.oldTime = oldTime;
         this.officeHours = officeHours;

@@ -1,7 +1,7 @@
 package tam;
 
 import java.util.Locale;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.file.TAFiles;
 import tam.workspace.CSGWorkspace;
 import djf.AppTemplate;
@@ -31,7 +31,7 @@ public class CSGApp extends AppTemplate {
         // CONSTRUCT ALL FOUR COMPONENTS. NOTE THAT FOR THIS APP
         // THE WORKSPACE NEEDS THE DATA COMPONENT TO EXIST ALREADY
         // WHEN IT IS CONSTRUCTED, SO BE CAREFUL OF THE ORDER
-        dataComponent = new TAData(this);
+        dataComponent = new CSGData(this);
         workspaceComponent = new CSGWorkspace(this);
         fileComponent = new TAFiles(this);
         styleComponent = new CSGStyle(this);

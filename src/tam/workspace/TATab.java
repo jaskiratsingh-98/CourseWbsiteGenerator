@@ -35,7 +35,7 @@ import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import tam.CSGProp;
 import static tam.CSGProp.UNDERGRAD_TEXT;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.data.TAUndergradValueFactory;
 import tam.data.TeachingAssistant;
 import tam.style.CSGStyle;
@@ -133,7 +133,7 @@ public class TATab {
         // MAKE THE TABLE AND SETUP THE DATA MODEL
         taTable = new TableView();
         taTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        TAData data = (TAData) app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         ObservableList<TeachingAssistant> tableData = data.getTeachingAssistants();
         taTable.setItems(tableData);
         String nameColumnText = props.getProperty(CSGProp.NAME_COLUMN_TEXT.toString());
@@ -415,11 +415,11 @@ public class TATab {
     }
 
     public void reloadTAWorkspace(AppDataComponent dataComponent) {
-        TAData taData = (TAData) dataComponent;
+        CSGData taData = (CSGData) dataComponent;
         reloadOfficeHoursGrid(taData);
     }
 
-    public void reloadOfficeHoursGrid(TAData dataComponent) {
+    public void reloadOfficeHoursGrid(CSGData dataComponent) {
         ArrayList<String> gridHeaders = dataComponent.getGridHeaders();
 
         // ADD THE TIME HEADERS
@@ -484,7 +484,7 @@ public class TATab {
         taStyle.initOfficeHoursGridStyle();
     }
 
-    public void addComboBoxToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row, ComboBox combo) {
+    public void addComboBoxToGrid(CSGData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row, ComboBox combo) {
         HBox cellPane = new HBox();
         cellPane.setAlignment(Pos.CENTER);
         cellPane.getChildren().add(combo);
@@ -492,7 +492,7 @@ public class TATab {
         officeHoursGridPane.add(combo, col, row);
     }
 
-    public void addCellToGrid(TAData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {
+    public void addCellToGrid(CSGData dataComponent, HashMap<String, Pane> panes, HashMap<String, Label> labels, int col, int row) {
         // MAKE THE LABEL IN A PANE
         Label cellLabel = new Label("");
         HBox cellPane = new HBox();

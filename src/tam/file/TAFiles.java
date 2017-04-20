@@ -33,7 +33,7 @@ import org.apache.commons.io.FileUtils;
 import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import static tam.CSGProp.*;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.data.TeachingAssistant;
 import tam.workspace.CSGWorkspace;
 
@@ -65,7 +65,7 @@ public class TAFiles implements AppFileComponent {
     @Override
     public void loadData(AppDataComponent data, String filePath) throws IOException {
         // CLEAR THE OLD DATA OUT
-        TAData dataManager = (TAData) data;
+        CSGData dataManager = (CSGData) data;
 
         // LOAD THE JSON FILE WITH ALL THE DATA
         JsonObject json = loadJSONFile(filePath);
@@ -118,7 +118,7 @@ public class TAFiles implements AppFileComponent {
     @Override
     public void saveData(AppDataComponent data, String filePath) throws IOException {
         // GET THE DATA
-        TAData dataManager = (TAData) data;
+        CSGData dataManager = (CSGData) data;
 
         // NOW BUILD THE TA JSON OBJCTS TO SAVE
         JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();

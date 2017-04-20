@@ -7,7 +7,7 @@ package tam.transaction;
 
 import javafx.scene.layout.Pane;
 import jtps.jTPS_Transaction;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.data.TeachingAssistant;
 import tam.workspace.CSGWorkspace;
 
@@ -21,11 +21,11 @@ public class UpdateTA_Transaction implements jTPS_Transaction {
     private String oldEmail;
     private String newName;
     private String newEmail;
-    TAData data;
+    CSGData data;
     CSGWorkspace workspace;
     TeachingAssistant ta;
 
-    public UpdateTA_Transaction(String oldName, String oldEmail, String newName, String newEmail, TAData data, CSGWorkspace workspace, TeachingAssistant ta) {
+    public UpdateTA_Transaction(String oldName, String oldEmail, String newName, String newEmail, CSGData data, CSGWorkspace workspace, TeachingAssistant ta) {
         this.oldName = oldName;
         this.oldEmail = oldEmail;
         this.newName = newName;

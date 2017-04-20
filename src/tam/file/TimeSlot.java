@@ -3,7 +3,7 @@ package tam.file;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
-import tam.data.TAData;
+import tam.data.CSGData;
 import tam.data.TeachingAssistant;
 
 /**
@@ -49,7 +49,7 @@ public class TimeSlot {
      * input since it reflects how office hours are stored in the 
      * JSON file.
      */
-    public static ArrayList<TimeSlot> buildOfficeHoursList(TAData data) {
+    public static ArrayList<TimeSlot> buildOfficeHoursList(CSGData data) {
         // BUILD AND RETURN THIS LIST
         ArrayList<TimeSlot> officeHoursList = new ArrayList();
         ArrayList<String> gridHeaders = data.getGridHeaders();
@@ -77,7 +77,7 @@ public class TimeSlot {
         return officeHoursList;
     }
     
-    public static ArrayList<TimeSlot> buildCustomList(TAData data, String name) {
+    public static ArrayList<TimeSlot> buildCustomList(CSGData data, String name) {
         // BUILD AND RETURN THIS LIST
         ArrayList<TimeSlot> officeHoursList = new ArrayList();
         ArrayList<String> gridHeaders = data.getGridHeaders();

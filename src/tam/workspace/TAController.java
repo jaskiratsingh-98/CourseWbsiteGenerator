@@ -42,7 +42,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
-import tam.file.TAFiles;
+import tam.file.CSGFiles;
 import tam.file.TimeSlot;
 import tam.transaction.*;
 import tam.CSGProp.*;
@@ -461,7 +461,7 @@ public class TAController {
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         ComboBox startComboBox = workspace.getTATab().getStartComboBox();
         CSGData data = (CSGData) app.getDataComponent();
-        TAFiles file = (TAFiles) app.getFileComponent();
+        CSGFiles file = (CSGFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(data);
 
@@ -497,7 +497,7 @@ public class TAController {
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         ComboBox endComboBox = workspace.getTATab().getEndComboBox();
         CSGData data = (CSGData) app.getDataComponent();
-        TAFiles file = (TAFiles) app.getFileComponent();
+        CSGFiles file = (CSGFiles) app.getFileComponent();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(data);
 

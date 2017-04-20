@@ -24,6 +24,12 @@ public class CSGData implements AppDataComponent {
 
     // WE'LL NEED ACCESS TO THE APP TO NOTIFY THE GUI WHEN DATA CHANGES
     CSGApp app;
+    
+    CourseInfo courseInfo;
+    ObservableList<Recitation> recitations;
+    ObservableList<Schedule> schedule;
+    ObservableList<Team> teams;
+    ObservableList<Student> students;
 
     // NOTE THAT THIS DATA STRUCTURE WILL DIRECTLY STORE THE
     // DATA IN THE ROWS OF THE TABLE VIEW
@@ -65,6 +71,10 @@ public class CSGData implements AppDataComponent {
 
         // CONSTRUCT THE LIST OF TAs FOR THE TABLE
         teachingAssistants = FXCollections.observableArrayList();
+        recitations = FXCollections.observableArrayList();
+        schedule = FXCollections.observableArrayList();
+        teams = FXCollections.observableArrayList();
+        students = FXCollections.observableArrayList();
 
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
@@ -91,6 +101,10 @@ public class CSGData implements AppDataComponent {
         startHour = MIN_START_HOUR;
         endHour = MAX_END_HOUR;
         teachingAssistants.clear();
+        recitations.clear();
+        schedule.clear();
+        teams.clear();
+        students.clear();
         officeHours.clear();
     }
 
@@ -109,6 +123,22 @@ public class CSGData implements AppDataComponent {
 
     public ObservableList getTeachingAssistants() {
         return teachingAssistants;
+    }
+
+    public ObservableList<Recitation> getRecitations() {
+        return recitations;
+    }
+
+    public ObservableList<Schedule> getSchedule() {
+        return schedule;
+    }
+
+    public ObservableList<Team> getTeams() {
+        return teams;
+    }
+
+    public ObservableList<Student> getStudents() {
+        return students;
     }
 
     public String getCellKey(int col, int row) {
@@ -386,6 +416,113 @@ public class CSGData implements AppDataComponent {
                     return true;
                 }
                 row--;
+            }
+        }
+        return false;
+    }
+    
+    public void addRecitation(String section, String instructor, String dayTime,
+            String location, TeachingAssistant ta1, TeachingAssistant ta2) {
+        // MAKE THE TA
+        Recitation ra = new Recitation(section, instructor, dayTime, 
+                location, ta1, ta2);
+
+        // ADD THE TA
+        if (!containsRecitation(ra)) {
+            recitations.add(ra);
+        }
+
+        // SORT THE TAS
+        Collections.sort(recitations);
+    }
+    
+    public void editRecitation(Recitation recitation){
+//        if (containsRecitation(recitation)) {
+//            TeachingAssistant taToEdit
+//                    = teachingAssistants.get(teachingAssistants.indexOf(ta));
+//            taToEdit.setName(editName);
+//            taToEdit.setEmail(editEmail);
+//        }
+
+        Collections.sort(recitations);
+    }
+    
+    public boolean containsRecitation(Recitation ra){
+        for (Recitation ra1 : recitations) {
+            if ((ra.getSection().equals(ra1.getSection())) &&
+                (ra.getInstructor().equals(ra1.getInstructor())) &&
+                (ra.getDayTime().equals(ra1.getDayTime())) &&
+                (ra.getLocation().equals(ra1.getLocation())) &&
+                (ra.getTa1().equals(ra1.getTa1())) &&
+                (ra.getTa2().equals(ra1.getTa2()))){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void addSchedule(String type, String date, String title, String topic){
+        Schedule sch = new Schedule(type, date, title, topic);
+
+        if (!containsSchedule(sch)) {
+            schedule.add(sch);
+        }
+        
+//        Collections.sort(recitations);
+    }
+    
+    public boolean containsSchedule(Schedule sch){
+        for (Schedule sch1 : schedule) {
+            if ((sch.getType().equals(sch1.getType())) &&
+                (sch.getDate().equals(sch1.getDate())) &&
+                (sch.getTitle().equals(sch1.getTitle())) &&
+                (sch.getTopic().equals(sch1.getTopic()))){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void addTeam(String name, String color, String textColor, String link){
+        Team team = new Team(name, color, textColor, link);
+
+        if (!containsTeam(team)) {
+            teams.add(team);
+        }
+        
+//        Collections.sort(recitations);
+    }
+    
+    public boolean containsTeam(Team team){
+        for (Team team1 : teams) {
+            if ((team.getName().equals(team1.getName())) &&
+                (team.getColor().equals(team1.getColor())) &&
+                (team.getTextColor().equals(team1.getTextColor())) &&
+                (team.getLink().equals(team1.getLink()))){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void addStudent(String firstName, String lastName, 
+            Team team, String role){
+        Student student = new Student(firstName, lastName, team, role);
+
+        if (!containsStudent(student)) {
+            students.add(student);
+        }
+        
+//        Collections.sort(recitations);
+    }
+    
+    public boolean containsStudent(Student stu){
+        for (Student stu1 : students) {
+            if ((stu.getFirstName().equals(stu1.getFirstName())) &&
+                (stu.getLastName().equals(stu1.getLastName())) &&
+                (stu.getTeam().equals(stu1.getTeam())) &&
+                (stu.getRole().equals(stu1.getRole()))){
+                return true;
             }
         }
         return false;

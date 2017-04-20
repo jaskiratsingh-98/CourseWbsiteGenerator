@@ -43,7 +43,7 @@ import tam.workspace.CSGWorkspace;
  *
  * @author Richard McKenna
  */
-public class TAFiles implements AppFileComponent {
+public class CSGFiles implements AppFileComponent {
 
     // THIS IS THE APP ITSELF
     CSGApp app;
@@ -58,7 +58,7 @@ public class TAFiles implements AppFileComponent {
     static final String JSON_UNDERGRAD_TAS = "undergrad_tas";
     static final String JSON_EMAIL = "email";
 
-    public TAFiles(CSGApp initApp) {
+    public CSGFiles(CSGApp initApp) {
         app = initApp;
     }
 

@@ -2,7 +2,7 @@ package tam;
 
 import java.util.Locale;
 import tam.data.CSGData;
-import tam.file.TAFiles;
+import tam.file.CSGFiles;
 import tam.workspace.CSGWorkspace;
 import djf.AppTemplate;
 import tam.style.CSGStyle;
@@ -33,7 +33,7 @@ public class CSGApp extends AppTemplate {
         // WHEN IT IS CONSTRUCTED, SO BE CAREFUL OF THE ORDER
         dataComponent = new CSGData(this);
         workspaceComponent = new CSGWorkspace(this);
-        fileComponent = new TAFiles(this);
+        fileComponent = new CSGFiles(this);
         styleComponent = new CSGStyle(this);
     }
     

@@ -443,7 +443,7 @@ public class CSGData implements AppDataComponent {
     }
     
     public void addRecitation(String section, String instructor, String dayTime,
-            String location, TeachingAssistant ta1, TeachingAssistant ta2) {
+            String location, String ta1, String ta2) {
         // MAKE THE TA
         Recitation ra = new Recitation(section, instructor, dayTime, 
                 location, ta1, ta2);

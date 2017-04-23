@@ -5,10 +5,12 @@
  */
 package tam.workspace;
 
+import javafx.collections.ObservableList;
 import static tam.CSGProp.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,26 +20,30 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
+import tam.CSGApp;
+import tam.data.CSGData;
 import tam.data.Recitation;
+import tam.data.TeachingAssistant;
 
 /**
  *
  * @author jaski
  */
 public class RecitationTab {
+    CSGApp app;
     Tab tab;
-    
+
     Label recitationLabel;
     Button hideButton;
-    
-    TableView<String> recitations;
-    TableColumn<String, String> sectionColumn;
-    TableColumn<String, String> instructorColumn;
-    TableColumn<String, String> dayTimeColumn;
-    TableColumn<String, String> locationColumn;
-    TableColumn<String, String> ta1Column;
-    TableColumn<String, String> ta2Column;
-    
+
+    TableView<Recitation> recitations;
+    TableColumn<Recitation, String> sectionColumn;
+    TableColumn<Recitation, String> instructorColumn;
+    TableColumn<Recitation, String> dayTimeColumn;
+    TableColumn<Recitation, String> locationColumn;
+    TableColumn<Recitation, String> ta1Column;
+    TableColumn<Recitation, String> ta2Column;
+
     Label addEdit;
     Label sectionLabel;
     TextField sectionTextField;
@@ -49,27 +55,32 @@ public class RecitationTab {
     TextField locationTextField;
     Label supervisingLabel;
     Label supervisingLabel2;
-    
+
     ComboBox ta1ComboBox;
     ComboBox ta2ComboBox;
-    
+
     Button addUpdate;
     Button clear;
-    
+
     VBox mainPane;
     VBox addEditPane;
-    
-    public RecitationTab(){
+
+    public RecitationTab(CSGApp app) {
+        this.app = app;
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         tab = new Tab();
-        
+
         recitationLabel = new Label(props.getProperty(RECITATION_LABEL));
         hideButton = new Button("-");
-        
+
         HBox box1 = new HBox();
         box1.getChildren().addAll(recitationLabel, hideButton);
-        
+
         recitations = new TableView();
+        recitations.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        CSGData data = (CSGData) app.getDataComponent();
+        ObservableList<Recitation> recData = data.getRecitations();
+        recitations.setItems(recData);
         
         sectionColumn = new TableColumn(props.getProperty(SECTION_TEXT));
         instructorColumn = new TableColumn(props.getProperty(INSTRUCTOR_TEXT));
@@ -77,37 +88,57 @@ public class RecitationTab {
         locationColumn = new TableColumn(props.getProperty(LOCATION_TEXT));
         ta1Column = new TableColumn(props.getProperty(TA_TEXT));
         ta2Column = new TableColumn(props.getProperty(TA_TEXT));
-        
+
         sectionColumn.setCellValueFactory(
                 new PropertyValueFactory<>("section")
         );
+
+        instructorColumn.setCellValueFactory(
+                new PropertyValueFactory<>("instructor")
+        );
         
+        dayTimeColumn.setCellValueFactory(
+                new PropertyValueFactory<>("dayTime")
+        );
+        
+        locationColumn.setCellValueFactory(
+                new PropertyValueFactory<>("location")
+        );
+        
+        ta1Column.setCellValueFactory(
+                new PropertyValueFactory<>("ta1")
+        );
+        
+        ta2Column.setCellValueFactory(
+                new PropertyValueFactory<>("ta2")
+        );
+
         recitations.getColumns().addAll(sectionColumn, instructorColumn,
                 dayTimeColumn, locationColumn,
                 ta1Column, ta2Column);
-        
+
         addEdit = new Label(props.getProperty(ADDEDIT_LABEL));
-        
+
         sectionLabel = new Label(props.getProperty(SECTION_TEXT));
         sectionTextField = new TextField();
-        
+
         instructorLabel = new Label(props.getProperty(INSTRUCTOR_TEXT));
         instructorTextField = new TextField();
-        
+
         dayTimeLabel = new Label(props.getProperty(DAY_TIME_TEXT));
         dayTimeTextField = new TextField();
-        
+
         locationLabel = new Label(props.getProperty(LOCATION_TEXT));
         locationTextField = new TextField();
-        
+
         supervisingLabel = new Label(props.getProperty(SUPERVISING_LABEL));
         supervisingLabel2 = new Label(props.getProperty(SUPERVISING_LABEL));
         ta1ComboBox = new ComboBox();
         ta2ComboBox = new ComboBox();
-        
+
         addUpdate = new Button(props.getProperty(ADDUPDATE_BUTTON));
         clear = new Button(props.getProperty(CLEAR_BUTTON));
-        
+
         GridPane box2 = new GridPane();
         box2.setHgap(5.0);
         box2.setVgap(2.0);
@@ -125,18 +156,18 @@ public class RecitationTab {
         box2.add(ta2ComboBox, 3, 5);
         box2.add(addUpdate, 1, 6);
         box2.add(clear, 3, 6);
-        
+
         addEditPane = new VBox();
-        
+
         addEditPane.getChildren().addAll(addEdit, box2);
-        
+
         mainPane = new VBox();
         mainPane.getChildren().addAll(box1, recitations, addEditPane);
         tab.setText("Recitation Data");
         tab.setContent(mainPane);
     }
-    
-    public Tab getTab(){
+
+    public Tab getTab() {
         return tab;
     }
 
@@ -148,7 +179,7 @@ public class RecitationTab {
         return addEditPane;
     }
 
-    public TableView<String> getRecitations() {
+    public TableView<Recitation> getRecitations() {
         return recitations;
     }
 
@@ -159,7 +190,5 @@ public class RecitationTab {
     public Label getAddEdit() {
         return addEdit;
     }
-    
-    
-    
+
 }

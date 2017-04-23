@@ -140,10 +140,8 @@ public class CSGFiles implements AppFileComponent {
             String instructor = jsonRec.getString(JSON_INSTRUCTOR);
             String dayTime = jsonRec.getString(JSON_DAYTIME);
             String location = jsonRec.getString(JSON_LOCATION);
-            String ta1St = jsonRec.getString(JSON_TA1);
-            String ta2St = jsonRec.getString(JSON_TA2);
-            TeachingAssistant ta1 = dataManager.getTA(ta1St);
-            TeachingAssistant ta2 = dataManager.getTA(ta2St);
+            String ta1 = jsonRec.getString(JSON_TA1);
+            String ta2 = jsonRec.getString(JSON_TA2);
             dataManager.addRecitation(section, instructor, dayTime, location, ta1, ta2);
         }
         
@@ -227,8 +225,8 @@ public class CSGFiles implements AppFileComponent {
                     .add(JSON_INSTRUCTOR, ra.getInstructor())
                     .add(JSON_DAYTIME, ra.getDayTime())
                     .add(JSON_LOCATION, ra.getLocation())
-                    .add(JSON_TA1, ra.getTa1().getName())
-                    .add(JSON_TA2, ra.getTa2().getName()).build();
+                    .add(JSON_TA1, ra.getTa1())
+                    .add(JSON_TA2, ra.getTa2()).build();
             taArrayBuilder.add(raJson);
         }
         JsonArray recitationsArray = recitationsArrayBuilder.build();
@@ -281,7 +279,7 @@ public class CSGFiles implements AppFileComponent {
                 .add(JSON_RECS, recitationsArray)
                 .add(JSON_SCHD, scheduleArray)
                 .add(JSON_STU, studentArray)
-                .add(JSON_TEAM, teamArray)
+                .add(JSON_TEAMS, teamArray)
                 .build();
 
         // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING

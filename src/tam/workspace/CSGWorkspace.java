@@ -69,7 +69,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         tabPane = new TabPane();
         taTab = new TATab(app);
         courseTab = new CourseInfoTab(app);
-        recitationTab = new RecitationTab();
+        recitationTab = new RecitationTab(app);
         scheduleTab = new ScheduleTab();
         projectTab = new ProjectTab();
         

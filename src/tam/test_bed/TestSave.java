@@ -92,7 +92,7 @@ public class TestSave {
         ta2.setUndergrad(false);
         Team team1 = new Team("Team1", "ffffff", "222222", "Designer");
         Student a = new Student("Jaskirat", "Singh", team1, "Designer");
-        Recitation rec = new Recitation("S05", "McKenna", "T 3:00 - 5:00", "Javits", ta1, ta2);
+        Recitation rec = new Recitation("S05", "McKenna", "T 3:00 - 5:00", "Javits", "Jaskirat", "Jaskiran");
         Schedule e = new Schedule("Holiday", "Date", "Topic", "Link");
 
         teachingAssistants.add(ta1);
@@ -133,8 +133,8 @@ public class TestSave {
                         .add(JSON_INSTRUCTOR, ra.getInstructor())
                         .add(JSON_DAYTIME, ra.getDayTime())
                         .add(JSON_LOCATION, ra.getLocation())
-                        .add(JSON_TA1, ra.getTa1().getName())
-                        .add(JSON_TA2, ra.getTa2().getName()).build();
+                        .add(JSON_TA1, ra.getTa1())
+                        .add(JSON_TA2, ra.getTa2()).build();
                 recitationsArrayBuilder.add(raJson);
             }
             JsonArray recitationsArray = recitationsArrayBuilder.build();

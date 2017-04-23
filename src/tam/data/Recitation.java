@@ -17,17 +17,17 @@ public class Recitation<E extends Comparable<E>> implements Comparable<E> {
     private final StringProperty instructor;
     private final StringProperty dayTime;
     private final StringProperty location;
-    private TeachingAssistant ta1;
-    private TeachingAssistant ta2;
+    private final StringProperty ta1;
+    private final StringProperty ta2;
     
     public Recitation(String section, String instructor, String dayTime, 
-            String location, TeachingAssistant ta1, TeachingAssistant ta2){
+            String location, String ta1, String ta2){
         this.section = new SimpleStringProperty(section);
         this.instructor = new SimpleStringProperty(instructor);
         this.dayTime = new SimpleStringProperty(dayTime);
         this.location = new SimpleStringProperty(location);
-        this.ta1 = ta1;
-        this.ta2 = ta2;
+        this.ta1 = new SimpleStringProperty(ta1);
+        this.ta2 = new SimpleStringProperty(ta2);
     }
     
     public String getSection(){
@@ -62,20 +62,20 @@ public class Recitation<E extends Comparable<E>> implements Comparable<E> {
         this.location.set(location);
     }
 
-    public TeachingAssistant getTa1() {
-        return ta1;
+    public String getTa1() {
+        return ta1.get();
     }
 
-    public TeachingAssistant getTa2() {
-        return ta2;
+    public String getTa2() {
+        return ta2.get();
     }
 
-    public void setTa1(TeachingAssistant ta1) {
-        this.ta1 = ta1;
+    public void setTa1(String ta1) {
+        this.ta1.set(ta1);
     }
 
-    public void setTa2(TeachingAssistant ta2) {
-        this.ta2 = ta2;
+    public void setTa2(String ta2) {
+        this.ta2.set(ta2);
     }
     
     @Override

@@ -527,7 +527,7 @@ public class CSGData implements AppDataComponent {
     }
     
     public void addStudent(String firstName, String lastName, 
-            Team team, String role){
+            String team, String role){
         Student student = new Student(firstName, lastName, team, role);
 
         if (!containsStudent(student)) {

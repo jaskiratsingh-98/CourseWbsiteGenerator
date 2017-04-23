@@ -91,7 +91,7 @@ public class TestSave {
         TeachingAssistant ta2 = new TeachingAssistant("Jaskiran", "Kaur");
         ta2.setUndergrad(false);
         Team team1 = new Team("Team1", "ffffff", "222222", "Designer");
-        Student a = new Student("Jaskirat", "Singh", team1, "Designer");
+        Student a = new Student("Jaskirat", "Singh", "Team1", "Designer");
         Recitation rec = new Recitation("S05", "McKenna", "T 3:00 - 5:00", "Javits", "Jaskirat", "Jaskiran");
         Schedule e = new Schedule("Holiday", "Date", "Topic", "Link");
 
@@ -157,7 +157,7 @@ public class TestSave {
                 JsonObject schJson = Json.createObjectBuilder()
                         .add(JSON_FIRSTNAME, st.getFirstName())
                         .add(JSON_LASTNAME, st.getLastName())
-                        .add(JSON_TEAM, st.getTeam().getName())
+                        .add(JSON_TEAM, st.getTeam())
                         .add(JSON_ROLE, st.getRole()).build();
                 studentsArrayBuilder.add(schJson);
             }

@@ -71,7 +71,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         courseTab = new CourseInfoTab(app);
         recitationTab = new RecitationTab(app);
         scheduleTab = new ScheduleTab(app);
-        projectTab = new ProjectTab();
+        projectTab = new ProjectTab(app);
         
         tabPane.getTabs().add(courseTab.getTab());
         tabPane.getTabs().add(taTab.getTab());

@@ -5,26 +5,33 @@
  */
 package tam.workspace;
 
+import javafx.collections.ObservableList;
 import static tam.CSGProp.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
+import tam.CSGApp;
+import tam.data.CSGData;
+import tam.data.Student;
+import tam.data.Team;
 
 /**
  *
  * @author jaski
  */
 public class ProjectTab {
-
+    CSGApp app;
     Tab tab;
 
     private VBox mainPane;
@@ -38,11 +45,11 @@ public class ProjectTab {
     Label studentTitle;
     Button hideStudentPane;
 
-    TableView<String> teams;
-    TableColumn<String, String> nameColumn;
-    TableColumn<String, String> colorColumn;
-    TableColumn<String, String> textColorColumn;
-    TableColumn<String, String> linkColumn;
+    TableView<Team> teams;
+    TableColumn<Team, String> nameColumn;
+    TableColumn<Team, String> colorColumn;
+    TableColumn<Team, String> textColorColumn;
+    TableColumn<Team, String> linkColumn;
 
     Label addEdit;
     Label name;
@@ -56,11 +63,11 @@ public class ProjectTab {
     Button addUpdate;
     Button clear;
 
-    TableView<String> students;
-    TableColumn<String, String> firstNameColumn;
-    TableColumn<String, String> lastNameColumn;
-    TableColumn<String, String> teamColumn;
-    TableColumn<String, String> roleColumn;
+    TableView<Student> students;
+    TableColumn<Student, String> firstNameColumn;
+    TableColumn<Student, String> lastNameColumn;
+    TableColumn<Student, String> teamColumn;
+    TableColumn<Student, String> roleColumn;
 
     Label addEdit2;
 
@@ -76,7 +83,9 @@ public class ProjectTab {
     Button addUpdate2;
     Button clear2;
 
-    public ProjectTab() {
+    public ProjectTab(CSGApp app) {
+        this.app = app;
+        
         tab = new Tab();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
@@ -88,10 +97,32 @@ public class ProjectTab {
         box.getChildren().addAll(teamTitle, hideTeamPane);
 
         teams = new TableView();
+        teams.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        CSGData data = (CSGData) app.getDataComponent();
+        ObservableList<Team> teamData = data.getTeams();
+        teams.setItems(teamData);
+        
         nameColumn = new TableColumn(props.getProperty(NAME_TEXT));
         colorColumn = new TableColumn(props.getProperty(COLOR_TEXT));
         textColorColumn = new TableColumn(props.getProperty(TEXTCOLOR_TEXT));
         linkColumn = new TableColumn(props.getProperty(LINK_TEXT));
+        
+        nameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("name")
+        );
+        
+        colorColumn.setCellValueFactory(
+                new PropertyValueFactory<>("color")
+        );
+        
+        textColorColumn.setCellValueFactory(
+                new PropertyValueFactory<>("textColor")
+        );
+        
+        linkColumn.setCellValueFactory(
+                new PropertyValueFactory<>("link")
+        );
+        
         teams.getColumns().addAll(nameColumn, colorColumn, textColorColumn,
                 linkColumn);
 
@@ -134,10 +165,31 @@ public class ProjectTab {
         box5.getChildren().addAll(studentTitle, hideStudentPane);
 
         students = new TableView();
+        students.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        ObservableList<Student> stuData = data.getStudents();
+        students.setItems(stuData);
+        
         firstNameColumn = new TableColumn(props.getProperty(FIRSTNAME_TEXT));
         lastNameColumn = new TableColumn(props.getProperty(LASTNAME_TEXT));
         teamColumn = new TableColumn(props.getProperty(TEAM_TEXT));
         roleColumn = new TableColumn(props.getProperty(ROLE_TEXT));
+        
+        firstNameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("firstName")
+        );
+        
+        lastNameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("lastName")
+        );
+        
+        teamColumn.setCellValueFactory(
+                new PropertyValueFactory<>("team")
+        );
+        
+        roleColumn.setCellValueFactory(
+                new PropertyValueFactory<>("role")
+        );
+        
         students.getColumns().addAll(firstNameColumn, lastNameColumn, teamColumn,
                 roleColumn);
 

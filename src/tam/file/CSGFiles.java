@@ -170,9 +170,8 @@ public class CSGFiles implements AppFileComponent {
             JsonObject jsonStu = jsonStuArray.getJsonObject(i);
             String firstName = jsonStu.getString(JSON_FIRSTNAME);
             String lastName = jsonStu.getString(JSON_LASTNAME);
-            String teamSt = jsonStu.getString(JSON_TEAM);
+            String team = jsonStu.getString(JSON_TEAM);
             String role = jsonStu.getString(JSON_ROLE);
-            Team team = dataManager.getTeam(teamSt);
             dataManager.addStudent(firstName, lastName, team, role);
         }
     }
@@ -251,7 +250,7 @@ public class CSGFiles implements AppFileComponent {
             JsonObject schJson = Json.createObjectBuilder()
                     .add(JSON_FIRSTNAME, st.getFirstName())
                     .add(JSON_LASTNAME, st.getLastName())
-                    .add(JSON_TEAM, st.getTeam().getName())
+                    .add(JSON_TEAM, st.getTeam())
                     .add(JSON_ROLE, st.getRole()).build();
             taArrayBuilder.add(schJson);
         }

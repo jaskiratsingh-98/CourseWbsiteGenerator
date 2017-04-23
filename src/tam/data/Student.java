@@ -15,13 +15,13 @@ import javafx.beans.property.StringProperty;
 public class Student {
     private final StringProperty firstName;
     private final StringProperty lastName;
-    private Team team;
+    private final StringProperty team;
     private final StringProperty role;
 
-    public Student(String firstName, String lastName, Team team, String role) {
+    public Student(String firstName, String lastName, String team, String role) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        this.team = team;
+        this.team = new SimpleStringProperty(team);
         this.role = new SimpleStringProperty(role);
     }
 
@@ -33,8 +33,8 @@ public class Student {
         return lastName.get();
     }
 
-    public Team getTeam() {
-        return team;
+    public String getTeam() {
+        return team.get();
     }
 
     public String getRole() {
@@ -49,8 +49,8 @@ public class Student {
         lastName.set(last);
     }
     
-    public void setTeam(Team t1){
-        team = t1;
+    public void setTeam(String t1){
+        team.set(t1);
     }
     
     public void setRole(String r1){

@@ -5,25 +5,32 @@
  */
 package tam.workspace;
 
+import javafx.collections.ObservableList;
 import static tam.CSGProp.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
+import tam.CSGApp;
+import tam.data.CSGData;
+import tam.data.Schedule;
 
 /**
  *
  * @author jaski
  */
 public class ScheduleTab {
+    CSGApp app;
     Tab tab;
     
     Label schedule;
@@ -39,11 +46,11 @@ public class ScheduleTab {
     Label title2;
     Button hideButton;
     
-    TableView<String> scheduleItems;
-    TableColumn<String, String> typeColumn;
-    TableColumn<String, String> dateColumn;
-    TableColumn<String, String> titleColumn;
-    TableColumn<String, String> topicColumn;
+    TableView<Schedule> scheduleItems;
+    TableColumn<Schedule, String> typeColumn;
+    TableColumn<Schedule, String> dateColumn;
+    TableColumn<Schedule, String> titleColumn;
+    TableColumn<Schedule, String> topicColumn;
     
     Label addEditLabel;
     Label typeLabel;
@@ -67,7 +74,9 @@ public class ScheduleTab {
     private VBox mainPane;
     
     
-    public ScheduleTab(){
+    public ScheduleTab(CSGApp app){
+        this.app = app;
+        
         tab = new Tab();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         
@@ -90,10 +99,32 @@ public class ScheduleTab {
         box2.getChildren().addAll(title2, hideButton);
         
         scheduleItems = new TableView();
+        scheduleItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        CSGData data = (CSGData) app.getDataComponent();
+        ObservableList<Schedule> schData = data.getSchedule();
+        scheduleItems.setItems(schData);
+        
         typeColumn = new TableColumn(props.getProperty(TYPETEXT));
         dateColumn = new TableColumn(props.getProperty(DATETEXT));
         titleColumn = new TableColumn(props.getProperty(TITLETEXT));
         topicColumn = new TableColumn(props.getProperty(TOPICTEXT));
+        
+        typeColumn.setCellValueFactory(
+                new PropertyValueFactory<>("type")
+        );
+        
+        dateColumn.setCellValueFactory(
+                new PropertyValueFactory<>("date")
+        );
+        
+        titleColumn.setCellValueFactory(
+                new PropertyValueFactory<>("title")
+        );
+        
+        topicColumn.setCellValueFactory(
+                new PropertyValueFactory<>("topic")
+        );
+        
         scheduleItems.getColumns().addAll(typeColumn, dateColumn,
                 titleColumn, topicColumn);
         

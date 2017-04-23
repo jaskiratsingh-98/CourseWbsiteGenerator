@@ -86,7 +86,7 @@ public class CSGData implements AppDataComponent {
         // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         ArrayList<String> timeHeaders = props.getPropertyOptionsList(CSGProp.OFFICE_HOURS_TABLE_HEADERS);
-        ArrayList<String> dowHeaders = props.getPropertyOptionsList(CSGProp.DAYS_OF_WEEK);
+        ArrayList<String> dowHeaders = props.getPropertyOptionsList(CSGProp.DAYS_OF_WEEK1);
         gridHeaders = new ArrayList();
         gridHeaders.addAll(timeHeaders);
         gridHeaders.addAll(dowHeaders);
@@ -212,6 +212,15 @@ public class CSGData implements AppDataComponent {
         }
         return null;
     }
+    
+    public Team getTeam(String testName) {
+        for (Team ta : teams) {
+            if (ta.getName().equals(testName)) {
+                return ta;
+            }
+        }
+        return null;
+    }
 
     /**
      * This method is for giving this data manager the string property for a
@@ -294,6 +303,18 @@ public class CSGData implements AppDataComponent {
             taToEdit.setEmail(editEmail);
         }
 
+        Collections.sort(teachingAssistants);
+    }
+    
+    public void addTA(String initName, String initEmail, boolean undergrad){
+        TeachingAssistant ta = new TeachingAssistant(initName, initEmail, undergrad);
+
+        // ADD THE TA
+        if (!containsTA(initName, initEmail)) {
+            teachingAssistants.add(ta);
+        }
+
+        // SORT THE TAS
         Collections.sort(teachingAssistants);
     }
 

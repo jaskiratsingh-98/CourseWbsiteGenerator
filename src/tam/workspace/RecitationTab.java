@@ -13,10 +13,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
+import tam.data.Recitation;
 
 /**
  *
@@ -75,6 +77,10 @@ public class RecitationTab {
         locationColumn = new TableColumn(props.getProperty(LOCATION_TEXT));
         ta1Column = new TableColumn(props.getProperty(TA_TEXT));
         ta2Column = new TableColumn(props.getProperty(TA_TEXT));
+        
+        sectionColumn.setCellValueFactory(
+                new PropertyValueFactory<>("section")
+        );
         
         recitations.getColumns().addAll(sectionColumn, instructorColumn,
                 dayTimeColumn, locationColumn,

@@ -118,7 +118,8 @@ public class CSGFiles implements AppFileComponent {
             JsonObject jsonTA = jsonTAArray.getJsonObject(i);
             String name = jsonTA.getString(JSON_NAME);
             String email = jsonTA.getString(JSON_EMAIL);
-            dataManager.addTA(name, email);
+            boolean undergrad = jsonTA.getBoolean(JSON_UNDERGRAD);
+            dataManager.addTA(name, email, undergrad);
         }
 
         // AND THEN ALL THE OFFICE HOURS
@@ -130,6 +131,51 @@ public class CSGFiles implements AppFileComponent {
             String name = jsonOfficeHours.getString(JSON_NAME);
             int t1 = Integer.parseInt(time.substring(0, time.indexOf("_")));
             dataManager.addOfficeHoursReservation(day, time, name);
+        }
+        
+        JsonArray jsonRecArray = json.getJsonArray(JSON_RECS);
+        for(int i = 0; i < jsonRecArray.size(); i++) {
+            JsonObject jsonRec = jsonRecArray.getJsonObject(i);
+            String section = jsonRec.getString(JSON_SECTION);
+            String instructor = jsonRec.getString(JSON_INSTRUCTOR);
+            String dayTime = jsonRec.getString(JSON_DAYTIME);
+            String location = jsonRec.getString(JSON_LOCATION);
+            String ta1St = jsonRec.getString(JSON_TA1);
+            String ta2St = jsonRec.getString(JSON_TA2);
+            TeachingAssistant ta1 = dataManager.getTA(ta1St);
+            TeachingAssistant ta2 = dataManager.getTA(ta2St);
+            dataManager.addRecitation(section, instructor, dayTime, location, ta1, ta2);
+        }
+        
+        JsonArray jsonSchedArray = json.getJsonArray(JSON_SCHD);
+        for(int i = 0; i < jsonSchedArray.size(); i++) {
+            JsonObject jsonSch = jsonSchedArray.getJsonObject(i);
+            String type = jsonSch.getString(JSON_TYPE);
+            String date = jsonSch.getString(JSON_DATE);
+            String title = jsonSch.getString(JSON_TITLE);
+            String topic = jsonSch.getString(JSON_TOPIC);
+            dataManager.addSchedule(type, date, title, topic);
+        }
+        
+        JsonArray jsonTeamArray = json.getJsonArray(JSON_TEAMS);
+        for(int i = 0; i < jsonTeamArray.size(); i++){
+            JsonObject jsonTeam = jsonTeamArray.getJsonObject(i);
+            String name = jsonTeam.getString(JSON_NAME);
+            String color = jsonTeam.getString(JSON_COLOR);
+            String textColor = jsonTeam.getString(JSON_TEXTCOLOR);
+            String link = jsonTeam.getString(JSON_LINK);
+            dataManager.addTeam(name, color, textColor, link);
+        }
+        
+        JsonArray jsonStuArray = json.getJsonArray(JSON_STU);
+        for(int i = 0; i < jsonStuArray.size(); i++){
+            JsonObject jsonStu = jsonStuArray.getJsonObject(i);
+            String firstName = jsonStu.getString(JSON_FIRSTNAME);
+            String lastName = jsonStu.getString(JSON_LASTNAME);
+            String teamSt = jsonStu.getString(JSON_TEAM);
+            String role = jsonStu.getString(JSON_ROLE);
+            Team team = dataManager.getTeam(teamSt);
+            dataManager.addStudent(firstName, lastName, team, role);
         }
     }
 

@@ -1,0 +1,63 @@
+
+{
+    "startHour":"9",
+    "endHour":"20",
+    "tas":[
+        {
+            "name":"Jaskirat",
+            "email":"Singh",
+            "undergrad":true
+        },
+        {
+            "name":"Jaskiran",
+            "email":"Kaur",
+            "undergrad":false
+        }
+    ],
+    "officeHours":[
+        {
+            "day":"MONDAY",
+            "time":"10_00am",
+            "name":"Wonje Kang"
+        },
+        {
+            "day":"MONDAY",
+            "time":"10_00am",
+            "name":"Wonyong Jeong"
+        }
+    ],
+    "recitations":[
+        {
+            "section":"S05",
+            "instructor":"McKenna",
+            "dayTime":"T 3:00 - 5:00",
+            "location":"Javits",
+            "ta1":"Jaskirat",
+            "ta2":"Jaskiran"
+        }
+    ],
+    "schedule":[
+        {
+            "type":"Holiday",
+            "date":"Date",
+            "title":"Topic",
+            "topic":"Link"
+        }
+    ],
+    "students":[
+        {
+            "firstName":"Jaskirat",
+            "lastName":"Singh",
+            "team":"Team1",
+            "role":"Designer"
+        }
+    ],
+    "team":[
+        {
+            "name":"Team1",
+            "color":"ffffff",
+            "textColor":"222222",
+            "link":"Designer"
+        }
+    ]
+}

@@ -142,7 +142,7 @@ public class TATab {
         nameColumn = new TableColumn(nameColumnText);
         emailColumn = new TableColumn(emailColumnText);
         nameColumn.setCellValueFactory(
-                new PropertyValueFactory<TeachingAssistant, String>("name")
+                new PropertyValueFactory<>("name")
         );
         emailColumn.setCellValueFactory(
                 new PropertyValueFactory<TeachingAssistant, String>("email")

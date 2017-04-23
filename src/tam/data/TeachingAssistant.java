@@ -21,6 +21,12 @@ public class TeachingAssistant<E extends Comparable<E>> implements Comparable<E>
         name = new SimpleStringProperty(initName);
         email = new SimpleStringProperty(initEmail);
     }
+    
+    public TeachingAssistant(String initName, String initEmail, boolean undergrad){
+        name = new SimpleStringProperty(initName);
+        email = new SimpleStringProperty(initEmail);
+        this.undergrad = undergrad;
+    }
 
     // ACCESSORS AND MUTATORS FOR THE PROPERTIES
 

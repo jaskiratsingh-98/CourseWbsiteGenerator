@@ -101,10 +101,13 @@ public class CSGFiles implements AppFileComponent {
     static final String SCH_HWS = "hws";
     static final String JSON_MONTH = "month";
     static final String SCH_FILEPATH = "./ScheduleData.json";
+    static final String JSON_UNDTA = "undergrad_tas";
+    static final String JSON_GRADTA = "grad_tas";
     static final String MON_MON = "startingMondayMonth";
     static final String MON_DAY = "startingMondayDay";
     static final String FRI_MON = "endingFridayMonth";
     static final String FRI_DAY = "endingFridayDay";
+    static final String TAS_FILEPATH = "./OfficeHoursGridData.json";
 
     public CSGFiles(CSGApp initApp) {
         app = initApp;
@@ -382,6 +385,54 @@ public class CSGFiles implements AppFileComponent {
                 .build();
 
         writeFile(courseInfoWriter, HOME_FILEPATH);
+        
+        //Build the OfficeHoursGrid JSON File
+        
+        //Build the Undergrad TAs Array
+        JsonArrayBuilder undergradTasArrayBuilder = Json.createArrayBuilder();
+        ObservableList<TeachingAssistant> tas = dataManager.getTeachingAssistants();
+        for (TeachingAssistant ta : tas) {
+            if (ta.isUndergrad() == true) {
+                JsonObject taJson = Json.createObjectBuilder()
+                        .add(JSON_NAME, ta.getName())
+                        .add(JSON_EMAIL, ta.getEmail()).build();
+                undergradTasArrayBuilder.add(taJson);
+            }
+        }
+        JsonArray undergradTasArray = undergradTasArrayBuilder.build();
+        
+        //Build the Grad TAs Array
+        JsonArrayBuilder gradTasArrayBuilder = Json.createArrayBuilder();
+        for (TeachingAssistant ta : tas) {
+            if (ta.isUndergrad() == false) {
+                JsonObject taJson = Json.createObjectBuilder()
+                        .add(JSON_NAME, ta.getName())
+                        .add(JSON_EMAIL, ta.getEmail()).build();
+                gradTasArrayBuilder.add(taJson);
+            }
+        }
+        JsonArray gradTasArray = gradTasArrayBuilder.build();
+        
+        JsonArrayBuilder timeSlotArrayBuilder = Json.createArrayBuilder();
+        ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(dataManager);
+        for (TimeSlot ts : officeHours) {
+            JsonObject tsJson = Json.createObjectBuilder()
+                    .add(JSON_DAY, ts.getDay())
+                    .add(JSON_TIME, ts.getTime())
+                    .add(JSON_NAME, ts.getName()).build();
+            timeSlotArrayBuilder.add(tsJson);
+        }
+        JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
+        
+        JsonObject officeHoursWriter = Json.createObjectBuilder()
+                .add(JSON_START_HOUR, "" + dataManager.getStartHour())
+                .add(JSON_END_HOUR, "" + dataManager.getEndHour())
+                .add(JSON_UNDTA, undergradTasArray)
+                .add(JSON_GRADTA, gradTasArray)
+                .add(JSON_OFFICE_HOURS, timeSlotsArray)
+                .build();
+        
+        writeFile(officeHoursWriter, TAS_FILEPATH);
 
         //Build the Schedule JSON File
         //Build Holidays Array

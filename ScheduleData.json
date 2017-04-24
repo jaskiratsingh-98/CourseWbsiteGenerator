@@ -1,13 +1,14 @@
 
 {
-    "startingMondayMonth":"1",
-    "startingMondayDay":"2",
-    "endingFridayMonth":"3",
-    "endingFridayDay":"24",
+    "startingMondayMonth":0,
+    "startingMondayDay":0,
+    "endingFridayMonth":0,
+    "endingFridayDay":0,
     "holidays":[
         {
-            "month":"1",
-            "day":"18",
+            "date":"2017-01-18",
+            "month":0,
+            "day":0,
             "time":"Link",
             "title":"4:00PM",
             "topic":"Topic",

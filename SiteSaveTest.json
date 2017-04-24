@@ -46,7 +46,7 @@
     "schedule":[
         {
             "type":"Holiday",
-            "date":"Date",
+            "date":"2017-01-18",
             "time":"4:00PM",
             "title":"Topic",
             "topic":"Link",

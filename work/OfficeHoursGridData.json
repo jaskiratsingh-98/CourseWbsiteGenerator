@@ -2,10 +2,11 @@
 {
     "startHour":"9",
     "endHour":"20",
+    "cName":"cse 220",
     "undergrad_tas":[
         {
             "name":"Aarin Chase",
-            "email":"aarin.chase@stonybrook.edu"
+            "email":"aarin.chase1@stonybrook.edu"
         },
         {
             "name":"Abu Saeid",

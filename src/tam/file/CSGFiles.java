@@ -108,6 +108,7 @@ public class CSGFiles implements AppFileComponent {
     static final String FRI_MON = "endingFridayMonth";
     static final String FRI_DAY = "endingFridayDay";
     static final String TAS_FILEPATH = "./OfficeHoursGridData.json";
+    static final String HWS_FILEPATH = "./HWsData.json";
 
     public CSGFiles(CSGApp initApp) {
         app = initApp;
@@ -520,6 +521,15 @@ public class CSGFiles implements AppFileComponent {
                 .build();
 
         writeFile(scheduleWriter, SCH_FILEPATH);
+        
+        //Build HWs JSONFile
+        JsonObject hwsWriter = Json.createObjectBuilder()
+                .add(SCH_HWS, hwsArray)
+                .build();
+        
+        writeFile(hwsWriter, HWS_FILEPATH);
+        
+        
 
 //        try {
 //            Files.copy(Paths.get(props.getProperty(SYLLABUS)), Paths.get(filePath + props.getProperty(SYLLABUS_PATH)), REPLACE_EXISTING);

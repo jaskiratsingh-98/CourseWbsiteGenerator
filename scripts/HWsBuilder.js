@@ -37,7 +37,7 @@ function initHWs() {
     daysOfWeek[5] = "Friday";
     daysOfWeek[6] = "Saturday";
     
-    var dataFile = "./js/ScheduleData.json";
+    var dataFile = "./js/HWsData.json";
     loadData(dataFile);
 }
 function loadData(jsonFile) {

@@ -99,6 +99,7 @@ public class CSGFiles implements AppFileComponent {
     static final String SCH_LEC = "lectures";
     static final String SCH_REF = "references";
     static final String SCH_HWS = "hws";
+    static final String JSON_WORK = "work";
     static final String JSON_MONTH = "month";
     static final String SCH_FILEPATH = "./ScheduleData.json";
     static final String JSON_UNDTA = "undergrad_tas";
@@ -109,6 +110,9 @@ public class CSGFiles implements AppFileComponent {
     static final String FRI_DAY = "endingFridayDay";
     static final String TAS_FILEPATH = "./OfficeHoursGridData.json";
     static final String HWS_FILEPATH = "./HWsData.json";
+    static final String JSON_PRO = "projects";
+    static final String PRO_FILEPATH = "./ProjectsData.json";
+    static final String JSON_SEM = "semester";
 
     public CSGFiles(CSGApp initApp) {
         app = initApp;
@@ -386,9 +390,8 @@ public class CSGFiles implements AppFileComponent {
                 .build();
 
         writeFile(courseInfoWriter, HOME_FILEPATH);
-        
+
         //Build the OfficeHoursGrid JSON File
-        
         //Build the Undergrad TAs Array
         JsonArrayBuilder undergradTasArrayBuilder = Json.createArrayBuilder();
         ObservableList<TeachingAssistant> tas = dataManager.getTeachingAssistants();
@@ -401,7 +404,7 @@ public class CSGFiles implements AppFileComponent {
             }
         }
         JsonArray undergradTasArray = undergradTasArrayBuilder.build();
-        
+
         //Build the Grad TAs Array
         JsonArrayBuilder gradTasArrayBuilder = Json.createArrayBuilder();
         for (TeachingAssistant ta : tas) {
@@ -413,7 +416,7 @@ public class CSGFiles implements AppFileComponent {
             }
         }
         JsonArray gradTasArray = gradTasArrayBuilder.build();
-        
+
         JsonArrayBuilder timeSlotArrayBuilder = Json.createArrayBuilder();
         ArrayList<TimeSlot> officeHours = TimeSlot.buildOfficeHoursList(dataManager);
         for (TimeSlot ts : officeHours) {
@@ -424,7 +427,7 @@ public class CSGFiles implements AppFileComponent {
             timeSlotArrayBuilder.add(tsJson);
         }
         JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
-        
+
         JsonObject officeHoursWriter = Json.createObjectBuilder()
                 .add(JSON_START_HOUR, "" + dataManager.getStartHour())
                 .add(JSON_END_HOUR, "" + dataManager.getEndHour())
@@ -432,7 +435,7 @@ public class CSGFiles implements AppFileComponent {
                 .add(JSON_GRADTA, gradTasArray)
                 .add(JSON_OFFICE_HOURS, timeSlotsArray)
                 .build();
-        
+
         writeFile(officeHoursWriter, TAS_FILEPATH);
 
         //Build the Schedule JSON File
@@ -521,15 +524,51 @@ public class CSGFiles implements AppFileComponent {
                 .build();
 
         writeFile(scheduleWriter, SCH_FILEPATH);
-        
+
         //Build HWs JSONFile
         JsonObject hwsWriter = Json.createObjectBuilder()
                 .add(SCH_HWS, hwsArray)
                 .build();
-        
+
         writeFile(hwsWriter, HWS_FILEPATH);
+
+        //Build Projects JSONFile
+        JsonArrayBuilder overallArrayBuilder = Json.createArrayBuilder();
+        JsonArrayBuilder projectsArrayBuilder = Json.createArrayBuilder();
+        JsonArrayBuilder subArrayBuilder = Json.createArrayBuilder();
+        for (int i = 0; i < 1; i++) {
+            ObservableList<Team> teams = dataManager.getTeams();
+            for (Team tm : teams) {
+                ObservableList<Student> stu = tm.getStudents();
+                for (Student st : stu) {
+                    JsonObject stuJson = Json.createObjectBuilder()
+                            .add(JSON_FIRSTNAME, st.getFirstName())
+                            .add(JSON_LASTNAME, st.getLastName()).build();
+                    subArrayBuilder.add(stuJson);
+                }
+                JsonArray subArray = subArrayBuilder.build();
+                JsonObject teamJson = Json.createObjectBuilder()
+                        .add(JSON_NAME, tm.getName())
+                        .add(JSON_STU, subArray)
+                        .add(JSON_LINK, tm.getLink()).build();
+                projectsArrayBuilder.add(teamJson);
+            }
+            JsonArray projectsArray = projectsArrayBuilder.build();
+            
+            JsonObject overallJson = Json.createObjectBuilder()
+                    .add(JSON_SEM, dataManager.getCourseInfo().getSemester()
+                            + dataManager.getCourseInfo().getYear())
+                    .add(JSON_PRO, projectsArray).build();
+            overallArrayBuilder.add(overallJson);
+        }
+
+        JsonArray overallArray = overallArrayBuilder.build();
         
-        
+        JsonObject projectsWriter = Json.createObjectBuilder()
+                .add(JSON_WORK, overallArray)
+                .build();
+
+        writeFile(projectsWriter, PRO_FILEPATH);
 
 //        try {
 //            Files.copy(Paths.get(props.getProperty(SYLLABUS)), Paths.get(filePath + props.getProperty(SYLLABUS_PATH)), REPLACE_EXISTING);

@@ -555,6 +555,9 @@ public class CSGData implements AppDataComponent {
             students.add(student);
         }
         
+        Team addToTeam = getTeam(team);
+        addToTeam.addStudent(student);
+        
 //        Collections.sort(recitations);
     }
     

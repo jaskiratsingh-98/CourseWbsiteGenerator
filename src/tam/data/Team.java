@@ -7,6 +7,8 @@ package tam.data;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -17,12 +19,14 @@ public class Team {
     private final StringProperty color;
     private final StringProperty textColor;
     private final StringProperty link;
+    ObservableList<Student> students;
     
     public Team(String name, String color, String textColor, String link){
         this.name = new SimpleStringProperty(name);
         this.color = new SimpleStringProperty(color);
         this.textColor = new SimpleStringProperty(textColor);
         this.link = new SimpleStringProperty(link);
+        students = FXCollections.observableArrayList();
     }
 
     public String getName() {
@@ -55,5 +59,13 @@ public class Team {
     
     public void setLink(String link){
         this.link.set(link);
+    }
+    
+    public void addStudent(Student a){
+        students.add(a);
+    }
+    
+    public ObservableList getStudents(){
+        return students;
     }
 }

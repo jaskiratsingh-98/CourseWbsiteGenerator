@@ -1,0 +1,20 @@
+
+{
+    "work":[
+        {
+            "semester":"2192016",
+            "projects":[
+                {
+                    "name":"Team1",
+                    "students":[
+                        {
+                            "firstName":"Jaskirat",
+                            "lastName":"Singh"
+                        }
+                    ],
+                    "link":"Designer"
+                }
+            ]
+        }
+    ]
+}

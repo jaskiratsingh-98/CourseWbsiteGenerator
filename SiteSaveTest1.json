@@ -4,7 +4,7 @@
     "endHour":"20",
     "subject":"CSE",
     "number":"219",
-    "semester":"219",
+    "semester":"Fall",
     "year":"2016",
     "title":"Computer Science III",
     "instructor":"Richard McKenna",
@@ -25,23 +25,6 @@
             "undergrad":true
         }
     ],
-    "officeHours":[
-        {
-            "day":"MONDAY",
-            "time":"10_00am",
-            "name":"Wonje Kang"
-        },
-        {
-            "day":"MONDAY",
-            "time":"10_00am",
-            "name":"Wonyong Jeong"
-        },
-        {
-            "day":"TUESDAY",
-            "time":"10_30am",
-            "name":"Jaskirat"
-        }
-    ],
     "recitations":[
         {
             "section":"S05",
@@ -55,22 +38,22 @@
     "schedule":[
         {
             "type":"Holiday",
-            "date":"2017-01-18",
+            "date":"2017-05-06",
             "month":0,
             "day":0,
-            "time":"Link",
-            "title":"4:00PM",
-            "topic":"Topic",
-            "link":"",
-            "criteria":"Smart"
+            "time":"4:00 PM",
+            "title":"Topic",
+            "topic":"Link",
+            "link":"google.com",
+            "criteria":"None"
         }
     ],
     "students":[
         {
-            "firstName":"Jaskirat",
-            "lastName":"Singh",
+            "firstName":"Harpreet",
+            "lastName":"Kaur",
             "team":"Team1",
-            "role":"Designer"
+            "role":"Lead"
         }
     ],
     "teams":[
@@ -78,7 +61,7 @@
             "name":"Team1",
             "color":"ffffff",
             "textColor":"222222",
-            "link":"Designer"
+            "link":"team1.com"
         }
     ]
 }

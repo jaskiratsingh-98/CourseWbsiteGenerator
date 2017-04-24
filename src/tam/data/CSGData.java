@@ -47,6 +47,7 @@ public class CSGData implements AppDataComponent {
     // LOAD THESE ONCE AND THEN HANG ON TO THEM TO
     // INITIALIZE OUR OFFICE HOURS GRID
     ArrayList<String> gridHeaders;
+    ObservableList<String> office;
 
     // THESE ARE THE TIME BOUNDS FOR THE OFFICE HOURS GRID. NOTE
     // THAT THESE VALUES CAN BE DIFFERENT FOR DIFFERENT FILES, BUT
@@ -71,6 +72,33 @@ public class CSGData implements AppDataComponent {
      *
      * @param initApp The application this data manager belongs to.
      */
+    
+    public CSGData(){
+        courseInfo = new CourseInfo();
+        // CONSTRUCT THE LIST OF TAs FOR THE TABLE
+        teachingAssistants = FXCollections.observableArrayList();
+        recitations = FXCollections.observableArrayList();
+        schedule = FXCollections.observableArrayList();
+        teams = FXCollections.observableArrayList();
+        students = FXCollections.observableArrayList();
+
+        // THESE ARE THE DEFAULT OFFICE HOURS
+        startHour = MIN_START_HOUR;
+        endHour = MAX_END_HOUR;
+
+        //THIS WILL STORE OUR OFFICE HOURS
+        officeHours = new HashMap();
+
+        // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
+//        PropertiesManager props = PropertiesManager.getPropertiesManager();
+//        ArrayList<String> timeHeaders = props.getPropertyOptionsList(CSGProp.OFFICE_HOURS_TABLE_HEADERS);
+//        ArrayList<String> dowHeaders = props.getPropertyOptionsList(CSGProp.DAYS_OF_WEEK1);
+        gridHeaders = new ArrayList();
+        gridHeaders.add("Start");
+        gridHeaders.add("End");
+        gridHeaders.add("Mon");
+        
+    }
     public CSGData(CSGApp initApp) {
         // KEEP THIS FOR LATER
         app = initApp;
@@ -89,6 +117,7 @@ public class CSGData implements AppDataComponent {
 
         //THIS WILL STORE OUR OFFICE HOURS
         officeHours = new HashMap();
+        office = FXCollections.observableArrayList();
 
         // THESE ARE THE LANGUAGE-DEPENDENT OFFICE HOURS GRID HEADERS
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -547,6 +576,16 @@ public class CSGData implements AppDataComponent {
         return false;
     }
     
+    public void addOfficeHours(String a, String b, String c){
+        office.add(a);
+        office.add(b);
+        office.add(c);
+    }
+    
+    public ObservableList getOffice(){
+        return office;
+    }
+    
     public void addStudent(String firstName, String lastName, 
             String team, String role){
         Student student = new Student(firstName, lastName, team, role);
@@ -606,6 +645,7 @@ public class CSGData implements AppDataComponent {
     public int getEndingFridayDay() {
         return endingFridayDay;
     }
+    
     
     
 }

@@ -20,6 +20,7 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_SCHD = "schedule";
     static final String JSON_STU = "students";
     static final String JSON_TEAMS = "teams";
-    static final String HOME_FILEPATH = "./HomeData.json";
+    static final String HOME_FILEPATH = "./scripts/HomeData.json";
     static final String CI_SUB = "subject";
     static final String CI_NUM = "number";
     static final String CI_SEM = "semester";
@@ -101,18 +102,19 @@ public class CSGFiles implements AppFileComponent {
     static final String SCH_HWS = "hws";
     static final String JSON_WORK = "work";
     static final String JSON_MONTH = "month";
-    static final String SCH_FILEPATH = "./ScheduleData.json";
+    static final String SCH_FILEPATH = "./scripts/ScheduleData.json";
     static final String JSON_UNDTA = "undergrad_tas";
     static final String JSON_GRADTA = "grad_tas";
     static final String MON_MON = "startingMondayMonth";
     static final String MON_DAY = "startingMondayDay";
     static final String FRI_MON = "endingFridayMonth";
     static final String FRI_DAY = "endingFridayDay";
-    static final String TAS_FILEPATH = "./OfficeHoursGridData.json";
-    static final String HWS_FILEPATH = "./HWsData.json";
+    static final String TAS_FILEPATH = "./scripts/OfficeHoursGridData.json";
+    static final String HWS_FILEPATH = "./scripts/HWsData.json";
     static final String JSON_PRO = "projects";
-    static final String PRO_FILEPATH = "./ProjectsData.json";
+    static final String PRO_FILEPATH = "./scripts/ProjectsData.json";
     static final String JSON_SEM = "semester";
+    static final String SCRIPT_FOLER = "./scripts";
 
     public CSGFiles(CSGApp initApp) {
         app = initApp;
@@ -569,18 +571,11 @@ public class CSGFiles implements AppFileComponent {
                 .build();
 
         writeFile(projectsWriter, PRO_FILEPATH);
-
-//        try {
-//            Files.copy(Paths.get(props.getProperty(SYLLABUS)), Paths.get(filePath + props.getProperty(SYLLABUS_PATH)), REPLACE_EXISTING);
-//            FileUtils.copyDirectoryToDirectory(new File(props.getProperty(JS_FOLDER)), new File(filePath));
-//            FileUtils.copyDirectoryToDirectory(new File(props.getProperty(CSS_FOLDER)), new File(filePath));
-//            FileUtils.copyDirectoryToDirectory(new File(props.getProperty((IMAGES_FOLDER))), new File(filePath));
-//            saveData(data, filePath + props.getProperty(JS_OFFICE_HOURS_PATH));
-//        } catch (IOException ioe) {
-//            System.out.println(ioe);
-//            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-//            dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
-//        }
+        
+       String sr1 = SCRIPT_FOLER;
+       File src = new File(sr1);
+       FileUtils.copyDirectory(src, new File(filePath));
+        
     }
 
     public void writeFile(JsonObject json, String filePath) {

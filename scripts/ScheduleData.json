@@ -1,0 +1,25 @@
+
+{
+    "startingMondayMonth":0,
+    "startingMondayDay":0,
+    "endingFridayMonth":0,
+    "endingFridayDay":0,
+    "holidays":[
+        {
+            "date":"2017-01-18",
+            "month":0,
+            "day":0,
+            "time":"Link",
+            "title":"4:00PM",
+            "topic":"Topic",
+            "link":"",
+            "criteria":"Smart"
+        }
+    ],
+    "lectures":[
+    ],
+    "references":[
+    ],
+    "hws":[
+    ]
+}

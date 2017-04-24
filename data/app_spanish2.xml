@@ -170,6 +170,7 @@ and open the template in the editor.
         <property name="CSS_FOLDER"                      value="./exportdata/css"></property>
         <property name="IMAGES_FOLDER"                   value="./exportdata/images"></property>
         <property name="JS_FOLDER"                   value="./exportdata/js"></property>
+        <property name="SCRIPT_FOLER"                value="./scripts"></property>
         
     </property_list>
     <property_options_list>                

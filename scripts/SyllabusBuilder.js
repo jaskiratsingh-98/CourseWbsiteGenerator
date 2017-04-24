@@ -53,6 +53,22 @@ function addUndergradTAs(data) {
         tas.append(text);
     }
 }
+
+function addGradTAs(data){
+    var tas = $("#undergrad_tas");
+    var tasPerRow = 4;
+    var numTAs = data.undergrad_tas.length;
+    for (var i = 0; i < data.undergrad_tas.length; ) {
+        var text = "";
+        text = "<tr>";
+        for (var j = 0; j < tasPerRow; j++) {
+            text += buildTACell(i, numTAs, data.undergrad_tas[i]);
+            i++;
+        }
+        text += "</tr>";
+        tas.append(text);
+    }
+}
 function buildTACell(counter, numTAs, ta) {
     if (counter >= numTAs)
         return "<td></td>";

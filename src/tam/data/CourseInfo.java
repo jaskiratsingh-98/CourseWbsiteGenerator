@@ -13,10 +13,10 @@ import javafx.beans.property.StringProperty;
  * @author jaski
  */
 public class CourseInfo {
-    private StringProperty subject;
-    private StringProperty number;
-    private StringProperty semester;
-    private StringProperty year;
+    private String subject;
+    private String number;
+    private String semester;
+    private String year;
     private String title;
     private String insName;
     private String insHome;
@@ -32,31 +32,34 @@ public class CourseInfo {
     private String rightFooter;
     private String stylesheet;
 
+    public CourseInfo(){
+        
+    }
     public CourseInfo(String subject, String number, String semester,
             String year, String title, String insName, String insHome) {
-        this.subject = new SimpleStringProperty(subject);
-        this.number = new SimpleStringProperty(number);
-        this.semester = new SimpleStringProperty(semester);
-        this.year = new SimpleStringProperty(year);
+        this.subject = subject;
+        this.number = number;
+        this.semester = semester;
+        this.year = year;
         this.title = title;
         this.insName = insName;
         this.insHome = insHome;
     }
 
     public String getSubject() {
-        return subject.get();
+        return subject;
     }
 
     public String getNumber() {
-        return number.get();
+        return number;
     }
 
     public String getSemester() {
-        return semester.get();
+        return semester;
     }
 
     public String getYear() {
-        return year.get();
+        return year;
     }
 
     public String getTitle() {
@@ -116,19 +119,19 @@ public class CourseInfo {
     }
 
     public void setSubject(String subject) {
-        this.subject.set(subject);
+        this.subject = subject;
     }
 
     public void setNumber(String number) {
-        this.number.set(number);
+        this.number = number;
     }
 
     public void setSemester(String semester) {
-        this.semester.set(semester);
+        this.semester = semester;
     }
 
     public void setYear(String year) {
-        this.year.set(year);
+        this.year = year;
     }
 
     public void setTitle(String title) {

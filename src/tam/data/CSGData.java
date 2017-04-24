@@ -3,6 +3,7 @@ package tam.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import djf.components.AppDataComponent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -53,6 +54,9 @@ public class CSGData implements AppDataComponent {
     // NO MEANS FOR CHANGING THESE VALUES
     int startHour;
     int endHour;
+    
+    LocalDate startingMonday;
+    LocalDate endingFriday;
 
     // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
     public static final int MIN_START_HOUR = 9;
@@ -69,6 +73,7 @@ public class CSGData implements AppDataComponent {
         // KEEP THIS FOR LATER
         app = initApp;
 
+        courseInfo = new CourseInfo();
         // CONSTRUCT THE LIST OF TAs FOR THE TABLE
         teachingAssistants = FXCollections.observableArrayList();
         recitations = FXCollections.observableArrayList();
@@ -547,5 +552,9 @@ public class CSGData implements AppDataComponent {
             }
         }
         return false;
+    }
+    
+    public void setCourseInfo(String a,String b, String c, String d, String e, String f, String g){
+        
     }
 }

@@ -83,6 +83,7 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_SCHD = "schedule";
     static final String JSON_STU = "students";
     static final String JSON_TEAMS = "teams";
+    static final String HOME_FILEPATH = "HomeData.json";
     
     
 

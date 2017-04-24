@@ -13,6 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author jaski
  */
 public class CourseInfo {
+
     private String subject;
     private String number;
     private String semester;
@@ -32,9 +33,10 @@ public class CourseInfo {
     private String rightFooter;
     private String stylesheet;
 
-    public CourseInfo(){
-        
+    public CourseInfo() {
+
     }
+
     public CourseInfo(String subject, String number, String semester,
             String year, String title, String insName, String insHome) {
         this.subject = subject;
@@ -45,9 +47,9 @@ public class CourseInfo {
         this.insName = insName;
         this.insHome = insHome;
     }
-    
+
     public void setCourseInfo(String subject, String number, String semester,
-            String year, String title, String insName, String insHome){
+            String year, String title, String insName, String insHome) {
         this.subject = subject;
         this.number = number;
         this.semester = semester;
@@ -200,4 +202,30 @@ public class CourseInfo {
     public void setStylesheet(String stylesheet) {
         this.stylesheet = stylesheet;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof CourseInfo)) {
+            return false;
+        }
+        else{
+            CourseInfo ci = (CourseInfo) other;
+            return subject.equals(ci.subject)
+                && number.equals(ci.number)
+                && semester.equals(ci.semester)
+                && year.equals(ci.year)
+                && subject.equals(ci.subject)
+                && insHome.equals(ci.insHome)
+                && insName.equals(ci.insName)
+                && title.equals(ci.title);
+        }
+
+    }
+
 }

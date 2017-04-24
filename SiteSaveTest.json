@@ -47,8 +47,11 @@
         {
             "type":"Holiday",
             "date":"Date",
+            "time":"4:00PM",
             "title":"Topic",
-            "topic":"Link"
+            "topic":"Link",
+            "link":"",
+            "criteria":"Smart"
         }
     ],
     "students":[

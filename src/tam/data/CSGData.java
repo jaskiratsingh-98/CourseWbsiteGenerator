@@ -55,8 +55,10 @@ public class CSGData implements AppDataComponent {
     int startHour;
     int endHour;
     
-    LocalDate startingMonday;
-    LocalDate endingFriday;
+    int startingMondayMonth;
+    int startingMondayDay;
+    int endingFridayMonth;
+    int endingFridayDay;
 
     // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
     public static final int MIN_START_HOUR = 9;
@@ -487,8 +489,22 @@ public class CSGData implements AppDataComponent {
         return false;
     }
     
-    public void addSchedule(String type, String date, String title, String topic){
-        Schedule sch = new Schedule(type, date, title, topic);
+    public void addSchedule(String type, LocalDate date, String time, 
+            String title, String topic, String link, String criteria){
+        Schedule sch = new Schedule(type, date, time, 
+                title, topic, link, criteria);
+
+        if (!containsSchedule(sch)) {
+            schedule.add(sch);
+        }
+        
+//        Collections.sort(recitations);
+    }
+    
+    public void addSchedule(String type, String date, String time, 
+            String title, String topic, String link, String criteria){
+        Schedule sch = new Schedule(type, date, time, 
+                title, topic, link, criteria);
 
         if (!containsSchedule(sch)) {
             schedule.add(sch);
@@ -561,4 +577,32 @@ public class CSGData implements AppDataComponent {
     public CourseInfo getCourseInfo(){
         return courseInfo;
     }
+    
+    public void setStartingMonday(int month, int day){
+        startingMondayMonth = month;
+        startingMondayDay = day;
+    }
+    
+    public void setEndingFriday(int month, int day){
+        endingFridayMonth = month;
+        endingFridayDay = day;
+    }
+
+    public int getStartingMondayMonth() {
+        return startingMondayMonth;
+    }
+
+    public int getStartingMondayDay() {
+        return startingMondayDay;
+    }
+
+    public int getEndingFridayMonth() {
+        return endingFridayMonth;
+    }
+
+    public int getEndingFridayDay() {
+        return endingFridayDay;
+    }
+    
+    
 }

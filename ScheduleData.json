@@ -1,0 +1,24 @@
+
+{
+    "startingMondayMonth":"1",
+    "startingMondayDay":"2",
+    "endingFridayMonth":"3",
+    "endingFridayDay":"24",
+    "holidays":[
+        {
+            "month":"1",
+            "day":"18",
+            "time":"Link",
+            "title":"4:00PM",
+            "topic":"Topic",
+            "link":"",
+            "criteria":"Smart"
+        }
+    ],
+    "lectures":[
+    ],
+    "references":[
+    ],
+    "hws":[
+    ]
+}

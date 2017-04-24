@@ -102,7 +102,7 @@ public class TestSave {
         Team team1 = new Team("Team1", "ffffff", "222222", "Designer");
         Student a = new Student("Jaskirat", "Singh", "Team1", "Designer");
         Recitation rec = new Recitation("S05", "McKenna", "T 3:00 - 5:00", "Javits", "Jaskirat", "Jaskiran");
-        Schedule e = new Schedule("Holiday", "Date", "Topic", "Link");
+//        Schedule e = new Schedule("Holiday", "Date", "Topic", "Link");
         int startHour = 9;
         int endHour = 20;
 
@@ -111,7 +111,7 @@ public class TestSave {
         students.add(a);
         recitations.add(rec);
         teams.add(team1);
-        schedule.add(e);
+//        schedule.add(e);
 
         try {
             JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();

@@ -2,6 +2,13 @@
 {
     "startHour":"9",
     "endHour":"20",
+    "subject":"CSE",
+    "number":"219",
+    "semester":"Fall",
+    "year":"2016",
+    "title":"Computer Science III",
+    "instructor":"Richard McKenna",
+    "link":"http://www.google.com",
     "tas":[
         {
             "name":"Jaskirat",

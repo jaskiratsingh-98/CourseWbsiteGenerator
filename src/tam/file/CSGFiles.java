@@ -83,8 +83,14 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_SCHD = "schedule";
     static final String JSON_STU = "students";
     static final String JSON_TEAMS = "teams";
-    static final String HOME_FILEPATH = "HomeData.json";
-    
+    static final String HOME_FILEPATH = "./HomeData.json";
+    static final String CI_SUB = "subject";
+    static final String CI_NUM = "number";
+    static final String CI_SEM = "semester";
+    static final String CI_YEAR = "year";
+    static final String CI_TITLE = "title";
+    static final String CI_INS = "instructor";
+    static final String CI_LINK = "link";
     
 
     public CSGFiles(CSGApp initApp) {
@@ -105,10 +111,27 @@ public class CSGFiles implements AppFileComponent {
         dataManager.initHours(startHour, endHour);
         dataManager.setStartHour(Integer.parseInt(startHour));
         dataManager.setEndHour(Integer.parseInt(endHour));
+        
+        String subject = json.getString(CI_SUB);
+        String number = json.getString(CI_NUM);
+        String semester = json.getString(CI_NUM);
+        String year = json.getString(CI_YEAR);
+        String ci_title = json.getString(CI_TITLE);
+        String ins = json.getString(CI_INS);
+        String ci_link = json.getString(CI_LINK);
+        dataManager.setCourseInfo(subject, number, semester, year, ci_title, ins, ci_link);
 
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         workspace.getTATab().getStartComboBox().setValue(startHour + ":00");
         workspace.getTATab().getEndComboBox().setValue(endHour + ":00");
+        
+        workspace.getCourseTab().getSubjectComboBox().setValue(subject);
+        workspace.getCourseTab().getNumberComboBox().setValue(number);
+        workspace.getCourseTab().getSemesterComboBox().setValue(semester);
+        workspace.getCourseTab().getYearComboBox().setValue(year);
+        workspace.getCourseTab().getTitleTextField().setText(ci_title);
+        workspace.getCourseTab().getNameTextField().setText(ins);
+        workspace.getCourseTab().getHomeTextField().setText(ci_link);
 
         // NOW RELOAD THE WORKSPACE WITH THE LOADED DATA
         app.getWorkspaceComponent().reloadWorkspace(app.getDataComponent());
@@ -274,6 +297,13 @@ public class CSGFiles implements AppFileComponent {
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_START_HOUR, "" + dataManager.getStartHour())
                 .add(JSON_END_HOUR, "" + dataManager.getEndHour())
+                .add(CI_SUB, "" + dataManager.getCourseInfo().getSubject())
+                .add(CI_NUM, "" + dataManager.getCourseInfo().getNumber())
+                .add(CI_SEM, "" + dataManager.getCourseInfo().getSemester())
+                .add(CI_YEAR, "" + dataManager.getCourseInfo().getYear())
+                .add(CI_TITLE, "" + dataManager.getCourseInfo().getTitle())
+                .add(CI_INS, "" + dataManager.getCourseInfo().getInsName())
+                .add(CI_LINK, "" + dataManager.getCourseInfo().getInsHome())
                 .add(JSON_TAS, undergradTAsArray)
                 .add(JSON_OFFICE_HOURS, timeSlotsArray)
                 .add(JSON_RECS, recitationsArray)
@@ -311,6 +341,37 @@ public class CSGFiles implements AppFileComponent {
     @Override
     public void exportData(AppDataComponent data, String filePath) throws IOException {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        CSGData dataManager = (CSGData) data;
+        
+        //Build the CourseInfo JSON File
+        JsonObject courseInfoWriter = Json.createObjectBuilder()
+                .add(CI_SUB, "" + dataManager.getCourseInfo().getSubject())
+                .add(CI_NUM, "" + dataManager.getCourseInfo().getNumber())
+                .add(CI_SEM, "" + dataManager.getCourseInfo().getSemester())
+                .add(CI_YEAR, "" + dataManager.getCourseInfo().getYear())
+                .add(CI_TITLE, "" + dataManager.getCourseInfo().getTitle())
+                .add(CI_INS, "" + dataManager.getCourseInfo().getInsName())
+                .add(CI_LINK, "" + dataManager.getCourseInfo().getInsHome())
+                .build();
+        
+        // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+        Map<String, Object> properties = new HashMap<>(1);
+        properties.put(JsonGenerator.PRETTY_PRINTING, true);
+        JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+        StringWriter sw = new StringWriter();
+        JsonWriter jsonWriter = writerFactory.createWriter(sw);
+        jsonWriter.writeObject(courseInfoWriter);
+        jsonWriter.close();
+
+        // INIT THE WRITER
+        OutputStream os = new FileOutputStream(HOME_FILEPATH);
+        JsonWriter jsonFileWriter = Json.createWriter(os);
+        jsonFileWriter.writeObject(courseInfoWriter);
+        String prettyPrinted = sw.toString();
+        PrintWriter pw = new PrintWriter(HOME_FILEPATH);
+        pw.write(prettyPrinted);
+        pw.close();
 
         try {
             Files.copy(Paths.get(props.getProperty(SYLLABUS)), Paths.get(filePath + props.getProperty(SYLLABUS_PATH)), REPLACE_EXISTING);

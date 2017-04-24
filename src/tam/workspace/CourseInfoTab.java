@@ -27,6 +27,8 @@ import static tam.CSGProp.SITE_LABEL;
 import static tam.CSGProp.SUBJECT_LABEL;
 import static tam.CSGProp.TITLE_LABEL;
 import static tam.CSGProp.YEAR_LABEL;
+import tam.data.CSGData;
+import tam.data.CourseInfo;
 
 /**
  *
@@ -94,6 +96,8 @@ public class CourseInfoTab {
 
     public CourseInfoTab(CSGApp app) {
         this.app = app;
+        CSGData data = (CSGData)app.getDataComponent();
+        CourseInfo courseInfo = data.getCourseInfo();
         mainPane = new VBox();
         infoPane = new VBox();
 

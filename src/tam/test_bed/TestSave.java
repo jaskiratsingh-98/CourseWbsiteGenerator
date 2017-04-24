@@ -26,6 +26,7 @@ import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
 import tam.CSGApp;
 import tam.data.CSGData;
+import tam.data.CourseInfo;
 import tam.data.Recitation;
 import tam.data.Schedule;
 import tam.data.Student;
@@ -45,7 +46,7 @@ public class TestSave {
     ObservableList<Team> teams;
     ObservableList<Student> students;
     ObservableList<TeachingAssistant> teachingAssistants;
-    
+
     static final String JSON_START_HOUR = "startHour";
     static final String JSON_END_HOUR = "endHour";
     static final String JSON_OFFICE_HOURS = "officeHours";
@@ -76,16 +77,24 @@ public class TestSave {
     static final String JSON_SCHD = "schedule";
     static final String JSON_STU = "students";
     static final String JSON_TEAMS = "teams";
+    static final String CI_SUB = "subject";
+    static final String CI_NUM = "number";
+    static final String CI_SEM = "semester";
+    static final String CI_YEAR = "year";
+    static final String CI_TITLE = "title";
+    static final String CI_INS = "instructor";
+    static final String CI_LINK = "link";
 
     public void demonstrateSave() {
         String filePath = "SiteSaveTest.json";
-        
+
         teachingAssistants = FXCollections.observableArrayList();
         recitations = FXCollections.observableArrayList();
         schedule = FXCollections.observableArrayList();
         teams = FXCollections.observableArrayList();
         students = FXCollections.observableArrayList();
 
+        CourseInfo courseInfo = new CourseInfo("CSE", "219", "Fall", "2016", "Computer Science III", "Richard McKenna", "http://www.google.com");
         TeachingAssistant ta1 = new TeachingAssistant("Jaskirat", "Singh");
         ta1.setUndergrad(true);
         TeachingAssistant ta2 = new TeachingAssistant("Jaskiran", "Kaur");
@@ -94,6 +103,8 @@ public class TestSave {
         Student a = new Student("Jaskirat", "Singh", "Team1", "Designer");
         Recitation rec = new Recitation("S05", "McKenna", "T 3:00 - 5:00", "Javits", "Jaskirat", "Jaskiran");
         Schedule e = new Schedule("Holiday", "Date", "Topic", "Link");
+        int startHour = 9;
+        int endHour = 20;
 
         teachingAssistants.add(ta1);
         teachingAssistants.add(ta2);
@@ -124,7 +135,6 @@ public class TestSave {
 //                timeSlotArrayBuilder.add(tsJson);
 //            }
 //            JsonArray timeSlotsArray = timeSlotArrayBuilder.build();
-
             //Build Recitations Array
             JsonArrayBuilder recitationsArrayBuilder = Json.createArrayBuilder();
             for (Recitation ra : recitations) {
@@ -177,14 +187,21 @@ public class TestSave {
 
             // THEN PUT IT ALL TOGETHER IN A JsonObject
             JsonObject dataManagerJSO = Json.createObjectBuilder()
-//                    .add(JSON_START_HOUR, "" + dataManager.getStartHour())
-//                    .add(JSON_END_HOUR, "" + dataManager.getEndHour())
+                    .add(JSON_START_HOUR, "" + startHour)
+                    .add(JSON_END_HOUR, "" + endHour)
+                    .add(CI_SUB, "" + courseInfo.getSubject())
+                    .add(CI_NUM, "" + courseInfo.getNumber())
+                    .add(CI_SEM, "" + courseInfo.getSemester())
+                    .add(CI_YEAR, "" + courseInfo.getYear())
+                    .add(CI_TITLE, "" + courseInfo.getTitle())
+                    .add(CI_INS, "" + courseInfo.getInsName())
+                    .add(CI_LINK, "" + courseInfo.getInsHome())
                     .add(JSON_TAS, undergradTAsArray)
-//                    .add(JSON_OFFICE_HOURS, timeSlotsArray)
+//                                        .add(JSON_OFFICE_HOURS, timeSlotsArray)
                     .add(JSON_RECS, recitationsArray)
                     .add(JSON_SCHD, scheduleArray)
                     .add(JSON_STU, studentArray)
-                    .add(JSON_TEAM, teamArray)
+                    .add(JSON_TEAMS, teamArray)
                     .build();
 
             // AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
@@ -208,8 +225,8 @@ public class TestSave {
             Logger.getLogger(TestSave.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         TestSave a = new TestSave();
         a.demonstrateSave();
     }

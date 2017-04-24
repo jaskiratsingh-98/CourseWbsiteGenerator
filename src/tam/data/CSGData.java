@@ -555,6 +555,10 @@ public class CSGData implements AppDataComponent {
     }
     
     public void setCourseInfo(String a,String b, String c, String d, String e, String f, String g){
-        
+        courseInfo.setCourseInfo(a, b, c, d, e, f, g);
+    }
+    
+    public CourseInfo getCourseInfo(){
+        return courseInfo;
     }
 }

@@ -45,6 +45,17 @@ public class CourseInfo {
         this.insName = insName;
         this.insHome = insHome;
     }
+    
+    public void setCourseInfo(String subject, String number, String semester,
+            String year, String title, String insName, String insHome){
+        this.subject = subject;
+        this.number = number;
+        this.semester = semester;
+        this.year = year;
+        this.title = title;
+        this.insName = insName;
+        this.insHome = insHome;
+    }
 
     public String getSubject() {
         return subject;

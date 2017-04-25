@@ -8,11 +8,14 @@ package tam.test_bed;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import tam.data.CSGData;
+import static tam.test_bed.LoadCourseInfo.loadCourse;
 
 /**
  *
@@ -54,5 +57,13 @@ public class LoadRecitation {
         jsonReader.close();
         is.close();
         return json;
+    }
+    
+    public static void main(String[] args){
+        try {
+            loadCourse("C:\\Users\\jaski\\Google Drive\\CSE 219\\Homework2\\TAManager_Solution\\SiteSaveTest.json");
+        } catch (IOException ex) {
+            Logger.getLogger(LoadCourseInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

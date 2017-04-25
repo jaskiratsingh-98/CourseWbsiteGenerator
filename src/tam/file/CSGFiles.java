@@ -202,8 +202,8 @@ public class CSGFiles implements AppFileComponent {
             String topic = jsonSch.getString(JSON_TOPIC);
             String link = jsonSch.getString(JSON_LINK);
             String criteria = jsonSch.getString(JSON_CRIT);
-            dataManager.addSchedule(type, date, time, title, topic,
-                    link, criteria);
+            dataManager.addSchedule(type, date, title, topic,
+                    time, link, criteria);
         }
 
         JsonArray jsonTeamArray = json.getJsonArray(JSON_TEAMS);

@@ -5,11 +5,15 @@
  */
 package tam.test_bed;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,7 +30,7 @@ import static tam.test_bed.LoadRecitation.JSON_SECTION;
  * @author jaski
  */
 public class LoadRecitationTest {
-    
+
     static final String JSON_RECS = "recitations";
     static final String JSON_SECTION = "section";
     static final String JSON_INSTRUCTOR = "instructor";
@@ -55,7 +59,7 @@ public class LoadRecitationTest {
         JsonObject json;
         CSGData data;
         try {
-            json = LoadRecitation.loadJSONFile("C:\\Users\\jaski\\Google Drive\\CSE 219\\Homework2\\TAManager_Solution\\SiteSaveTest.json");
+            json = loadJSONFile("C:\\Users\\jaski\\Google Drive\\CSE 219\\Homework2\\TAManager_Solution\\SiteSaveTest.json");
             data = LoadRecitation.loadCourse("C:\\Users\\jaski\\Google Drive\\CSE 219\\Homework2\\TAManager_Solution\\SiteSaveTest.json");
 
             JsonArray jsonRecArray = json.getJsonArray(JSON_RECS);
@@ -67,7 +71,7 @@ public class LoadRecitationTest {
                 String location = jsonRec.getString(JSON_LOCATION);
                 String ta1 = jsonRec.getString(JSON_TA1);
                 String ta2 = jsonRec.getString(JSON_TA2);
-                
+
                 assertEquals(section, data.getRecitations().get(i).getSection());
                 assertEquals(instructor, data.getRecitations().get(i).getInstructor());
                 assertEquals(dayTime, data.getRecitations().get(i).getDayTime());
@@ -76,10 +80,18 @@ public class LoadRecitationTest {
                 assertEquals(ta2, data.getRecitations().get(i).getTa2());
             }
 
-            
         } catch (IOException ex) {
             Logger.getLogger(LoadCourseInfoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private static JsonObject loadJSONFile(String jsonFilePath) throws IOException {
+        InputStream is = new FileInputStream(jsonFilePath);
+        JsonReader jsonReader = Json.createReader(is);
+        JsonObject json = jsonReader.readObject();
+        jsonReader.close();
+        is.close();
+        return json;
     }
 
 }

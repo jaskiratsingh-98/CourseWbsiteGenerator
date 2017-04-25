@@ -518,10 +518,10 @@ public class CSGData implements AppDataComponent {
         return false;
     }
     
-    public void addSchedule(String type, LocalDate date, String time, 
-            String title, String topic, String link, String criteria){
-        Schedule sch = new Schedule(type, date, time, 
-                title, topic, link, criteria);
+    public void addSchedule(String type, LocalDate date, String title, 
+            String topic, String time, String link, String criteria){
+        Schedule sch = new Schedule(type, date, title, 
+                topic, time, link, criteria);
 
         if (!containsSchedule(sch)) {
             schedule.add(sch);
@@ -530,10 +530,10 @@ public class CSGData implements AppDataComponent {
 //        Collections.sort(recitations);
     }
     
-    public void addSchedule(String type, String date, String time, 
-            String title, String topic, String link, String criteria){
-        Schedule sch = new Schedule(type, date, time, 
-                title, topic, link, criteria);
+    public void addSchedule(String type, String date, String title, 
+            String topic, String time, String link, String criteria){
+        Schedule sch = new Schedule(type, date, 
+                title, topic, time, link, criteria);
 
         if (!containsSchedule(sch)) {
             schedule.add(sch);

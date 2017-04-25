@@ -19,7 +19,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tam.data.CSGData;
 import tam.data.CourseInfo;
-import static tam.test_bed.LoadCourseInfo.CI_SUB;
 import static tam.test_bed.LoadCourseInfo.loadCourse;
 
 /**
@@ -35,8 +34,6 @@ public class LoadCourseInfoTest {
     static final String CI_INS = "instructor";
     static final String CI_LINK = "link";
 
-    public LoadCourseInfoTest() {
-    }
 
     @BeforeClass
     public static void setUpClass() {
@@ -66,7 +63,7 @@ public class LoadCourseInfoTest {
             String ins = json.getString(CI_INS);
             String ci_link = json.getString(CI_LINK);
             
-            assertEquals(data.getCourseInfo(), new CourseInfo(subject, number, semester, year, ci_title, ins, ci_link));
+            assertEquals(new CourseInfo(subject, number, semester, year, ci_title, ins, ci_link), data.getCourseInfo());
         } catch (IOException ex) {
             Logger.getLogger(LoadCourseInfoTest.class.getName()).log(Level.SEVERE, null, ex);
         }

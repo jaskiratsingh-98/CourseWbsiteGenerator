@@ -109,7 +109,7 @@ public class CSGFiles implements AppFileComponent {
     static final String MON_DAY = "startingMondayDay";
     static final String FRI_MON = "endingFridayMonth";
     static final String FRI_DAY = "endingFridayDay";
-    static final String TAS_FILEPATH = "./scripts/OfficeHoursGridData.json";
+    static final String TAS_FILEPATH = "./scripts/SyllabusData.json";
     static final String HWS_FILEPATH = "./scripts/HWsData.json";
     static final String JSON_PRO = "projects";
     static final String PRO_FILEPATH = "./scripts/ProjectsData.json";

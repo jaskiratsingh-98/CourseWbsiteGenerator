@@ -37,6 +37,7 @@ function loadData(jsonFile) {
         addLectures();
         addReferences();
         addHWs();
+        setCourseInfo(json);
     });
 }
 function initDateData() {
@@ -220,3 +221,19 @@ function addHWs() {
     }
 }
 
+function setCourseInfo(data){
+    var subject = data.subject;
+    var number = data.number;
+    var semester = data.semester;
+    var year = data.year;
+    var title = data.title;
+    var text = subject + " " + number + " - " + semester + " " + year
+    + "<br>" + title;
+    var link1 = data.ins_link;
+    var name = data.name;
+    var ban = $("#banner");
+    ban.append(text);
+    var link = $("#instructor_link");
+    link.replaceWith("<a href=" + link1 + ">" + name + "</a></span>");
+    document.title = 'Home';
+}

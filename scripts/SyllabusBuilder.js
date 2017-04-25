@@ -12,7 +12,7 @@ var officeHours;
 var undergradTAs;
 
 function buildOfficeHoursGrid() {
-    var dataFile = "./js/OfficeHoursGridData.json";
+    var dataFile = "./js/SyllabusData.json";
     loadData(dataFile);
 }
 
@@ -21,6 +21,7 @@ function loadData(jsonFile) {
 	initDays(json);
         addUndergradTAs(json);
         addOfficeHours(json);
+        setCourseInfo(json);
     });
 }
 
@@ -55,14 +56,14 @@ function addUndergradTAs(data) {
 }
 
 function addGradTAs(data){
-    var tas = $("#undergrad_tas");
+    var tas = $("#grad_tas");
     var tasPerRow = 4;
-    var numTAs = data.undergrad_tas.length;
-    for (var i = 0; i < data.undergrad_tas.length; ) {
+    var numTAs = data.grad_tas.length;
+    for (var i = 0; i < data.grad_tas.length; ) {
         var text = "";
         text = "<tr>";
         for (var j = 0; j < tasPerRow; j++) {
-            text += buildTACell(i, numTAs, data.undergrad_tas[i]);
+            text += buildTACell(i, numTAs, data.grad_tas[i]);
             i++;
         }
         text += "</tr>";
@@ -150,4 +151,19 @@ function getAMorPM(testTime) {
         return "am";
 }
 
-
+function setCourseInfo(data){
+    var subject = data.subject;
+    var number = data.number;
+    var semester = data.semester;
+    var year = data.year;
+    var title = data.title;
+    var text = subject + " " + number + " - " + semester + " " + year
+    + "<br>" + title;
+    var link1 = data.ins_link;
+    var name = data.name;
+    var ban = $("#banner");
+    ban.append(text);
+    var link = $("#instructor_link");
+    link.replaceWith("<a href=" + link1 + ">" + name + "</a></span>");
+    document.title = 'Home';
+}

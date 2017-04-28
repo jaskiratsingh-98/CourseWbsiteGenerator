@@ -5,13 +5,20 @@
  */
 package tam.workspace;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -29,6 +36,8 @@ import static tam.CSGProp.TITLE_LABEL;
 import static tam.CSGProp.YEAR_LABEL;
 import tam.data.CSGData;
 import tam.data.CourseInfo;
+import tam.data.PageGenerateValueFactory;
+import tam.data.Pages;
 
 /**
  *
@@ -36,9 +45,10 @@ import tam.data.CourseInfo;
  */
 public class CourseInfoTab {
     CSGApp app;
+    CourseInfoController controller;
     Tab courseTab;
 
-    VBox borderPane;
+    ScrollPane borderPane;
     VBox mainPane;
     VBox infoPane;
     VBox tempPane;
@@ -69,40 +79,45 @@ public class CourseInfoTab {
     HBox box5;
 
     Button changeButton;
+    Label expDir;
     GridPane box1;
 
     Label title2;
     Label description;
     Button selectTemp;
+    Label template;
     Label sitePages;
     Label exportDir;
 
-    TableView<String> siteTable;
-    TableColumn<String, String> useColumn;
-    TableColumn<String, String> navBarColumn;
-    TableColumn<String, String> fileColumn;
-    TableColumn<String, String> scriptColumn;
+    TableView<Pages> siteTable;
+    TableColumn<Pages, CheckBox> useColumn;
+    TableColumn<Pages, String> navBarColumn;
+    TableColumn<Pages, String> fileColumn;
+    TableColumn<Pages, String> scriptColumn;
 
     Label title3;
     Label bannerImage;
+    ImageView bannerImageView;
     Button changeBanner;
     Label footerLeft;
+    ImageView leftImageView;
     Button changeLeftFooter;
     Label footerRight;
+    ImageView rightImageView;
     Button changeRightFooter;
     Label stylesheet;
     ComboBox chooseSheet;
     Label note;
 
     public CourseInfoTab(CSGApp app) {
+        
         this.app = app;
         CSGData data = (CSGData)app.getDataComponent();
-        CourseInfo courseInfo = data.getCourseInfo();
         mainPane = new VBox();
         infoPane = new VBox();
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-
+        
         title1 = new Label(props.getProperty(COURSE_INFO_LABEL));
 
         subject = new Label(props.getProperty(SUBJECT_LABEL));
@@ -125,6 +140,7 @@ public class CourseInfoTab {
         homeTextField = new TextField();
 
         exportDir = new Label(props.getProperty(DIR_LABEL));
+        expDir = new Label(data.getExportDir());
         changeButton = new Button("Change");
         
         box1 = new GridPane();
@@ -145,6 +161,7 @@ public class CourseInfoTab {
         box1.add(home, 1, 4);
         box1.add(homeTextField, 3, 4);
         box1.add(exportDir, 1, 5);
+        box1.add(expDir, 3, 5);
         box1.add(changeButton, 7, 5);
 
         infoPane.getChildren().addAll(title1, box1);
@@ -153,40 +170,55 @@ public class CourseInfoTab {
         description = new Label(props.getProperty(DESC_LABEL));
 
         selectTemp = new Button("Select Template Directory");
+        template = new Label(data.getTemplate());
         sitePages = new Label(props.getProperty(SITE_PAGES_LABEL));
 
         siteTable = new TableView();
+        siteTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        ObservableList<Pages> pages = data.getPages();
+        siteTable.setItems(pages);
+        
         useColumn = new TableColumn(props.getProperty(USE_TEXT));
         navBarColumn = new TableColumn(props.getProperty(NAVBAR_TEXT));
         fileColumn = new TableColumn(props.getProperty(FILE_TEXT));
         scriptColumn = new TableColumn(props.getProperty(SCRIPT_TEXT));
 
+        useColumn.setCellValueFactory(new PageGenerateValueFactory());
+        navBarColumn.setCellValueFactory(
+                new PropertyValueFactory<>("navbar")
+        );
+        
+        fileColumn.setCellValueFactory(
+                new PropertyValueFactory<>("fileName")
+        );
+        
+        scriptColumn.setCellValueFactory(
+                new PropertyValueFactory<>("script")
+        );
+        
         siteTable.getColumns().addAll(useColumn, navBarColumn, fileColumn, scriptColumn);
+        siteTable.setMaxHeight(160);
 
         tempPane = new VBox();
-        tempPane.getChildren().addAll(title2, description, selectTemp, sitePages, siteTable);
+        tempPane.getChildren().addAll(title2, description, selectTemp, template,
+                sitePages, siteTable);
 
         title3 = new Label(props.getProperty(PAGE_LABEL));
-
         bannerImage = new Label(props.getProperty(BANNER_LABEL));
+        bannerImageView = new ImageView();
+        bannerImageView.setImage(new Image(data.getBannerImage()));
         changeBanner = new Button("Change");
-        HBox box6 = new HBox();
-        box6.getChildren().addAll(bannerImage, changeBanner);
 
         footerLeft = new Label(props.getProperty(FOOTER_LEFTLABEL));
+        leftImageView = new ImageView(new Image(data.getLeftFooter()));
         changeLeftFooter = new Button("Change");
-        HBox box7 = new HBox();
-        box7.getChildren().addAll(footerLeft, changeLeftFooter);
 
         footerRight = new Label(props.getProperty(FOOTER_RIGHTLABEL));
+        rightImageView = new ImageView(new Image(data.getRightFooter()));
         changeRightFooter = new Button("Change");
-        HBox box8 = new HBox();
-        box8.getChildren().addAll(footerRight, changeRightFooter);
 
         stylesheet = new Label(props.getProperty(STYLESHEET_LABEL));
         chooseSheet = new ComboBox();
-        HBox box9 = new HBox();
-        box9.getChildren().addAll(stylesheet, chooseSheet);
 
         note = new Label(props.getProperty(NOTE_LABEL));
         
@@ -194,11 +226,14 @@ public class CourseInfoTab {
         box2.setHgap(5.0);
         box2.setVgap(2.0);
         box2.add(bannerImage, 1, 0);
-        box2.add(changeBanner, 3, 0);
+        box2.add(bannerImageView, 3, 0);
+        box2.add(changeBanner, 7, 0);
         box2.add(footerLeft, 1, 1);
-        box2.add(changeLeftFooter, 3, 1);
+        box2.add(leftImageView, 3, 1);
+        box2.add(changeLeftFooter, 7, 1);
         box2.add(footerRight, 1, 2);
-        box2.add(changeRightFooter, 3, 2);
+        box2.add(rightImageView, 3, 2);
+        box2.add(changeRightFooter, 7, 2);
         box2.add(stylesheet, 1, 3);
         box2.add(chooseSheet, 3, 3);
 
@@ -208,13 +243,32 @@ public class CourseInfoTab {
         courseTab = new Tab();
 
         mainPane.getChildren().addAll(infoPane, tempPane, stylePane);
+        mainPane.setMinWidth(1300);
         
-        borderPane = new VBox();
-        borderPane.getChildren().add(mainPane);
+        borderPane = new ScrollPane();
+        borderPane.setContent(mainPane);
+        borderPane.fitToWidthProperty();
 
         courseTab.setText("Course Details");
         courseTab.setContent(borderPane);
+        
+        controller = new CourseInfoController(app);
+        
+        changeButton.setOnAction(e -> {
+            controller.setExportDir();
+        });
 
+        changeBanner.setOnAction(e -> {
+            controller.setBanner();
+        });
+        
+        changeLeftFooter.setOnAction(e -> {
+            controller.setLeftFooter();
+        });
+        
+        changeRightFooter.setOnAction(e ->{
+            controller.setRightFooter();
+        });
     }
 
     public Tab getTab() {
@@ -245,7 +299,7 @@ public class CourseInfoTab {
         return stylePane;
     }
     
-    public VBox getBorderPane(){
+    public ScrollPane getBorderPane(){
         return borderPane;
     }
 
@@ -285,6 +339,20 @@ public class CourseInfoTab {
         return title3;
     }
 
+    public void setExpDir(String a){
+        expDir.setText(a);
+    }
     
+    public void setBannerImageView(String imageFile){
+        bannerImageView.setImage(new Image("file:" + imageFile));
+    }
+    
+    public void setLeftImageView(String imageFile){
+        leftImageView.setImage(new Image("file:" + imageFile));
+    }
+    
+    public void setRightImageView(String imageFile){
+        rightImageView.setImage(new Image("file:" + imageFile));
+    }
     
 }

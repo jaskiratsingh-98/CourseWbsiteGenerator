@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.layout.Pane;
 import properties_manager.PropertiesManager;
@@ -31,6 +32,12 @@ public class CSGData implements AppDataComponent {
     ObservableList<Schedule> schedule;
     ObservableList<Team> teams;
     ObservableList<Student> students;
+    ObservableList<Pages> pages;
+    StringProperty exportDir;
+    StringProperty template;
+    StringProperty bannerImage;
+    StringProperty rightFooter;
+    StringProperty leftFooter;
 
     // NOTE THAT THIS DATA STRUCTURE WILL DIRECTLY STORE THE
     // DATA IN THE ROWS OF THE TABLE VIEW
@@ -81,6 +88,8 @@ public class CSGData implements AppDataComponent {
         schedule = FXCollections.observableArrayList();
         teams = FXCollections.observableArrayList();
         students = FXCollections.observableArrayList();
+        template.set("./templates");
+        bannerImage.set("file:./images/Open.png");
 
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
@@ -110,6 +119,19 @@ public class CSGData implements AppDataComponent {
         schedule = FXCollections.observableArrayList();
         teams = FXCollections.observableArrayList();
         students = FXCollections.observableArrayList();
+        pages = FXCollections.observableArrayList();
+        template = new SimpleStringProperty("./templates");
+        exportDir = new SimpleStringProperty("./export");
+        
+        bannerImage = new SimpleStringProperty("file:./SBUDarkRedShieldLogo.png");
+        rightFooter = new SimpleStringProperty("file:./CSLogo.png");
+        leftFooter = new SimpleStringProperty("file:./SBUWhiteShieldLogo.jpg");
+        
+        pages.add(new Pages("Home","index.html","HomeBuilder.js"));
+        pages.add(new Pages("Syllabus","syllabus.html","SyllabusBuilder.js"));
+        pages.add(new Pages("Schedule","schedule.html","ScheduleBuilder.js"));
+        pages.add(new Pages("HWs","hws.html","HWsBuilder.js"));
+        pages.add(new Pages("Projects","projects.html","ProjectsBuilder.js"));
 
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
@@ -646,6 +668,45 @@ public class CSGData implements AppDataComponent {
         return endingFridayDay;
     }
     
+    public String getTemplate(){
+        return template.get();
+    }
     
+    public String getBannerImage(){
+        return bannerImage.get();
+    }
     
+    public void setBannerImage(String v){
+        bannerImage.setValue(v);
+    }
+
+    public String getRightFooter() {
+        return rightFooter.get();
+    }
+    
+    public void setRightFooter(String s){
+        rightFooter.setValue(s);
+    }
+
+    public String getLeftFooter() {
+        return leftFooter.get();
+    }
+    
+    public void setLeftFooter(String s){
+        leftFooter.setValue(s);
+    }
+
+    public ObservableList<Pages> getPages() {
+        return pages;
+    }
+    
+    public String getExportDir(){
+        return exportDir.get();
+    }
+    
+    public void setExportDir(String a){
+        exportDir.setValue(a);
+    }
+   
+
 }

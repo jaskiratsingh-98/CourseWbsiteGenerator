@@ -121,5 +121,6 @@ public enum CSGProp {
     ROLE_TEXT,
     DIR_LABEL,
     UNDERGRAD_TEXT,
-    STUDENTS_LABEL
+    STUDENTS_LABEL,
+    EXPORT_TITLE
 }

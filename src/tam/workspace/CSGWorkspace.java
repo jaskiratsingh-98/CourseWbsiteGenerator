@@ -27,6 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import jtps.jTPS;
 import properties_manager.PropertiesManager;
 import tam.CSGProp;
 import tam.style.CSGStyle;
@@ -42,7 +43,7 @@ import tam.data.TeachingAssistant;
  */
 public class CSGWorkspace extends AppWorkspaceComponent {
     CSGApp app;
-
+    
     TAController controller;
     TabPane tabPane;
     TATab taTab;
@@ -78,7 +79,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         tabPane.getTabs().add(recitationTab.getTab());
         tabPane.getTabs().add(scheduleTab.getTab());
         tabPane.getTabs().add(projectTab.getTab());
-        
+       
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         borderPane = new VBox();

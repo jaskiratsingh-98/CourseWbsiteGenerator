@@ -5,6 +5,10 @@
  */
 package tam.workspace;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -44,6 +48,7 @@ import tam.data.Pages;
  * @author jaski
  */
 public class CourseInfoTab {
+
     CSGApp app;
     CourseInfoController controller;
     Tab courseTab;
@@ -110,14 +115,14 @@ public class CourseInfoTab {
     Label note;
 
     public CourseInfoTab(CSGApp app) {
-        
+
         this.app = app;
-        CSGData data = (CSGData)app.getDataComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         mainPane = new VBox();
         infoPane = new VBox();
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        
+
         title1 = new Label(props.getProperty(COURSE_INFO_LABEL));
 
         subject = new Label(props.getProperty(SUBJECT_LABEL));
@@ -142,7 +147,7 @@ public class CourseInfoTab {
         exportDir = new Label(props.getProperty(DIR_LABEL));
         expDir = new Label(data.getExportDir());
         changeButton = new Button("Change");
-        
+
         box1 = new GridPane();
         box1.setHgap(5.0);
         box1.setVgap(2.0);
@@ -177,7 +182,7 @@ public class CourseInfoTab {
         siteTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         ObservableList<Pages> pages = data.getPages();
         siteTable.setItems(pages);
-        
+
         useColumn = new TableColumn(props.getProperty(USE_TEXT));
         navBarColumn = new TableColumn(props.getProperty(NAVBAR_TEXT));
         fileColumn = new TableColumn(props.getProperty(FILE_TEXT));
@@ -187,15 +192,15 @@ public class CourseInfoTab {
         navBarColumn.setCellValueFactory(
                 new PropertyValueFactory<>("navbar")
         );
-        
+
         fileColumn.setCellValueFactory(
                 new PropertyValueFactory<>("fileName")
         );
-        
+
         scriptColumn.setCellValueFactory(
                 new PropertyValueFactory<>("script")
         );
-        
+
         siteTable.getColumns().addAll(useColumn, navBarColumn, fileColumn, scriptColumn);
         siteTable.setMaxHeight(160);
 
@@ -217,11 +222,16 @@ public class CourseInfoTab {
         rightImageView = new ImageView(new Image(data.getRightFooter()));
         changeRightFooter = new Button("Change");
 
+        File[] f = new File("./work/css").listFiles();
+
         stylesheet = new Label(props.getProperty(STYLESHEET_LABEL));
         chooseSheet = new ComboBox();
+        for(File a: f){
+            if(a.getPath().endsWith(".css")) chooseSheet.getItems().add(a);
+        }
 
         note = new Label(props.getProperty(NOTE_LABEL));
-        
+
         box2 = new GridPane();
         box2.setHgap(5.0);
         box2.setVgap(2.0);
@@ -244,16 +254,16 @@ public class CourseInfoTab {
 
         mainPane.getChildren().addAll(infoPane, tempPane, stylePane);
         mainPane.setMinWidth(1300);
-        
+
         borderPane = new ScrollPane();
         borderPane.setContent(mainPane);
         borderPane.fitToWidthProperty();
 
         courseTab.setText("Course Details");
         courseTab.setContent(borderPane);
-        
+
         controller = new CourseInfoController(app);
-        
+
         changeButton.setOnAction(e -> {
             controller.setExportDir();
         });
@@ -261,13 +271,21 @@ public class CourseInfoTab {
         changeBanner.setOnAction(e -> {
             controller.setBanner();
         });
-        
+
         changeLeftFooter.setOnAction(e -> {
             controller.setLeftFooter();
         });
-        
-        changeRightFooter.setOnAction(e ->{
+
+        changeRightFooter.setOnAction(e -> {
             controller.setRightFooter();
+        });
+        
+        chooseSheet.setOnAction(e -> {
+            controller.setStyleSheet();
+        });
+        
+        selectTemp.setOnAction(e -> {
+            controller.setTemplateDir();
         });
     }
 
@@ -278,28 +296,28 @@ public class CourseInfoTab {
     public Label getTitle1() {
         return title1;
     }
-    
-    public VBox getInfoPane(){
+
+    public VBox getInfoPane() {
         return infoPane;
     }
-    
-    public VBox getMainPane(){
+
+    public VBox getMainPane() {
         return mainPane;
     }
-    
-    public GridPane getBox1(){
+
+    public GridPane getBox1() {
         return box1;
     }
-    
-    public VBox getTempPane(){
+
+    public VBox getTempPane() {
         return tempPane;
     }
-    
-    public VBox getStylePane(){
+
+    public VBox getStylePane() {
         return stylePane;
     }
-    
-    public ScrollPane getBorderPane(){
+
+    public ScrollPane getBorderPane() {
         return borderPane;
     }
 
@@ -339,20 +357,28 @@ public class CourseInfoTab {
         return title3;
     }
 
-    public void setExpDir(String a){
+    public void setExpDir(String a) {
         expDir.setText(a);
     }
     
-    public void setBannerImageView(String imageFile){
+    public void setTemplate(String a){
+        template.setText(a);
+    }
+
+    public void setBannerImageView(String imageFile) {
         bannerImageView.setImage(new Image("file:" + imageFile));
     }
-    
-    public void setLeftImageView(String imageFile){
+
+    public void setLeftImageView(String imageFile) {
         leftImageView.setImage(new Image("file:" + imageFile));
     }
-    
-    public void setRightImageView(String imageFile){
+
+    public void setRightImageView(String imageFile) {
         rightImageView.setImage(new Image("file:" + imageFile));
     }
     
+    public ComboBox getChooseSheet(){
+        return chooseSheet;
+    }
+
 }

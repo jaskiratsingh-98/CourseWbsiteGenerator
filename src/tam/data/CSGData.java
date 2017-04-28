@@ -38,6 +38,7 @@ public class CSGData implements AppDataComponent {
     StringProperty bannerImage;
     StringProperty rightFooter;
     StringProperty leftFooter;
+    StringProperty styleSheet;
 
     // NOTE THAT THIS DATA STRUCTURE WILL DIRECTLY STORE THE
     // DATA IN THE ROWS OF THE TABLE VIEW
@@ -126,6 +127,7 @@ public class CSGData implements AppDataComponent {
         bannerImage = new SimpleStringProperty("file:./SBUDarkRedShieldLogo.png");
         rightFooter = new SimpleStringProperty("file:./CSLogo.png");
         leftFooter = new SimpleStringProperty("file:./SBUWhiteShieldLogo.jpg");
+        styleSheet = new SimpleStringProperty("");
         
         pages.add(new Pages("Home","index.html","HomeBuilder.js"));
         pages.add(new Pages("Syllabus","syllabus.html","SyllabusBuilder.js"));
@@ -672,6 +674,10 @@ public class CSGData implements AppDataComponent {
         return template.get();
     }
     
+    public void setTemplate(String s){
+        template.setValue(s);
+    }
+    
     public String getBannerImage(){
         return bannerImage.get();
     }
@@ -707,6 +713,12 @@ public class CSGData implements AppDataComponent {
     public void setExportDir(String a){
         exportDir.setValue(a);
     }
-   
-
+    
+    public void setStyleSheet(String s){
+        styleSheet.setValue(s);
+    }
+    
+    public String getStyleSheet(){
+        return styleSheet.getValue();
+    }
 }

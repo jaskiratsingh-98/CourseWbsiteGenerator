@@ -9,6 +9,7 @@ import static djf.settings.AppPropertyType.LOAD_ERROR_MESSAGE;
 import static djf.settings.AppPropertyType.LOAD_ERROR_TITLE;
 import djf.ui.AppMessageDialogSingleton;
 import java.io.File;
+import javafx.scene.control.ComboBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -92,6 +93,34 @@ public class CourseInfoController {
         data.setLeftFooter(newBanner.getAbsolutePath());
         CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
         a.getCourseTab().setLeftImageView(data.getLeftFooter());
+        
+        }
+        catch(Exception e){
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
+        }
+    }
+    
+    public void setStyleSheet(){
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        CSGData data = (CSGData)app.getDataComponent();
+        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
+        
+        ComboBox comboBox = a.getCourseTab().getChooseSheet();
+        String file = comboBox.getValue().toString();
+        data.setStyleSheet(file);
+    }
+    
+    public void setTemplateDir(){
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        CSGData data = (CSGData)app.getDataComponent();
+        try{
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
+        File newBanner = fileChooser.showDialog(app.getGUI().getWindow());
+        data.setTemplate(newBanner.getAbsolutePath());
+        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
+        a.getCourseTab().setTemplate(data.getTemplate());
         
         }
         catch(Exception e){

@@ -82,6 +82,8 @@ public class ProjectTab {
 
     Button addUpdate2;
     Button clear2;
+    
+    ProjectController controller;
 
     public ProjectTab(CSGApp app) {
         this.app = app;
@@ -234,6 +236,14 @@ public class ProjectTab {
 
         tab.setText("Project Data");
         tab.setContent(mainPane);
+        
+        controller = new ProjectController(app);
+        addUpdate.setOnAction(e ->{
+            controller.addTeam();
+        });
+        addUpdate2.setOnAction(e ->{
+            controller.addStudent();
+        });
     }
 
     public Tab getTab() {
@@ -274,6 +284,30 @@ public class ProjectTab {
 
     public ColorPicker getTextColorPicker() {
         return textColorPicker;
+    }
+
+    public TextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public TextField getLinkTextField() {
+        return linkTextField;
+    }
+
+    public ComboBox getTeamComboBox() {
+        return teamComboBox;
+    }
+
+    public TextField getFirstNameTF() {
+        return firstNameTF;
+    }
+
+    public TextField getLastNameTF() {
+        return lastNameTF;
+    }
+
+    public TextField getRoleTextField() {
+        return roleTextField;
     }
     
     

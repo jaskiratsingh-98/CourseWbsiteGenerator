@@ -44,6 +44,7 @@ public class CSGData implements AppDataComponent {
     // DATA IN THE ROWS OF THE TABLE VIEW
     ObservableList<TeachingAssistant> teachingAssistants;
     ObservableList<String> taNames;
+    ObservableList<String> teamNames;
 
     // THIS WILL STORE ALL THE OFFICE HOURS GRID DATA, WHICH YOU
     // SHOULD NOTE ARE StringProperty OBJECTS THAT ARE CONNECTED
@@ -121,6 +122,7 @@ public class CSGData implements AppDataComponent {
         recitations = FXCollections.observableArrayList();
         schedule = FXCollections.observableArrayList();
         teams = FXCollections.observableArrayList();
+        teamNames = FXCollections.observableArrayList();
         students = FXCollections.observableArrayList();
         pages = FXCollections.observableArrayList();
         template = new SimpleStringProperty("./templates");
@@ -587,6 +589,7 @@ public class CSGData implements AppDataComponent {
 
         if (!containsTeam(team)) {
             teams.add(team);
+            teamNames.add(name);
         }
         
 //        Collections.sort(recitations);
@@ -728,5 +731,9 @@ public class CSGData implements AppDataComponent {
     
     public ObservableList getTaNames(){
         return taNames;
+    }
+    
+    public ObservableList getTeamNames(){
+        return teamNames;
     }
 }

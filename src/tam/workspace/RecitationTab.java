@@ -5,6 +5,7 @@
  */
 package tam.workspace;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static tam.CSGProp.*;
 import javafx.scene.control.Button;
@@ -64,6 +65,7 @@ public class RecitationTab {
 
     VBox mainPane;
     VBox addEditPane;
+    RecitationController controller;
 
     public RecitationTab(CSGApp app) {
         this.app = app;
@@ -134,7 +136,10 @@ public class RecitationTab {
         supervisingLabel = new Label(props.getProperty(SUPERVISING_LABEL));
         supervisingLabel2 = new Label(props.getProperty(SUPERVISING_LABEL));
         ta1ComboBox = new ComboBox();
+        ObservableList<String> taData = data.getTaNames();
+        ta1ComboBox.setItems(taData);
         ta2ComboBox = new ComboBox();
+        ta2ComboBox.setItems(taData);
 
         addUpdate = new Button(props.getProperty(ADDUPDATE_BUTTON));
         clear = new Button(props.getProperty(CLEAR_BUTTON));
@@ -165,6 +170,12 @@ public class RecitationTab {
         mainPane.getChildren().addAll(box1, recitations, addEditPane);
         tab.setText("Recitation Data");
         tab.setContent(mainPane);
+        
+        controller = new RecitationController(app);
+        
+        addUpdate.setOnAction(e -> {
+            controller.addRecitation();
+        });
     }
 
     public Tab getTab() {
@@ -191,4 +202,27 @@ public class RecitationTab {
         return addEdit;
     }
 
+    public TextField getSectionTextField(){
+        return sectionTextField;
+    }
+    
+    public TextField getInstructorTextField(){
+        return instructorTextField;
+    }
+    
+    public TextField getDayTimeTextField(){
+        return dayTimeTextField;
+    }
+    
+    public TextField getLocationTextField(){
+        return locationTextField;
+    }
+    
+    public ComboBox getTa1ComboBox(){
+        return ta1ComboBox;
+    }
+    
+    public ComboBox getTa2ComboBox(){
+        return ta2ComboBox;
+    }
 }

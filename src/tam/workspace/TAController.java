@@ -255,6 +255,8 @@ public class TAController {
             if (validateEmailAddress(email) == true) {
                 // ADD THE NEW TA TO THE DATA
                 jTPS.addTransaction(taTrans);
+                workspace.getRecitationTab().getTa1ComboBox().setItems(data.getTaNames());
+                workspace.getRecitationTab().getTa2ComboBox().setItems(data.getTaNames());
 
             }
 

@@ -87,7 +87,7 @@ public class TATab {
     VBox leftPane;
     VBox rightPane;
     HBox mainPane;
-    VBox overallPane;
+    ScrollPane overallPane;
 
     ObservableList<String> hours = FXCollections.observableArrayList(
             "0:00",
@@ -213,8 +213,8 @@ public class TATab {
         mainPane = new HBox();
         mainPane.getChildren().addAll(leftPane, rightPane);
         
-        overallPane = new VBox();
-        overallPane.getChildren().add(mainPane);
+        overallPane = new ScrollPane();
+        overallPane.setContent(mainPane);
 
         taTab.setText("TA Data");
         taTab.setContent(overallPane);
@@ -520,7 +520,7 @@ public class TATab {
         return taTab;
     }
     
-    public VBox getOverallPane(){
+    public ScrollPane getOverallPane(){
         return overallPane;
     }
 }

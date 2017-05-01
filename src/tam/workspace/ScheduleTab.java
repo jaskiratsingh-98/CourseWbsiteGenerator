@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -74,6 +75,7 @@ public class ScheduleTab {
     
     ScheduleController controller;
     private VBox mainPane;
+    ScrollPane overallPane;
     
     
     public ScheduleTab(CSGApp app){
@@ -193,8 +195,11 @@ public class ScheduleTab {
         
         mainPane = new VBox();
         mainPane.getChildren().addAll(schedule, boundariesPane, schedulePane);
+        overallPane = new ScrollPane();
+        overallPane.setContent(mainPane);
+//        overallPane.setMinWidth(1300);
         tab.setText("Schedule Data");
-        tab.setContent(mainPane);
+        tab.setContent(overallPane);
         
         controller = new ScheduleController(app);
         

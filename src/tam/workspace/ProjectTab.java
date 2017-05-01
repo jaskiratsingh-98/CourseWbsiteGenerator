@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -82,6 +83,7 @@ public class ProjectTab {
 
     Button addUpdate2;
     Button clear2;
+    ScrollPane overallPane;
     
     ProjectController controller;
 
@@ -233,9 +235,12 @@ public class ProjectTab {
 
         mainPane = new VBox();
         mainPane.getChildren().addAll(title, teamPane, studentsPane);
+        
+        overallPane = new ScrollPane();
+        overallPane.setContent(mainPane);
 
         tab.setText("Project Data");
-        tab.setContent(mainPane);
+        tab.setContent(overallPane);
         
         controller = new ProjectController(app);
         addUpdate.setOnAction(e ->{

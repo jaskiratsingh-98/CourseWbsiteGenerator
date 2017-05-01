@@ -11,6 +11,7 @@ import static tam.CSGProp.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -65,6 +66,7 @@ public class RecitationTab {
 
     VBox mainPane;
     VBox addEditPane;
+    ScrollPane overallPane;
     RecitationController controller;
 
     public RecitationTab(CSGApp app) {
@@ -168,8 +170,11 @@ public class RecitationTab {
 
         mainPane = new VBox();
         mainPane.getChildren().addAll(box1, recitations, addEditPane);
+        
+        overallPane = new ScrollPane();
+        overallPane.setContent(mainPane);
         tab.setText("Recitation Data");
-        tab.setContent(mainPane);
+        tab.setContent(overallPane);
         
         controller = new RecitationController(app);
         

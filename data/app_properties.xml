@@ -173,6 +173,10 @@
         <property name="JS_FOLDER"                   value="./exportdata/js"></property>
         <property name="SCRIPT_FOLER"                value="./scripts"></property>
         <property name="EXPORT_TITLE"                value="SET Export Directory"></property>
+        <property name="INVALID_DATE_TITLE"                value="Invalid Date Selected"></property>
+        <property name="NOT_MONDAY_MESSAGE"                value="The date selected is not on a monday."></property>
+        <property name="NOT_FRIDAY_MESSAGE"                value="The date selected is not on a friday."></property>
+        
         
     </property_list>
     <property_options_list>                
@@ -195,6 +199,14 @@
             <option>WEDNESDAY</option>
             <option>THURSDAY</option>
             <option>FRIDAY</option>
+        </property_options>
+        
+        <property_options name="SCHEDULE_TYPES">
+            <option>Holidays</option>
+            <option>Lectures</option>
+            <option>References</option>
+            <option>Recitations</option>
+            <option>HWs</option>
         </property_options>
     </property_options_list>
 </properties>

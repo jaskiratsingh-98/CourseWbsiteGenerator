@@ -8,9 +8,9 @@ and open the template in the editor.
 <properties>
     <property_list>
         <property name="APP_TITLE"          value = "Generador de sitios de curso"></property>
-	<property name="APP_LOGO"	    value="TAManagerLogo.png"></property>
-	<property name="APP_PATH_CSS"	    value="style/"></property>
-	<property name="APP_CSS"	    value="tam_style.css"></property>
+        <property name="APP_LOGO"	    value="TAManagerLogo.png"></property>
+        <property name="APP_PATH_CSS"	    value="style/"></property>
+        <property name="APP_CSS"	    value="tam_style.css"></property>
         
         <!-- PROGRAM ICON FILES -->
         <property name="NEW_ICON"           value="New.png"></property>
@@ -62,12 +62,12 @@ and open the template in the editor.
         <property name="WORK_SAVED_MESSAGE"		value="El trabajo se ha guardado"></property>
         <property name="SAVE_UNSAVED_WORK_MESSAGE"	value="¿Desea guardar primero su trabajo no guardado?"></property>
         <property name="TA_TOBE_DELETED_MESSAGE"	value="Continuar con este paso borrará las horas de oficina de uno o más TAs. ¿Desea continuar?"></property>
-	<property name="CONTINUE_TITLE"                 value="¿Está seguro?"></property>
+        <property name="CONTINUE_TITLE"                 value="¿Está seguro?"></property>
         <property name="SAVE_WORK_TITLE"		value="Guardar su trabajo"></property>
         <property name="EXPORT_WORK_TITLE"		value="Exportar su trabajo"></property>
-	<property name="LOAD_WORK_TITLE"		value="Seleccionar archivo de trabajo para cargar"></property>
-	<property name="WORK_FILE_EXT"			value="json"></property>
-	<property name="WORK_FILE_EXT_DESC"		value="TA horas de oficina"></property>
+        <property name="LOAD_WORK_TITLE"		value="Seleccionar archivo de trabajo para cargar"></property>
+        <property name="WORK_FILE_EXT"			value="json"></property>
+        <property name="WORK_FILE_EXT_DESC"		value="TA horas de oficina"></property>
 
         <!-- WORKSPACE CONTROLS STUFF -->        
         <property name="SUBJECT_LABEL"                  value="Subject:"></property>  
@@ -171,6 +171,9 @@ and open the template in the editor.
         <property name="IMAGES_FOLDER"                   value="./exportdata/images"></property>
         <property name="JS_FOLDER"                   value="./exportdata/js"></property>
         <property name="SCRIPT_FOLER"                value="./scripts"></property>
+        <property name="INVALID_DATE_TITLE"                value="Fecha errónea seleccionada"></property>
+        <property name="NOT_MONDAY_MESSAGE"                value="La fecha seleccionada no es el lunes."></property>
+        <property name="NOT_FRIDAY_MESSAGE"                value="La fecha seleccionada no es un viernes."></property>
         
     </property_list>
     <property_options_list>                
@@ -185,6 +188,14 @@ and open the template in the editor.
             <option>MIE</option>
             <option>THURS</option>
             <option>VIE</option>
+        </property_options>
+        
+        <property_options name="SCHEDULE_TYPES">
+            <option>Vacaciones</option>
+            <option>Conferencias</option>
+            <option>Referencias</option>
+            <option>Recitaciones</option>
+            <option>Tareas</option>
         </property_options>
     </property_options_list>
 </properties>

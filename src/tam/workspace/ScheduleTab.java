@@ -5,6 +5,7 @@
  */
 package tam.workspace;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static tam.CSGProp.*;
 import javafx.scene.control.Button;
@@ -71,6 +72,7 @@ public class ScheduleTab {
     Button addUpdate;
     Button clear;
     
+    ScheduleController controller;
     private VBox mainPane;
     
     
@@ -130,7 +132,10 @@ public class ScheduleTab {
         
         addEditLabel = new Label(props.getProperty(ADDEDIT_LABEL));
         typeLabel = new Label(props.getProperty(TYPETEXT));
+        ObservableList<String> types = FXCollections.observableArrayList();
+        types.addAll(props.getPropertyOptionsList(SCHEDULE_TYPES));
         typeComboBox = new ComboBox();
+        typeComboBox.setItems(types);
         
         dateLabel = new Label(props.getProperty(DATETEXT));
         date = new DatePicker();
@@ -190,6 +195,20 @@ public class ScheduleTab {
         mainPane.getChildren().addAll(schedule, boundariesPane, schedulePane);
         tab.setText("Schedule Data");
         tab.setContent(mainPane);
+        
+        controller = new ScheduleController(app);
+        
+        addUpdate.setOnAction(e ->{
+            controller.addSchedule();
+        });
+        
+        startDate.setOnAction(e ->{
+            controller.setStartingMonday();
+        });
+        
+        endDate.setOnAction(e ->{
+            controller.setEndingFriday();
+        });
     }
     
     public Tab getTab(){
@@ -222,6 +241,42 @@ public class ScheduleTab {
 
     public Label getAddEditLabel() {
         return addEditLabel;
+    }
+
+    public DatePicker getStartDate() {
+        return startDate;
+    }
+
+    public DatePicker getEndDate() {
+        return endDate;
+    }
+
+    public ComboBox getTypeComboBox() {
+        return typeComboBox;
+    }
+
+    public DatePicker getDate() {
+        return date;
+    }
+
+    public TextField getTimeTextField() {
+        return timeTextField;
+    }
+
+    public TextField getTitleTextField() {
+        return titleTextField;
+    }
+
+    public TextField getTopicTextField() {
+        return topicTextField;
+    }
+
+    public TextField getLinkTextField() {
+        return linkTextField;
+    }
+
+    public TextField getCriteriaTextField() {
+        return criteriaTextField;
     }
     
     

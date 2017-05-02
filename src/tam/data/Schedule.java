@@ -18,6 +18,7 @@ public class Schedule {
     private final StringProperty date;
     private int month;
     private int day;
+    private int year;
     private String time;
     private final StringProperty title;
     private final StringProperty topic;
@@ -33,8 +34,9 @@ public class Schedule {
         this.topic = new SimpleStringProperty(topic);
         this.link = link;
         this.criteria = criteria;
-        int month = Integer.parseInt(date.toString().substring(5, 7));
-        int day = Integer.parseInt(date.toString().substring(8));
+        month = Integer.parseInt(date.toString().substring(5, 7));
+        day = Integer.parseInt(date.toString().substring(8));
+        year = Integer.parseInt(date.toString().substring(0, 4));
     }
     
     public Schedule(String type, String date, String title, String topic,
@@ -46,8 +48,9 @@ public class Schedule {
         this.topic = new SimpleStringProperty(topic);
         this.link = link;
         this.criteria = criteria;
-        int month = Integer.parseInt(date.substring(5, 7));
-        int day = Integer.parseInt(date.substring(8));
+        month = Integer.parseInt(date.substring(5, 7));
+        day = Integer.parseInt(date.substring(8));
+        year = Integer.parseInt(date.toString().substring(0, 4));
     }
 
     public String getType() {
@@ -112,5 +115,9 @@ public class Schedule {
     
     public int getDay(){
         return day;
+    }
+    
+    public int getYear(){
+        return year;
     }
 }

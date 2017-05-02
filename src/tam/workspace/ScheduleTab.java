@@ -5,6 +5,7 @@
  */
 package tam.workspace;
 
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static tam.CSGProp.*;
@@ -206,7 +207,9 @@ public class ScheduleTab {
         addUpdate.setOnAction(e ->{
             controller.addSchedule();
         });
-        
+        scheduleItems.setOnMouseClicked(e -> {
+            controller.editSchedule();
+        });
         startDate.setOnAction(e ->{
             controller.setStartingMonday();
         });
@@ -283,7 +286,27 @@ public class ScheduleTab {
     public TextField getCriteriaTextField() {
         return criteriaTextField;
     }
+
+    public TableView<Schedule> getScheduleItems() {
+        return scheduleItems;
+    }
+
+    public Button getAddUpdate() {
+        return addUpdate;
+    }
+
+    public Button getClear() {
+        return clear;
+    }
     
-    
+    public void clearItems(){
+        typeComboBox.setValue(null);
+        date.setValue(null);
+        timeTextField.setText("");
+        titleTextField.setText("");
+        topicTextField.setText("");
+        linkTextField.setText("");
+        criteriaTextField.setText("");
+    }
     
 }

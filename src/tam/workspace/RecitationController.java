@@ -59,7 +59,7 @@ public class RecitationController {
         });
         
         tab.getClear().setOnAction(e -> {
-            clear();
+            tab.clearFields();
         });
     }
     
@@ -82,13 +82,6 @@ public class RecitationController {
             tab.clearFields();
             tab.getRecitations().refresh();
         }
-    }
-    
-    public void clear(){
-        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
-        RecitationTab tab = workspace.getRecitationTab();
-        
-        tab.clearFields();
     }
     
     public void delRecitation(){

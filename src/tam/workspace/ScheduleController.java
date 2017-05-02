@@ -89,6 +89,18 @@ public class ScheduleController {
         tab.getScheduleItems().refresh();
         tab.clearItems();
     }
+    
+    public void removeSchedule(){
+        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        CSGData data = (CSGData)app.getDataComponent();
+        ScheduleTab tab = workspace.getScheduleTab();
+        
+        TableView table = tab.getScheduleItems();
+        Schedule sch = (Schedule)table.getSelectionModel().getSelectedItem();
+        
+        data.removeSchedule(sch);
+        tab.clearItems();
+    }
 
     public void setStartingMonday() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();

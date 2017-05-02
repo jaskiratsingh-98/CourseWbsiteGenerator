@@ -47,7 +47,7 @@ public class ScheduleTab {
     
     private VBox schedulePane;
     Label title2;
-    Button hideButton;
+    Button delButton;
     
     TableView<Schedule> scheduleItems;
     TableColumn<Schedule, String> typeColumn;
@@ -99,9 +99,9 @@ public class ScheduleTab {
         boundariesPane.getChildren().addAll(title1, box1);
         
         title2 = new Label(props.getProperty(SCHEDULEITEMS_LABEL));
-        hideButton = new Button("-");
+        delButton = new Button("-");
         HBox box2 = new HBox();
-        box2.getChildren().addAll(title2, hideButton);
+        box2.getChildren().addAll(title2, delButton);
         
         scheduleItems = new TableView();
         scheduleItems.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -210,10 +210,12 @@ public class ScheduleTab {
         scheduleItems.setOnMouseClicked(e -> {
             controller.editSchedule();
         });
+        delButton.setOnAction(e -> {
+            controller.removeSchedule();
+        });
         startDate.setOnAction(e ->{
             controller.setStartingMonday();
         });
-        
         endDate.setOnAction(e ->{
             controller.setEndingFriday();
         });

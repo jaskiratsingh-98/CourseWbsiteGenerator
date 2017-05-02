@@ -618,6 +618,12 @@ public class CSGData implements AppDataComponent {
         return false;
     }
     
+    public void removeSchedule(Schedule sch){
+        if (containsSchedule(sch)) {
+            schedule.remove(schedule.indexOf(sch));
+        }
+    }
+    
     public void addTeam(String name, String color, String textColor, String link) {
         Team team = new Team(name, color, textColor, link);
         

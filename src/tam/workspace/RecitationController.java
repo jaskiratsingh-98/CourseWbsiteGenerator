@@ -5,8 +5,10 @@
  */
 package tam.workspace;
 
+import javafx.scene.control.TableView;
 import tam.CSGApp;
 import tam.data.CSGData;
+import tam.data.Recitation;
 
 /**
  *
@@ -22,20 +24,82 @@ public class RecitationController {
     public void addRecitation(){
         CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
         CSGData data = (CSGData)app.getDataComponent();
+        RecitationTab tab = workspace.getRecitationTab();
         
-        String section = workspace.getRecitationTab().
-                getSectionTextField().getText();
-        String instructor = workspace.getRecitationTab().
-                getInstructorTextField().getText();
-        String dayTime = workspace.getRecitationTab().
-                getDayTimeTextField().getText();
-        String location = workspace.getRecitationTab().
-                getLocationTextField().getText();
-        String ta1 = workspace.getRecitationTab().
-                getTa1ComboBox().getValue().toString();
-        String ta2 = workspace.getRecitationTab().
-                getTa2ComboBox().getValue().toString();
+        String section = tab.getSectionTextField().getText();
+        String instructor = tab.getInstructorTextField().getText();
+        String dayTime = tab.getDayTimeTextField().getText();
+        String location = tab.getLocationTextField().getText();
+        String ta1 = tab.getTa1ComboBox().getValue().toString();
+        String ta2 = tab.getTa2ComboBox().getValue().toString();
         
-        data.addRecitation(section, instructor, dayTime, location, ta1, ta2);
+        if(!(section.isEmpty()&&instructor.isEmpty()&&dayTime.isEmpty()&&
+                location.isEmpty()&&ta1.isEmpty()&&ta2.isEmpty())){
+            data.addRecitation(section, instructor, dayTime, location, ta1, ta2);
+            tab.clearFields();
+        }
+    }
+    
+    public void editRecitation(){
+        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        RecitationTab tab = workspace.getRecitationTab();
+        
+        TableView table = tab.getRecitations();
+        Recitation rec = (Recitation)table.getSelectionModel().getSelectedItem();
+        
+        tab.getSectionTextField().setText(rec.getSection());
+        tab.getInstructorTextField().setText(rec.getInstructor());
+        tab.getDayTimeTextField().setText(rec.getDayTime());
+        tab.getLocationTextField().setText(rec.getLocation());
+        tab.getTa1ComboBox().setValue(rec.getTa1());
+        tab.getTa2ComboBox().setValue(rec.getTa2());
+        
+        tab.getAddUpdate().setOnAction(e -> {
+            updateRecitation(rec);
+        });
+        
+        tab.getClear().setOnAction(e -> {
+            clear();
+        });
+    }
+    
+    public void updateRecitation(Recitation rec){
+        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        CSGData data = (CSGData)app.getDataComponent();
+        RecitationTab tab = workspace.getRecitationTab();
+        
+        String section = tab.getSectionTextField().getText();
+        String instructor = tab.getInstructorTextField().getText();
+        String dayTime = tab.getDayTimeTextField().getText();
+        String location = tab.getLocationTextField().getText();
+        String ta1 = tab.getTa1ComboBox().getValue().toString();
+        String ta2 = tab.getTa2ComboBox().getValue().toString();
+        
+        if(!(section.isEmpty()&&instructor.isEmpty()&&dayTime.isEmpty()&&
+                location.isEmpty()&&ta1.isEmpty()&&ta2.isEmpty())){
+            data.editRecitation(rec, section, instructor, dayTime,
+                    location, ta1, ta2);
+            tab.clearFields();
+            tab.getRecitations().refresh();
+        }
+    }
+    
+    public void clear(){
+        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        RecitationTab tab = workspace.getRecitationTab();
+        
+        tab.clearFields();
+    }
+    
+    public void delRecitation(){
+        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        CSGData data = (CSGData)app.getDataComponent();
+        RecitationTab tab = workspace.getRecitationTab();
+        
+        TableView table = tab.getRecitations();
+        Recitation rec = (Recitation)table.getSelectionModel().getSelectedItem();
+        
+        data.removeRecitation(rec.getSection());
+        tab.clearFields();
     }
 }

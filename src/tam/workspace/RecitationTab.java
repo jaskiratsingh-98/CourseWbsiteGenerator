@@ -36,7 +36,7 @@ public class RecitationTab {
     Tab tab;
 
     Label recitationLabel;
-    Button hideButton;
+    Button delButton;
 
     TableView<Recitation> recitations;
     TableColumn<Recitation, String> sectionColumn;
@@ -75,10 +75,10 @@ public class RecitationTab {
         tab = new Tab();
 
         recitationLabel = new Label(props.getProperty(RECITATION_LABEL));
-        hideButton = new Button("-");
+        delButton = new Button("-");
 
         HBox box1 = new HBox();
-        box1.getChildren().addAll(recitationLabel, hideButton);
+        box1.getChildren().addAll(recitationLabel, delButton);
 
         recitations = new TableView();
         recitations.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -181,6 +181,12 @@ public class RecitationTab {
         addUpdate.setOnAction(e -> {
             controller.addRecitation();
         });
+        recitations.setOnMouseClicked(e -> {
+            controller.editRecitation();
+        });
+        delButton.setOnAction(e -> {
+            controller.delRecitation();
+        });
     }
 
     public Tab getTab() {
@@ -229,5 +235,22 @@ public class RecitationTab {
     
     public ComboBox getTa2ComboBox(){
         return ta2ComboBox;
+    }
+
+    public Button getAddUpdate() {
+        return addUpdate;
+    }
+
+    public Button getClear() {
+        return clear;
+    }
+    
+    public void clearFields(){
+        sectionTextField.setText("");
+        instructorTextField.setText("");
+        dayTimeTextField.setText("");
+        locationTextField.setText("");
+        ta1ComboBox.setValue(null);
+        ta2ComboBox.setValue(null);
     }
 }

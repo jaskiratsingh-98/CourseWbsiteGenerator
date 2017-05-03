@@ -79,6 +79,7 @@ public class ProjectController {
         String link = linkTF.getText();
         
         data.editTeam(team, name, color, textColor, link);
+        tab.getTeams().refresh();
         tab.clearTeamItems();
         
     }
@@ -125,7 +126,7 @@ public class ProjectController {
             updateStudent(stu);
         });
         tab.getClear2().setOnAction(e -> {
-            tab.clearTeamItems();
+            tab.clearStuItems();
         });
     }
     
@@ -140,7 +141,8 @@ public class ProjectController {
         String role = tab.getRoleTextField().getText();
         
         data.editStudent(stu, firstName, lastName, team, role);
-        tab.clearTeamItems();
+        tab.getStudents().refresh();
+        tab.clearStuItems();
         
     }
     

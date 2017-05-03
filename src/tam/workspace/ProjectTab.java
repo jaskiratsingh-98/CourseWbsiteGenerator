@@ -247,14 +247,32 @@ public class ProjectTab {
         addUpdate.setOnAction(e ->{
             controller.addTeam();
         });
+        linkTextField.setOnAction(e -> {
+            controller.addTeam();
+        });
         teams.setOnMouseClicked(e -> {
             controller.editTeam();
         });
         delButton.setOnAction(e -> {
             controller.removeTeam();
         });
+        clear.setOnAction(e -> {
+            clearTeamItems();
+        });
+        roleTextField.setOnAction(e ->{
+            controller.addStudent();
+        });
         addUpdate2.setOnAction(e ->{
             controller.addStudent();
+        });
+        students.setOnMouseClicked(e -> {
+            controller.editStudent();
+        });
+        delStuButton.setOnAction(e -> {
+            controller.removeStudent();
+        });
+        clear2.setOnAction(e -> {
+            clearStuItems();
         });
     }
 

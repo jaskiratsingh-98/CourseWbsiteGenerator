@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import tam.data.CSGData;
@@ -42,9 +43,9 @@ public class ProjectTab {
     Label title;
 
     Label teamTitle;
-    Button hideTeamPane;
+    Button delButton;
     Label studentTitle;
-    Button hideStudentPane;
+    Button delStuButton;
 
     TableView<Team> teams;
     TableColumn<Team, String> nameColumn;
@@ -96,9 +97,9 @@ public class ProjectTab {
         title = new Label(props.getProperty(PROJECTLABEL));
 
         teamTitle = new Label(props.getProperty(TEAMS_LABEL));
-        hideTeamPane = new Button("-");
+        delButton = new Button("-");
         HBox box = new HBox();
-        box.getChildren().addAll(teamTitle, hideTeamPane);
+        box.getChildren().addAll(teamTitle, delButton);
 
         teams = new TableView();
         teams.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -164,9 +165,9 @@ public class ProjectTab {
         teamPane.getChildren().addAll(box, teams, box1);
 
         studentTitle = new Label(props.getProperty(STUDENTS_LABEL));
-        hideStudentPane = new Button("-");
+        delStuButton = new Button("-");
         HBox box5 = new HBox();
-        box5.getChildren().addAll(studentTitle, hideStudentPane);
+        box5.getChildren().addAll(studentTitle, delStuButton);
 
         students = new TableView();
         students.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -246,6 +247,12 @@ public class ProjectTab {
         addUpdate.setOnAction(e ->{
             controller.addTeam();
         });
+        teams.setOnMouseClicked(e -> {
+            controller.editTeam();
+        });
+        delButton.setOnAction(e -> {
+            controller.removeTeam();
+        });
         addUpdate2.setOnAction(e ->{
             controller.addStudent();
         });
@@ -314,7 +321,45 @@ public class ProjectTab {
     public TextField getRoleTextField() {
         return roleTextField;
     }
+
+    public TableView<Team> getTeams() {
+        return teams;
+    }
+
+    public TableView<Student> getStudents() {
+        return students;
+    }
+
+    public Button getAddUpdate() {
+        return addUpdate;
+    }
+
+    public Button getClear() {
+        return clear;
+    }
+
+    public Button getAddUpdate2() {
+        return addUpdate2;
+    }
+
+    public Button getClear2() {
+        return clear2;
+    }
     
     
+    
+    public void clearTeamItems(){
+        nameTextField.setText("");
+        colorPicker.setValue(Color.WHITE);
+        textColorPicker.setValue(Color.WHITE);
+        linkTextField.setText("");
+    }
+    
+    public void clearStuItems(){
+        firstNameTF.setText("");
+        lastNameTF.setText("");
+        teamComboBox.setValue(null);
+        roleTextField.setText("");
+    }
     
 }

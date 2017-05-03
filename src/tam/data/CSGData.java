@@ -635,6 +635,16 @@ public class CSGData implements AppDataComponent {
 //        Collections.sort(recitations);
     }
     
+    public void editTeam(Team team, String name, String color,
+            String textColor, String link){
+        if(containsTeam(team)){
+            Team teamToEdit = teams.get(teams.indexOf(team));
+            teamToEdit.setName(name);
+            teamToEdit.setColor(color);
+            teamToEdit.setTextColor(textColor);
+        }
+    }
+    
     public boolean containsTeam(Team team) {
         for (Team team1 : teams) {
             if ((team.getName().equals(team1.getName()))
@@ -645,6 +655,15 @@ public class CSGData implements AppDataComponent {
             }
         }
         return false;
+    }
+    
+    public void removeTeam(Team team){
+        if((containsTeam(team))){
+            teams.remove(teams.indexOf(team));
+            for(Student s: students){
+                if(s.getTeam().equals(team.getName())) students.remove(s);
+            }
+        }
     }
     
     public void addOfficeHours(String a, String b, String c) {
@@ -671,6 +690,17 @@ public class CSGData implements AppDataComponent {
 //        Collections.sort(recitations);
     }
     
+    public void editStudent(Student stu, String firstName, String lastName,
+            String team, String role){
+        if(containsStudent(stu)){
+            Student stuToEdit = students.get(students.indexOf(stu));
+            stuToEdit.setFirstName(firstName);
+            stuToEdit.setLastName(lastName);
+            stuToEdit.setRole(role);
+            stuToEdit.setTeam(team);
+        }
+    }
+    
     public boolean containsStudent(Student stu) {
         for (Student stu1 : students) {
             if ((stu.getFirstName().equals(stu1.getFirstName()))
@@ -681,6 +711,12 @@ public class CSGData implements AppDataComponent {
             }
         }
         return false;
+    }
+    
+    public void removeStudent(Student stu){
+        if((containsStudent(stu))){
+            students.remove(students.indexOf(stu));
+        }
     }
     
     public void setCourseInfo(String a, String b, String c, String d, String e, String f, String g) {

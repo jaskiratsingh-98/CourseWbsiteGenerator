@@ -107,6 +107,11 @@ public class CSGWorkspace extends AppWorkspaceComponent {
             recitationTab.getController().undo();
         }
     }
+    
+    @Override
+    public void setCourses(){
+        
+    }
 
     public TATab getTATab() {
         return taTab;

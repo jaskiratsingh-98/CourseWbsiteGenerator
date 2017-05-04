@@ -244,6 +244,10 @@ public class ProjectTab {
         tab.setContent(overallPane);
         
         controller = new ProjectController(app);
+        
+        mainPane.setOnKeyPressed(e -> {
+            controller.handleUndoRedo(e.getCode(), e);
+        });
         addUpdate.setOnAction(e ->{
             controller.addTeam();
         });

@@ -8,11 +8,24 @@ package tam.workspace;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import static javafx.scene.input.KeyCode.Y;
+import static javafx.scene.input.KeyCode.Z;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import jtps.jTPS;
+import jtps.jTPS_Transaction;
 import tam.CSGApp;
 import tam.data.CSGData;
 import tam.data.Student;
 import tam.data.Team;
+import tam.transaction.AddStudent;
+import tam.transaction.AddTeam;
+import tam.transaction.DeleteStudent;
+import tam.transaction.DeleteTeam;
+import static tam.workspace.TAController.jTPS;
 
 /**
  *
@@ -20,9 +33,11 @@ import tam.data.Team;
  */
 public class ProjectController {
     CSGApp app;
+    static jTPS jTPS;
     
     public ProjectController(CSGApp app){
         this.app = app;
+        jTPS = new jTPS();
     }
     
     public void addTeam(){
@@ -39,7 +54,9 @@ public class ProjectController {
         TextField linkTF = tab.getLinkTextField();
         String link = linkTF.getText();
         
-        data.addTeam(name, color, textColor, link);
+        jTPS_Transaction addTeam = new AddTeam(name, color, textColor, link, data);
+        
+        jTPS.addTransaction(addTeam);
         tab.getTeamComboBox().setItems(data.getTeamNames());
         tab.clearTeamItems();
     }
@@ -92,7 +109,9 @@ public class ProjectController {
         TableView table = tab.getTeams();
         Team team = (Team)table.getSelectionModel().getSelectedItem();
         
-        data.removeTeam(team);
+        jTPS_Transaction delTeam = new DeleteTeam(team, data);
+        
+        jTPS.addTransaction(delTeam);
         tab.clearTeamItems();
         
     }
@@ -106,7 +125,8 @@ public class ProjectController {
         String team = tab.getTeamComboBox().getValue().toString();
         String role = tab.getRoleTextField().getText();
         
-        data.addStudent(firstName, lastName, team, role);
+        jTPS_Transaction addStu = new AddStudent(firstName, lastName, team, role, data);
+        jTPS.addTransaction(addStu);
         tab.clearStuItems();
     }
     
@@ -153,7 +173,30 @@ public class ProjectController {
         
         TableView table = tab.getStudents();
         Student stu = (Student)table.getSelectionModel().getSelectedItem();
-        data.removeStudent(stu);
+        
+        jTPS_Transaction delStu = new DeleteStudent(stu, data);
+        jTPS.addTransaction(delStu);
         tab.clearStuItems();
+    }
+    
+    public void handleUndoRedo(KeyCode key, KeyEvent e){
+        final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
+        final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
+
+        if (e.getCode() == Z) {
+            undo();
+            e.consume();
+        } else if (e.getCode() == Y) {
+            redo();
+            e.consume();
+        }
+    }
+    
+    public void undo(){
+        jTPS.undoTransaction();
+    }
+    
+    public void redo(){
+        jTPS.doTransaction();
     }
 }

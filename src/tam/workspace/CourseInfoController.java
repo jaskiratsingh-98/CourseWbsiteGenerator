@@ -9,10 +9,14 @@ import static djf.settings.AppPropertyType.LOAD_ERROR_MESSAGE;
 import static djf.settings.AppPropertyType.LOAD_ERROR_TITLE;
 import djf.ui.AppMessageDialogSingleton;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import javafx.scene.control.ComboBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import static tam.CSGProp.EXPORT_TITLE;
@@ -55,6 +59,12 @@ public class CourseInfoController {
         fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
         File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
         data.setBannerImage(newBanner.getAbsolutePath());
+        String fileName = newBanner.getName();
+        File dst = new File(data.getExportDir()+"/images");
+        FileUtils.copyFileToDirectory(newBanner, dst);
+        File oldName = new File(dst+"/"+fileName);
+        File newName = new File(dst+"/BannerImage.jpg");
+        oldName.renameTo(newName);
         CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
         a.getCourseTab().setBannerImageView(data.getBannerImage());
         
@@ -73,6 +83,12 @@ public class CourseInfoController {
         fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
         File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
         data.setRightFooter(newBanner.getAbsolutePath());
+        String fileName = newBanner.getName();
+        File dst = new File(data.getExportDir()+"/images");
+        FileUtils.copyFileToDirectory(newBanner, dst);
+        File oldName = new File(dst+"/"+fileName);
+        File newName = new File(dst+"/RightFooter.jpg");
+        oldName.renameTo(newName);
         CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
         a.getCourseTab().setRightImageView(data.getRightFooter());
         
@@ -91,6 +107,12 @@ public class CourseInfoController {
         fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
         File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
         data.setLeftFooter(newBanner.getAbsolutePath());
+        String fileName = newBanner.getName();
+        File dst = new File(data.getExportDir()+"/images");
+        FileUtils.copyFileToDirectory(newBanner, dst);
+        File oldName = new File(dst+"/"+fileName);
+        File newName = new File(dst+"/LeftFooter.jpg");
+        oldName.renameTo(newName);
         CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
         a.getCourseTab().setLeftImageView(data.getLeftFooter());
         

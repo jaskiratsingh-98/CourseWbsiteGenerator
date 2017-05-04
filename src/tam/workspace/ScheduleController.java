@@ -11,6 +11,12 @@ import static java.time.DayOfWeek.MONDAY;
 import java.time.LocalDate;
 import java.util.Calendar;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import jtps.jTPS;
+import jtps.jTPS_Transaction;
 import properties_manager.PropertiesManager;
 import tam.CSGApp;
 import static tam.CSGProp.INVALID_DATE_TITLE;
@@ -18,6 +24,8 @@ import static tam.CSGProp.NOT_FRIDAY_MESSAGE;
 import static tam.CSGProp.NOT_MONDAY_MESSAGE;
 import tam.data.CSGData;
 import tam.data.Schedule;
+import tam.transaction.AddSchedule;
+import static tam.workspace.RecitationController.jTPS;
 
 /**
  *
@@ -26,9 +34,11 @@ import tam.data.Schedule;
 public class ScheduleController {
 
     CSGApp app;
+    static jTPS jTPS;
 
     public ScheduleController(CSGApp initApp) {
         app = initApp;
+        jTPS = new jTPS();
     }
 
     public void addSchedule() {
@@ -44,7 +54,8 @@ public class ScheduleController {
         String link = tab.getLinkTextField().getText();
         String criteria = tab.getCriteriaTextField().getText();
 
-        data.addSchedule(type, date, title, topic, time, link, criteria);
+        jTPS_Transaction addTrans = new AddSchedule(type, date.toString(), time, title, topic, link, criteria, data);
+        jTPS.addTransaction(addTrans);
         tab.clearItems();
     }
 
@@ -128,5 +139,26 @@ public class ScheduleController {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(INVALID_DATE_TITLE), props.getProperty(NOT_FRIDAY_MESSAGE));
         }
+    }
+    
+    public void handleKeyPress(KeyEvent e){
+        final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
+        final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
+
+        if (ctrlZ.match(e)) {
+            jTPS.undoTransaction();
+            e.consume();
+        } else if (ctrlY.match(e)) {
+            jTPS.doTransaction();
+            e.consume();
+        }
+    }
+    
+    public void undo(){
+        jTPS.undoTransaction();
+    }
+    
+    public void redo(){
+        jTPS.doTransaction();
     }
 }

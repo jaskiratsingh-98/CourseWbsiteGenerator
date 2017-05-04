@@ -219,6 +219,9 @@ public class ScheduleTab {
         endDate.setOnAction(e ->{
             controller.setEndingFriday();
         });
+        mainPane.setOnKeyPressed(e -> {
+            controller.handleKeyPress(e);
+        });
     }
     
     public Tab getTab(){

@@ -126,9 +126,9 @@ public class RecitationController {
         }
     }
     
-//    public void undo(){
-//        jTPS.undoTransaction();
-//    }
+    public void undo(){
+        jTPS.undoTransaction();
+    }
 //    
 //    public void redo(){
 //        jTPS.doTransaction();

@@ -195,6 +195,10 @@ public class RecitationTab {
     public Tab getTab() {
         return tab;
     }
+    
+    public RecitationController getController(){
+        return controller;
+    }
 
     public VBox getMainPane() {
         return mainPane;

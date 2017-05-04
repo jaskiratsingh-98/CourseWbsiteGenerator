@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -97,6 +98,14 @@ public class CSGWorkspace extends AppWorkspaceComponent {
     @Override
     public void reloadWorkspace(AppDataComponent dataComponent) {
         taTab.reloadTAWorkspace(dataComponent);
+    }
+    
+    @Override
+    public void undo(){
+        Tab undoTab = tabPane.getSelectionModel().getSelectedItem();
+        if(undoTab.equals(recitationTab)){
+            recitationTab.getController().undo();
+        }
     }
 
     public TATab getTATab() {

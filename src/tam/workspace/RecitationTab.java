@@ -178,6 +178,9 @@ public class RecitationTab {
         
         controller = new RecitationController(app);
         
+        overallPane.setOnKeyPressed(e -> {
+            controller.handleKeyPress(e);
+        });
         addUpdate.setOnAction(e -> {
             controller.addRecitation();
         });

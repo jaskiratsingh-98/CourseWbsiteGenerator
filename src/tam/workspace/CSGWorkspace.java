@@ -62,8 +62,6 @@ public class CSGWorkspace extends AppWorkspaceComponent {
      */
     public CSGWorkspace(CSGApp initApp) {
         app = initApp;
-
-        controller = new TAController(app);
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         workspace = new VBox();

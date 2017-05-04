@@ -663,10 +663,14 @@ public class CSGData implements AppDataComponent {
 
     public void removeTeam(Team team) {
         if ((containsTeam(team))) {
-            teams.remove(teams.indexOf(team));
-            for (Student s : students) {
-                if (s.getTeam().equals(team.getName())) {
-                    students.remove(s);
+            for (Team t : teams) {
+                if (t.getName().equals(team.getName())) {
+                    teams.remove(team);
+                    for (Student s : students) {
+                        if (s.getTeam().equals(team.getName())) {
+                            students.remove(s);
+                        }
+                    }
                 }
             }
         }

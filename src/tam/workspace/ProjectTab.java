@@ -367,8 +367,10 @@ public class ProjectTab {
     public Button getClear2() {
         return clear2;
     }
-    
-    
+
+    public ProjectController getController() {
+        return controller;
+    }
     
     public void clearTeamItems(){
         nameTextField.setText("");

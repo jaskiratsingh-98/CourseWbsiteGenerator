@@ -50,6 +50,9 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
                 data.removeTAFromCell(label.textProperty(), taName);
             }
         }
+        
+        workspace.getRecitationTab().getTa1ComboBox().setItems(data.getTaNames());
+        workspace.getRecitationTab().getTa2ComboBox().setItems(data.getTaNames());
     }
 
     @Override
@@ -64,6 +67,9 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
             int t1 = Integer.parseInt(time.substring(0, time.indexOf("_")));
             data.addOfficeHoursReservation(day, time, name);
         }
+        
+        workspace.getRecitationTab().getTa1ComboBox().setItems(data.getTaNames());
+        workspace.getRecitationTab().getTa2ComboBox().setItems(data.getTaNames());
     }
 
 }

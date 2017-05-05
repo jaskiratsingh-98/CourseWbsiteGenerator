@@ -103,8 +103,14 @@ public class CSGWorkspace extends AppWorkspaceComponent {
     @Override
     public void undo(){
         Tab undoTab = tabPane.getSelectionModel().getSelectedItem();
-        if(undoTab.equals(recitationTab)){
+        if(undoTab.equals(recitationTab.getTab())){
             recitationTab.getController().undo();
+        }else if(undoTab.equals(taTab.getTab())){
+            taTab.getController().undo();
+        }else if(undoTab.equals(scheduleTab.getTab())){
+            scheduleTab.getController().undo();
+        }else if(undoTab.equals(projectTab.getTab())){
+            projectTab.getController().undo();
         }
     }
     

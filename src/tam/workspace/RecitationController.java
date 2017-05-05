@@ -90,13 +90,13 @@ public class RecitationController {
         String ta1 = tab.getTa1ComboBox().getValue().toString();
         String ta2 = tab.getTa2ComboBox().getValue().toString();
         
-        jTPS_Transaction editRec = new UpdateRecitation(section, instructor, dayTime, location, ta1, ta2, rec, data);
+        jTPS_Transaction editRec = new UpdateRecitation(section, instructor, dayTime, location, ta1, ta2, rec, data, tab.getRecitations());
 
         if (!(section.isEmpty() && instructor.isEmpty() && dayTime.isEmpty()
                 && location.isEmpty() && ta1.isEmpty() && ta2.isEmpty())) {
             jTPS.addTransaction(editRec);
             tab.clearFields();
-            tab.getRecitations().refresh();
+//            tab.getRecitations().refresh();
         }
     }
 

@@ -313,5 +313,8 @@ public class ScheduleTab {
         linkTextField.setText("");
         criteriaTextField.setText("");
     }
-    
+
+    public ScheduleController getController() {
+        return controller;
+    }
 }

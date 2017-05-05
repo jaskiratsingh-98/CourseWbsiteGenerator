@@ -265,10 +265,6 @@ public class TATab {
         mainPane.setOnKeyPressed(e -> {
             controller.handleUndoRedo(e.getCode(), e);
         });
-        
-        hideTATableButton.setOnAction(e -> {
-            controller.handleHideTATable();
-        });
     }
     
     public VBox getLeftPane(){
@@ -522,5 +518,9 @@ public class TATab {
     
     public ScrollPane getOverallPane(){
         return overallPane;
+    }
+    
+    public TAController getController(){
+        return controller;
     }
 }

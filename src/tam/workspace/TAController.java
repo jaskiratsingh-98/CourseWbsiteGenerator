@@ -123,21 +123,6 @@ public class TAController {
 //            });
         }
     }
-    
-    public void handleHideTATable(){
-        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
-        VBox taPane = workspace.getTATab().getLeftPane();
-        HBox addBox = workspace.getTATab().getAddBox();
-        
-        TableView table = workspace.getTATab().getTATable();
-        
-        if(taPane.getChildren().contains(table)){
-            taPane.getChildren().removeAll(table, addBox);
-        }
-        else{
-            taPane.getChildren().addAll(table, addBox);
-        }
-    }
 
     public void updateTA(TeachingAssistant ta) {
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
@@ -234,7 +219,7 @@ public class TAController {
         // WE'LL NEED THIS IN CASE WE NEED TO DISPLAY ANY ERROR MESSAGES
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
-        jTPS_Transaction taTrans = new AddTA_Transaction(name, email, data);
+        jTPS_Transaction taTrans = new AddTA_Transaction(name, email, data, workspace);
 
         // DID THE USER NEGLECT TO PROVIDE A TA NAME?
         if (name.isEmpty()) {
@@ -325,12 +310,20 @@ public class TAController {
         final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
 
         if (ctrlZ.match(e)) {
-            jTPS.undoTransaction();
+            undo();
             e.consume();
         } else if (ctrlY.match(e)) {
-            jTPS.doTransaction();
+            redo();
             e.consume();
         }
+    }
+    
+    public void undo(){
+        jTPS.undoTransaction();
+    }
+    
+    public void redo(){
+        jTPS.doTransaction();
     }
 
     /**

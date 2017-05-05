@@ -401,6 +401,7 @@ public class CSGData implements AppDataComponent {
         for (TeachingAssistant ta : teachingAssistants) {
             if (name.equals(ta.getName())) {
                 teachingAssistants.remove(ta);
+                taNames.remove(name);
                 return;
             }
         }
@@ -526,14 +527,17 @@ public class CSGData implements AppDataComponent {
     public void editRecitation(Recitation rec, String section, String instructor,
             String dayTime, String location, String ta1, String ta2) {
         if (containsRecitation(rec)) {
-            Recitation toEdit
-                    = recitations.get(recitations.indexOf(rec));
-            toEdit.setSection(section);
-            toEdit.setInstructor(instructor);
-            toEdit.setDayTime(dayTime);
-            toEdit.setLocation(location);
-            toEdit.setTa1(ta1);
-            toEdit.setTa2(ta2);
+            for (Recitation toEdit : recitations) {
+                if (toEdit.getSection().equalsIgnoreCase(rec.getSection())) {
+                    toEdit.setSection(section);
+                    toEdit.setInstructor(instructor);
+                    toEdit.setDayTime(dayTime);
+                    toEdit.setLocation(location);
+                    toEdit.setTa1(ta1);
+                    toEdit.setTa2(ta2);
+                    return;
+                }
+            }
         }
 
         Collections.sort(recitations);

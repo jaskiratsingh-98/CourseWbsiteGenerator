@@ -662,19 +662,21 @@ public class CSGData implements AppDataComponent {
                 return true;
             }
         }
-        return false;
+          return false;
     }
 
     public void removeTeam(Team team) {
         if ((containsTeam(team))) {
             for (Team t : teams) {
                 if (t.getName().equals(team.getName())) {
-                    teams.remove(team);
+                    teams.remove(t);
                     for (Student s : students) {
                         if (s.getTeam().equals(team.getName())) {
                             students.remove(s);
                         }
                     }
+                    teamNames.remove(team.getName());
+                    return;
                 }
             }
         }

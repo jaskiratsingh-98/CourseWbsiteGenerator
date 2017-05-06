@@ -115,6 +115,20 @@ public class CSGWorkspace extends AppWorkspaceComponent {
     }
     
     @Override
+    public void redo(){
+        Tab redoTab = tabPane.getSelectionModel().getSelectedItem();
+        if(redoTab.equals(recitationTab.getTab())){
+            recitationTab.getController().redo();
+        }else if(redoTab.equals(taTab.getTab())){
+            taTab.getController().redo();
+        }else if(redoTab.equals(scheduleTab.getTab())){
+            scheduleTab.getController().redo();
+        }else if(redoTab.equals(projectTab.getTab())){
+            projectTab.getController().redo();
+        }
+    }
+    
+    @Override
     public void setCourses(){
         
     }

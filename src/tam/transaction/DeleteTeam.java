@@ -31,6 +31,7 @@ public class DeleteTeam implements jTPS_Transaction{
     
     @Override
     public void doTransaction() {
+        team = new Team(name, color, textColor, link);
         data.removeTeam(team);
     }
 

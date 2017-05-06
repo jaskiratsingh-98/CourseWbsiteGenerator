@@ -54,10 +54,9 @@ public class ProjectController {
         TextField linkTF = tab.getLinkTextField();
         String link = linkTF.getText();
         
-        jTPS_Transaction addTeam = new AddTeam(name, color, textColor, link, data);
+        jTPS_Transaction addTeam = new AddTeam(name, color, textColor, link, app);
         
         jTPS.addTransaction(addTeam);
-        tab.getTeamComboBox().setItems(data.getTeamNames());
         tab.clearTeamItems();
     }
     

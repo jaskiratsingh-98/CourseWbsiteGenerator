@@ -7,8 +7,11 @@ package tam.workspace;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -132,8 +135,17 @@ public class CourseInfoTab {
 
         semester = new Label(props.getProperty(SEMESTER_LABEL));
         semesterComboBox = new ComboBox();
+        ObservableList<String> semesters = FXCollections.observableArrayList();
+        semesters.addAll(props.getPropertyOptionsList(SEMESTER_LIST));
+        semesterComboBox.setItems(semesters);
+        ObservableList<String> years = FXCollections.observableArrayList();
+        int j = LocalDate.now().getYear() + 10;
+        for(int i = LocalDate.now().getYear(); i < j; i++){
+            years.add(Integer.toString(i));
+        }
         year = new Label(props.getProperty(YEAR_LABEL));
         yearComboBox = new ComboBox();
+        yearComboBox.setItems(years);
 
         title = new Label(props.getProperty(TITLE_LABEL));
         titleTextField = new TextField();
@@ -226,8 +238,10 @@ public class CourseInfoTab {
 
         stylesheet = new Label(props.getProperty(STYLESHEET_LABEL));
         chooseSheet = new ComboBox();
-        for(File a: f){
-            if(a.getPath().endsWith(".css")) chooseSheet.getItems().add(a);
+        for (File a : f) {
+            if (a.getPath().endsWith(".css")) {
+                chooseSheet.getItems().add(a);
+            }
         }
 
         note = new Label(props.getProperty(NOTE_LABEL));
@@ -279,11 +293,11 @@ public class CourseInfoTab {
         changeRightFooter.setOnAction(e -> {
             controller.setRightFooter();
         });
-        
+
         chooseSheet.setOnAction(e -> {
             controller.setStyleSheet();
         });
-        
+
         selectTemp.setOnAction(e -> {
             controller.setTemplateDir();
         });
@@ -360,8 +374,8 @@ public class CourseInfoTab {
     public void setExpDir(String a) {
         expDir.setText(a);
     }
-    
-    public void setTemplate(String a){
+
+    public void setTemplate(String a) {
         template.setText(a);
     }
 
@@ -376,8 +390,8 @@ public class CourseInfoTab {
     public void setRightImageView(String imageFile) {
         rightImageView.setImage(new Image("file:" + imageFile));
     }
-    
-    public ComboBox getChooseSheet(){
+
+    public ComboBox getChooseSheet() {
         return chooseSheet;
     }
 

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import jtps.jTPS_Transaction;
 import tam.CSGApp;
 import tam.data.CSGData;
+import tam.data.Recitation;
 import tam.file.TimeSlot;
 import tam.workspace.CSGWorkspace;
 
@@ -24,9 +25,10 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
     private String taEmail;
     private CSGData data;
     private ArrayList<TimeSlot> hours;
+    private ArrayList<Recitation> rec1;
+    private ArrayList<Recitation> rec2;
     CSGWorkspace workspace;
     CSGApp app;
-    
 
     public DeleteTA_Transaction(String taName, String taEmail, CSGData data, CSGWorkspace workspace) {
         this.taName = taName;
@@ -40,6 +42,8 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
         data.removeTA(taName);
 
         hours = TimeSlot.buildCustomList(data, taName);
+        rec1 = new ArrayList<>();
+        rec2 = new ArrayList<>();
 
         HashMap<String, Label> labels = workspace.getTATab().getOfficeHoursGridTACellLabels();
 
@@ -50,7 +54,18 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
                 data.removeTAFromCell(label.textProperty(), taName);
             }
         }
-        
+
+//        for (Recitation r : data.getRecitations()) {
+//            if (r.getTa1().equals(taName)) {
+//                r.setTa1("");
+//                rec1.add(r);
+//            }
+//            if (r.getTa2().equals(taName)) {
+//                r.setTa2("");
+//                rec2.add(r);
+//            }
+//        }
+
         workspace.getRecitationTab().getTa1ComboBox().setItems(data.getTaNames());
         workspace.getRecitationTab().getTa2ComboBox().setItems(data.getTaNames());
     }
@@ -67,7 +82,10 @@ public class DeleteTA_Transaction implements jTPS_Transaction {
             int t1 = Integer.parseInt(time.substring(0, time.indexOf("_")));
             data.addOfficeHoursReservation(day, time, name);
         }
-        
+
+//        for (Recitation r: rec1) {
+//            
+//        }
         workspace.getRecitationTab().getTa1ComboBox().setItems(data.getTaNames());
         workspace.getRecitationTab().getTa2ComboBox().setItems(data.getTaNames());
     }

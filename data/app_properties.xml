@@ -208,5 +208,12 @@
             <option>Recitations</option>
             <option>HWs</option>
         </property_options>
+        
+        <property_options name="SEMESTER_LIST">
+            <option>Fall</option>
+            <option>Winter</option>
+            <option>Spring</option>
+            <option>Summer</option>
+        </property_options>
     </property_options_list>
 </properties>

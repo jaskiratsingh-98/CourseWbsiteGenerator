@@ -197,5 +197,12 @@ and open the template in the editor.
             <option>Recitaciones</option>
             <option>Tareas</option>
         </property_options>
+        
+        <property_options name="SEMESTER_LIST">
+            <option>Otono</option>
+            <option>Invierno</option>
+            <option>Primavera</option>
+            <option>Verano</option>
+        </property_options>
     </property_options_list>
 </properties>

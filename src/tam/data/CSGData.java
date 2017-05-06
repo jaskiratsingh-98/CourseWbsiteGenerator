@@ -628,6 +628,7 @@ public class CSGData implements AppDataComponent {
                     && sh.getTitle().equals(sch.getTitle())
                     && sh.getTopic().equals(sch.getTopic())) {
                 schedule.remove(sh);
+                return;
             }
         }
     }

@@ -33,6 +33,7 @@ import tam.data.Schedule;
  * @author jaski
  */
 public class ScheduleTab {
+
     CSGApp app;
     Tab tab;
     
@@ -57,7 +58,7 @@ public class ScheduleTab {
     
     Label addEditLabel;
     Label typeLabel;
-    ComboBox typeComboBox; 
+    ComboBox typeComboBox;    
     Label dateLabel;
     DatePicker date;
     Label timeLabel;
@@ -78,8 +79,7 @@ public class ScheduleTab {
     private VBox mainPane;
     ScrollPane overallPane;
     
-    
-    public ScheduleTab(CSGApp app){
+    public ScheduleTab(CSGApp app) {
         this.app = app;
         
         tab = new Tab();
@@ -204,7 +204,7 @@ public class ScheduleTab {
         
         controller = new ScheduleController(app);
         
-        addUpdate.setOnAction(e ->{
+        addUpdate.setOnAction(e -> {
             controller.addSchedule();
         });
         scheduleItems.setOnMouseClicked(e -> {
@@ -213,98 +213,101 @@ public class ScheduleTab {
         delButton.setOnAction(e -> {
             controller.removeSchedule();
         });
-        startDate.setOnAction(e ->{
+        startDate.setOnAction(e -> {
             controller.setStartingMonday();
         });
-        endDate.setOnAction(e ->{
+        endDate.setOnAction(e -> {
             controller.setEndingFriday();
         });
         mainPane.setOnKeyPressed(e -> {
             controller.handleKeyPress(e);
         });
+        criteriaTextField.setOnAction(e -> {
+            controller.addSchedule();
+        });
     }
     
-    public Tab getTab(){
+    public Tab getTab() {
         return tab;
     }
-
+    
     public VBox getBoundariesPane() {
         return boundariesPane;
     }
-
+    
     public VBox getSchedulePane() {
         return schedulePane;
     }
-
+    
     public VBox getMainPane() {
         return mainPane;
     }
-
+    
     public Label getSchedule() {
         return schedule;
     }
-
+    
     public Label getTitle1() {
         return title1;
     }
-
+    
     public Label getTitle2() {
         return title2;
     }
-
+    
     public Label getAddEditLabel() {
         return addEditLabel;
     }
-
+    
     public DatePicker getStartDate() {
         return startDate;
     }
-
+    
     public DatePicker getEndDate() {
         return endDate;
     }
-
+    
     public ComboBox getTypeComboBox() {
         return typeComboBox;
     }
-
+    
     public DatePicker getDate() {
         return date;
     }
-
+    
     public TextField getTimeTextField() {
         return timeTextField;
     }
-
+    
     public TextField getTitleTextField() {
         return titleTextField;
     }
-
+    
     public TextField getTopicTextField() {
         return topicTextField;
     }
-
+    
     public TextField getLinkTextField() {
         return linkTextField;
     }
-
+    
     public TextField getCriteriaTextField() {
         return criteriaTextField;
     }
-
+    
     public TableView<Schedule> getScheduleItems() {
         return scheduleItems;
     }
-
+    
     public Button getAddUpdate() {
         return addUpdate;
     }
-
+    
     public Button getClear() {
         return clear;
     }
     
-    public void clearItems(){
+    public void clearItems() {
         typeComboBox.setValue(null);
         date.setValue(null);
         timeTextField.setText("");
@@ -313,7 +316,7 @@ public class ScheduleTab {
         linkTextField.setText("");
         criteriaTextField.setText("");
     }
-
+    
     public ScheduleController getController() {
         return controller;
     }

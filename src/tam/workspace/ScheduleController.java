@@ -25,6 +25,8 @@ import static tam.CSGProp.NOT_MONDAY_MESSAGE;
 import tam.data.CSGData;
 import tam.data.Schedule;
 import tam.transaction.AddSchedule;
+import tam.transaction.DeleteSchedule;
+import tam.transaction.UpdateSchedule;
 import static tam.workspace.RecitationController.jTPS;
 
 /**
@@ -54,7 +56,7 @@ public class ScheduleController {
         String link = tab.getLinkTextField().getText();
         String criteria = tab.getCriteriaTextField().getText();
 
-        jTPS_Transaction addTrans = new AddSchedule(type, date.toString(), time, title, topic, link, criteria, data);
+        jTPS_Transaction addTrans = new AddSchedule(type, date.toString(), title, topic, time, link, criteria, data);
         jTPS.addTransaction(addTrans);
         tab.clearItems();
     }
@@ -77,6 +79,9 @@ public class ScheduleController {
         tab.getAddUpdate().setOnAction(e -> {
             updateSchedule(sch);
         });
+        tab.getLinkTextField().setOnAction(e -> {
+            updateSchedule(sch);
+        });
 
         tab.getClear().setOnAction(e -> {
             tab.clearItems();
@@ -96,8 +101,8 @@ public class ScheduleController {
         String link = tab.getLinkTextField().getText();
         String criteria = tab.getCriteriaTextField().getText();
         
-        data.editSchedule(schedule, type, date, title, topic, time, link, criteria);
-        tab.getScheduleItems().refresh();
+        jTPS_Transaction updSch = new UpdateSchedule(type, date, title, topic, time, link, criteria, schedule, app);
+        jTPS.addTransaction(updSch);
         tab.clearItems();
     }
     
@@ -109,7 +114,8 @@ public class ScheduleController {
         TableView table = tab.getScheduleItems();
         Schedule sch = (Schedule)table.getSelectionModel().getSelectedItem();
         
-        data.removeSchedule(sch);
+        jTPS_Transaction delSch = new DeleteSchedule(sch, data);
+        jTPS.addTransaction(delSch);
         tab.clearItems();
     }
 

@@ -56,9 +56,14 @@ public class ScheduleController {
         String link = tab.getLinkTextField().getText();
         String criteria = tab.getCriteriaTextField().getText();
 
-        jTPS_Transaction addTrans = new AddSchedule(type, date.toString(), title, topic, time, link, criteria, data);
-        jTPS.addTransaction(addTrans);
-        tab.clearItems();
+        if (type.isEmpty() || date==null || time.isEmpty() || title.isEmpty() || topic.isEmpty() || link.isEmpty() || criteria.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Empty Fields", "You must fill in all fields.");
+        } else {
+            jTPS_Transaction addTrans = new AddSchedule(type, date.toString(), title, topic, time, link, criteria, data);
+            jTPS.addTransaction(addTrans);
+            tab.clearItems();
+        }
     }
 
     public void editSchedule() {
@@ -100,20 +105,20 @@ public class ScheduleController {
         String topic = tab.getTopicTextField().getText();
         String link = tab.getLinkTextField().getText();
         String criteria = tab.getCriteriaTextField().getText();
-        
+
         jTPS_Transaction updSch = new UpdateSchedule(type, date, title, topic, time, link, criteria, schedule, app);
         jTPS.addTransaction(updSch);
         tab.clearItems();
     }
-    
-    public void removeSchedule(){
-        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
-        CSGData data = (CSGData)app.getDataComponent();
+
+    public void removeSchedule() {
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
+        CSGData data = (CSGData) app.getDataComponent();
         ScheduleTab tab = workspace.getScheduleTab();
-        
+
         TableView table = tab.getScheduleItems();
-        Schedule sch = (Schedule)table.getSelectionModel().getSelectedItem();
-        
+        Schedule sch = (Schedule) table.getSelectionModel().getSelectedItem();
+
         jTPS_Transaction delSch = new DeleteSchedule(sch, data);
         jTPS.addTransaction(delSch);
         tab.clearItems();
@@ -146,8 +151,8 @@ public class ScheduleController {
             dialog.show(props.getProperty(INVALID_DATE_TITLE), props.getProperty(NOT_FRIDAY_MESSAGE));
         }
     }
-    
-    public void handleKeyPress(KeyEvent e){
+
+    public void handleKeyPress(KeyEvent e) {
         final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
         final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
 
@@ -159,12 +164,12 @@ public class ScheduleController {
             e.consume();
         }
     }
-    
-    public void undo(){
+
+    public void undo() {
         jTPS.undoTransaction();
     }
-    
-    public void redo(){
+
+    public void redo() {
         jTPS.doTransaction();
     }
 }

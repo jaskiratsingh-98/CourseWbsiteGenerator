@@ -5,6 +5,7 @@
  */
 package tam.workspace;
 
+import djf.ui.AppMessageDialogSingleton;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -13,6 +14,8 @@ import javafx.scene.input.KeyEvent;
 import jtps.jTPS;
 import jtps.jTPS_Transaction;
 import tam.CSGApp;
+import static tam.CSGProp.EMAIL_ADDRESS_NOT_VALID;
+import static tam.CSGProp.EMAIL_ADDRESS_NOT_VALID_MESSAGE;
 import tam.data.CSGData;
 import tam.data.Recitation;
 import tam.transaction.AddRecitation;
@@ -48,8 +51,13 @@ public class RecitationController {
 
         jTPS_Transaction addRec = new AddRecitation(section, instructor, dayTime, location, ta1, ta2, data);
 
-        if (!(section.isEmpty() && instructor.isEmpty() && dayTime.isEmpty()
-                && location.isEmpty() && ta1.isEmpty() && ta2.isEmpty())) {
+        if (section.isEmpty() || instructor.isEmpty() || dayTime.isEmpty() || location.isEmpty() || ta1.isEmpty() || ta2.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Empty Fields", "You must fill in all fields.");
+        }else if(data.containsRecitation(section)){
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Section Already Exists", "A recitation with the same section number already exists.");
+        }else{
             jTPS.addTransaction(addRec);
             tab.clearFields();
         }
@@ -89,7 +97,7 @@ public class RecitationController {
         String location = tab.getLocationTextField().getText();
         String ta1 = tab.getTa1ComboBox().getValue().toString();
         String ta2 = tab.getTa2ComboBox().getValue().toString();
-        
+
         jTPS_Transaction editRec = new UpdateRecitation(section, instructor, dayTime, location, ta1, ta2, rec, data, tab.getRecitations());
 
         if (!(section.isEmpty() && instructor.isEmpty() && dayTime.isEmpty()
@@ -112,8 +120,8 @@ public class RecitationController {
         jTPS.addTransaction(delRec);
         tab.clearFields();
     }
-    
-    public void handleKeyPress(KeyEvent e){
+
+    public void handleKeyPress(KeyEvent e) {
         final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_ANY);
         final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_ANY);
 
@@ -125,12 +133,12 @@ public class RecitationController {
             e.consume();
         }
     }
-    
-    public void undo(){
+
+    public void undo() {
         jTPS.undoTransaction();
     }
-    
-    public void redo(){
+
+    public void redo() {
         jTPS.doTransaction();
     }
 }

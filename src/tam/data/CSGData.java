@@ -556,6 +556,13 @@ public class CSGData implements AppDataComponent {
         }
         return false;
     }
+    
+    public boolean containsRecitation(String section){
+        for(Recitation ra: recitations){
+            if((ra.getSection()).equals(section)) return true;
+        }
+        return false;
+    }
 
     public void removeRecitation(String section) {
         for (Recitation ra : recitations) {
@@ -664,6 +671,13 @@ public class CSGData implements AppDataComponent {
             }
         }
           return false;
+    }
+    
+    public boolean containsTeam(String name){
+        for(Team team: teams){
+            if(team.getName().equals(name))return true;
+        }
+        return false;
     }
 
     public void removeTeam(Team team) {

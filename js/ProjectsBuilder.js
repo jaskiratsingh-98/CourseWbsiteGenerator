@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 // DATA TO LOAD
 var work;
 var daysOfWeek;
@@ -28,7 +22,6 @@ function loadData(jsonFile) {
     $.getJSON(jsonFile, function (json) {
         loadJSONData(json);
         addProjects();
-        setCourseInfo(json);
     });
 }
 function loadJSONData(data) {
@@ -58,11 +51,13 @@ function addProjects() {
         var text = "<h3>" + wWork.semester + " Projects</h3>"
                 + "<table><tbody>";        
         var projects = wWork.projects;
-        for (var j = 0; j < projects.length; j+=4) {
+        for (var j = 0; j < projects.length; j+=2) {
             var project = projects[j];
             text += "<tr>";
-            for (var k = 0; k < 4; k++) {
-                text += getProjectCell(projects[j + k]);
+            text += getProjectCell(project);
+            if ((j + 1) < projects.length) {
+                project = projects[j + 1];
+                text += getProjectCell(project);
             }
             text += "</tr>";        
         }
@@ -71,19 +66,23 @@ function addProjects() {
     }
 }
 function getProjectCell(project) {
-    var text = "<td style='padding-right:100px'><a href=\""
+    var text = "<td><a href=\""
             + project.link
-            + "\"><img width='100' height='100' src=\"./images/projects/"
-            + project.name
+            + "\"><img src=\"./images/projects/"
+            + project.name.replace(/\s/g, '')
             + ".png\" /></a><br />"
             + "<a href=\""
             + project.link
             + "\">" + project.name + "</a><br />"
-            + "<ul>";
+            + "by ";
     for (var k = 0; k < project.students.length; k++) {
-        text += "<li>" + project.students[k] + "</li>";
+        text += project.students[k].firstName;
+        text += " ";
+        text += project.students[k].lastName;
+        if ((k + 1) < project.students.length)
+            text += ", ";
     }
-    text += "</ul><br /><br /><br /></td>";
+    text += "<br /><br /></td>";
     return text;
 }
 
@@ -101,5 +100,5 @@ function setCourseInfo(data){
     ban.append(text);
     var link = $("#instructor_link");
     link.replaceWith("<a href=" + link1 + ">" + name + "</a></span>");
-    document.title = 'Home';
+    document.title = 'Projects';
 }

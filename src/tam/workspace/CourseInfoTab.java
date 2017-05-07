@@ -130,8 +130,15 @@ public class CourseInfoTab {
 
         subject = new Label(props.getProperty(SUBJECT_LABEL));
         subjectComboBox = new ComboBox();
+        ObservableList<String> subjects = FXCollections.observableArrayList();
+        subjects.addAll("CSE", "ISE", "AMS", "ITS");
+        subjectComboBox.setItems(subjects);
+        
         number = new Label(props.getProperty(NUMBER_LABEL));
         numberComboBox = new ComboBox();
+        ObservableList<String> numbers = FXCollections.observableArrayList();
+        numbers.addAll("101", "102", "114", "130", "214", "219", "305", "308", "380", "381");
+        numberComboBox.setItems(numbers);
 
         semester = new Label(props.getProperty(SEMESTER_LABEL));
         semesterComboBox = new ComboBox();

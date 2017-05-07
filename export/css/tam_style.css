@@ -1,0 +1,229 @@
+/* 
+    This style sheet stylizes the controls inside our
+    TA Manager JavaFX application. Note that controls
+    in the UI must have the same class as those below in 
+    order to be rendered using those properties.
+
+    Note that it may seem overwhelming to see so many different
+    style classes, even though our application doesn't have that
+    many controls, but what this allows us to do is easily
+    control and update the style of the entire user interface
+    via a stylesheet without having the change Java code.
+
+    Author:	Richard McKenna
+    Version:	1.0
+*/
+.root{
+    -fx-font-family: "Courier New";
+}
+
+.main_label{
+    -fx-font-size: 24;
+}
+
+.sub_label{
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.ci_title_label{
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+}
+
+.csg_overall_pane{
+    -fx-background-color: #FEECD6;
+    -fx-border-color: black;
+    -fx-padding: 10;
+}
+
+.csg_main_pane{
+    -fx-background-color: #FED8AB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 10
+}
+
+.csg_sub_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+
+.color_picker{
+    -fx-min-height: 25;
+    
+}
+
+.sch_sub_pane{
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+
+.ci_box1{
+    -fx-spacing:15;
+}
+
+.combo_box{
+    -fx-min-width: 80;
+}
+
+.ci_textfield{
+    -fx-min-width: 350;
+}
+
+.ta_main_pane{
+    -fx-padding: 10;
+    -fx-spacing: 15;
+}
+
+.rec_table{
+    -fx-max-length: 300
+}
+
+/*.rt_add_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}*/
+
+/*.pt_team_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+
+.pt_student_pane{
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: black;
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}*/
+
+.dialog_pane {
+    -fx-padding:15;
+}
+
+.dialog_heading {
+    -fx-font-size: 24pt;
+    -fx-background-color: #FEECD6;
+    -fx-color:red;
+}
+
+.dialog_prompt {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+
+.plain_pane{
+    
+}
+
+.bordered_pane {
+    -fx-background-color: #FEECD6;
+    -fx-padding: 5;
+    -fx-border-color: black;
+}
+
+.header_pane{
+    -fx-background-color:#ccccff;
+}
+
+.header_label {
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 10;
+}
+
+.ta_table{
+    -fx-min-width: 400;
+}
+
+.table-view .column-header.ta_table_column_header .label {
+    -fx-text-fill:white;
+    -fx-background-color:#000066;
+}
+
+.add_ta_pane{
+    -fx-padding: 5 10 5 10;
+}
+
+.add_ta_text_field{
+    -fx-font-size: 14pt;
+}
+
+.add_ta_button{
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+  -fx-border-radius: 10 10 10 10;
+  -fx-background-radius: 10 10 10 10;    
+}
+
+.office_hours_grid{
+    
+}
+
+.office_hours_grid_column_header_pane{
+    -fx-background-color:#cccccc;
+    -fx-border: 1px;    
+    -fx-border-color: black;
+    -fx-min-width: 75;
+}
+
+.office_hours_grid_time_column_header_label{
+    -fx-text-fill:white;
+    -fx-font-size:14pt;   
+    -fx-font-weight:bold;
+    -fx-padding: 10 20 10 20;
+}
+
+.office_hours_grid_day_column_header_pane{
+    -fx-background-color:#cccccc;
+    -fx-border: 1px;
+    -fx-border-color: black;
+    -fx-min-width: 125;
+}
+
+.office_hours_grid_day_column_header_label{
+    -fx-text-fill:white;
+    -fx-font-size:14pt;   
+    -fx-font-weight:bold;
+    -fx-padding: 10 20 10 20;
+}
+
+.office_hours_grid_time_cell_pane{
+    -fx-background-color:#ececec; 
+    -fx-border: 1px;   
+}
+
+.office_hours_grid_time_cell_label{
+    -fx-font-size:14pt;
+    -fx-text-fill:white;
+}
+
+.office_hours_grid_ta_cell_pane{
+    -fx-background-color: white;
+    -fx-border: 1px;
+    -fx-border-color: black;
+}
+
+.office_hours_grid_ta_cell_label{
+    -fx-font-weight:bold;
+    -fx-font-size:12pt;  
+    -fx-padding: 5 10 5 10;
+}
+
+.highlighted_grid_cell {
+    -fx-border-color: #ffff00;
+    -fx-border: 5px;
+}
+
+.highlighted_grid_row_or_column {
+    -fx-border-color: #aaaa00;
+    -fx-border: 5px;
+    -fx-border-style:solid;
+}

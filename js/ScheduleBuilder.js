@@ -235,5 +235,5 @@ function setCourseInfo(data){
     ban.append(text);
     var link = $("#instructor_link");
     link.replaceWith("<a href=" + link1 + ">" + name + "</a></span>");
-    document.title = 'Home';
+    document.title = 'Schedule';
 }

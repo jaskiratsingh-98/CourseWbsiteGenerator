@@ -5,7 +5,7 @@
  */
 
 function buildHome(){
-    var datfile = ".js/CourseInfo.json";
+    var datfile = "./js/CourseInfo.json";
     loadData(dataFile, loadCourseInfo);
 }
 

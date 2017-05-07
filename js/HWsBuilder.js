@@ -37,7 +37,7 @@ function initHWs() {
     daysOfWeek[5] = "Friday";
     daysOfWeek[6] = "Saturday";
     
-    var dataFile = "./js/HWsData.json";
+    var dataFile = "./js/ScheduleData.json";
     loadData(dataFile);
 }
 function loadData(jsonFile) {
@@ -122,5 +122,5 @@ function setCourseInfo(data){
     ban.append(text);
     var link = $("#instructor_link");
     link.replaceWith("<a href=" + link1 + ">" + name + "</a></span>");
-    document.title = 'Home';
+    document.title = 'Homeworks';
 }

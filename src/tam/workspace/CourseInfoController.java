@@ -27,125 +27,135 @@ import tam.data.CSGData;
  * @author jaski
  */
 public class CourseInfoController {
+
     CSGApp app;
-    
-    public CourseInfoController(CSGApp initApp){
+
+    public CourseInfoController(CSGApp initApp) {
         app = initApp;
     }
-    
-    public void setExportDir(){
+
+    public void setExportDir() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        CSGData data = (CSGData)app.getDataComponent();
-        try{
-        DirectoryChooser fileChooser = new DirectoryChooser();
-        fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
-        File newDir = fileChooser.showDialog(app.getGUI().getWindow());
-        data.setExportDir(newDir.getAbsolutePath());
-        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
-        a.getCourseTab().setExpDir(data.getExportDir());
-        
-        }
-        catch(Exception e){
+        CSGData data = (CSGData) app.getDataComponent();
+        try {
+            DirectoryChooser fileChooser = new DirectoryChooser();
+            fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
+            File newDir = fileChooser.showDialog(app.getGUI().getWindow());
+            data.setExportDir(newDir.getAbsolutePath());
+            CSGWorkspace a = (CSGWorkspace) app.getWorkspaceComponent();
+            a.getCourseTab().setExpDir(data.getExportDir());
+
+        } catch (Exception e) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
         }
     }
-    
-    public void setBanner(){
+
+    public void setBanner() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        CSGData data = (CSGData)app.getDataComponent();
-        try{
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
-        File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
-        data.setBannerImage(newBanner.getAbsolutePath());
-        String fileName = newBanner.getName();
-        File dst = new File(data.getExportDir()+"/images");
-        FileUtils.copyFileToDirectory(newBanner, dst);
-        File oldName = new File(dst+"/"+fileName);
-        File newName = new File(dst+"/BannerImage.jpg");
-        oldName.renameTo(newName);
-        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
-        a.getCourseTab().setBannerImageView(data.getBannerImage());
-        
-        }
-        catch(Exception e){
+        CSGData data = (CSGData) app.getDataComponent();
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
+            File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
+            data.setBannerImage(newBanner.getAbsolutePath());
+            String fileName = newBanner.getName();
+            File dst = new File("./temp/images");
+            FileUtils.copyFileToDirectory(newBanner, dst);
+            File oldName = new File(dst + "/" + fileName);
+            File newName = new File(dst + "/BannerImage.jpg");
+            oldName.renameTo(newName);
+            CSGWorkspace a = (CSGWorkspace) app.getWorkspaceComponent();
+            a.getCourseTab().setBannerImageView(data.getBannerImage());
+
+        } catch (Exception e) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
         }
     }
-    
-    public void setRightFooter(){
+
+    public void setRightFooter() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        CSGData data = (CSGData)app.getDataComponent();
-        try{
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
-        File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
-        data.setRightFooter(newBanner.getAbsolutePath());
-        String fileName = newBanner.getName();
-        File dst = new File(data.getExportDir()+"/images");
-        FileUtils.copyFileToDirectory(newBanner, dst);
-        File oldName = new File(dst+"/"+fileName);
-        File newName = new File(dst+"/RightFooter.jpg");
-        oldName.renameTo(newName);
-        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
-        a.getCourseTab().setRightImageView(data.getRightFooter());
-        
-        }
-        catch(Exception e){
+        CSGData data = (CSGData) app.getDataComponent();
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
+            File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
+            data.setRightFooter(newBanner.getAbsolutePath());
+            String fileName = newBanner.getName();
+            File dst = new File("./temp/images");
+            FileUtils.copyFileToDirectory(newBanner, dst);
+            File oldName = new File(dst + "/" + fileName);
+            File newName = new File(dst + "/RightFooter.png");
+            oldName.renameTo(newName);
+            CSGWorkspace a = (CSGWorkspace) app.getWorkspaceComponent();
+            a.getCourseTab().setRightImageView(data.getRightFooter());
+
+        } catch (Exception e) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
         }
     }
-    
-    public void setLeftFooter(){
+
+    public void setLeftFooter() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        CSGData data = (CSGData)app.getDataComponent();
-        try{
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
-        File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
-        data.setLeftFooter(newBanner.getAbsolutePath());
-        String fileName = newBanner.getName();
-        File dst = new File(data.getExportDir()+"/images");
-        FileUtils.copyFileToDirectory(newBanner, dst);
-        File oldName = new File(dst+"/"+fileName);
-        File newName = new File(dst+"/LeftFooter.jpg");
-        oldName.renameTo(newName);
-        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
-        a.getCourseTab().setLeftImageView(data.getLeftFooter());
-        
-        }
-        catch(Exception e){
+        CSGData data = (CSGData) app.getDataComponent();
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
+            File newBanner = fileChooser.showOpenDialog(app.getGUI().getWindow());
+            data.setLeftFooter(newBanner.getAbsolutePath());
+            String fileName = newBanner.getName();
+            File dst = new File("./temp/images");
+            FileUtils.copyFileToDirectory(newBanner, dst);
+            File oldName = new File(dst + "/" + fileName);
+            File newName = new File(dst + "/LeftFooter.png");
+            oldName.renameTo(newName);
+            CSGWorkspace a = (CSGWorkspace) app.getWorkspaceComponent();
+            a.getCourseTab().setLeftImageView(data.getLeftFooter());
+
+        } catch (Exception e) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
         }
     }
-    
-    public void setStyleSheet(){
+
+    public void setStyleSheet() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        CSGData data = (CSGData)app.getDataComponent();
-        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
-        
+        CSGData data = (CSGData) app.getDataComponent();
+        CSGWorkspace a = (CSGWorkspace) app.getWorkspaceComponent();
+
         ComboBox comboBox = a.getCourseTab().getChooseSheet();
         String file = comboBox.getValue().toString();
-        data.setStyleSheet(file);
-    }
-    
-    public void setTemplateDir(){
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        CSGData data = (CSGData)app.getDataComponent();
-        try{
-        DirectoryChooser fileChooser = new DirectoryChooser();
-        fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
-        File newBanner = fileChooser.showDialog(app.getGUI().getWindow());
-        data.setTemplate(newBanner.getAbsolutePath());
-        CSGWorkspace a = (CSGWorkspace)app.getWorkspaceComponent();
-        a.getCourseTab().setTemplate(data.getTemplate());
-        
+        try {
+            data.setStyleSheet(file);
+
+            File dst = new File("./temp/css");
+
+            File stylesheet = new File(file);
+            String fileName = stylesheet.getName();
+            FileUtils.copyFileToDirectory(stylesheet, dst);
+            File oldName = new File(dst + "/" + fileName);
+            File newName = new File(dst + "/sea_wolf.css");
+            oldName.renameTo(newName);
+        } catch (Exception e) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
         }
-        catch(Exception e){
+    }
+
+    public void setTemplateDir() {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        CSGData data = (CSGData) app.getDataComponent();
+        try {
+            DirectoryChooser fileChooser = new DirectoryChooser();
+            fileChooser.setTitle(props.getProperty(EXPORT_TITLE));
+            File newBanner = fileChooser.showDialog(app.getGUI().getWindow());
+            data.setTemplate(newBanner.getAbsolutePath());
+            CSGWorkspace a = (CSGWorkspace) app.getWorkspaceComponent();
+            a.getCourseTab().setTemplate(data.getTemplate());
+
+        } catch (Exception e) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(LOAD_ERROR_TITLE), props.getProperty(LOAD_ERROR_MESSAGE));
         }

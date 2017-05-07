@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="description" content="CSE 380 - Computer Game Programming - Spring 2017 Groups Page" />
+        <title>CSE 380 Groups Page - Spring 2017</title>
+        <link rel="stylesheet" type="text/css" href="./css/game_course_homepage_layout.css" />
+        <link rel="stylesheet" type="text/css" href="./css/sea_wolf.css" />
+
+        <!-- LINK TO OUR JavaScript FILE AND JQuery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="./js/ProjectsBuilder.js"></script>
+
+        <!-- ONCE THE PAGE FULLY LOADS INITIALIZE THE SLIDESHOW -->
+        <script>
+            $(document).ready()
+            {
+                initProjects();
+            }
+        </script> 
+    </head>
+    <body>
+        <div id="content">
+            <div id="navbar">
+                <div id="bannerImg">
+                    <a><img alt="Banner Image" class="sbu_navbar" src="./images/BannerImage.jpg"></a>
+                </div>
+                <a id="home_link" class="nav" href="index.html">Home</a>
+                <a id="syllabus_link" class="nav" href="syllabus.html">Syllabus</a>
+                <a id="schedule_link" class="nav" href="schedule.html">Schedule</a>
+                <a id="hws_link" class="nav" href="hws.html">HWs</a>
+                <a id="projects_link" class="open_nav" href="projects.html">Projects</a>
+            </div>
+
+            <div id="banner">
+                <!-- BANNER NEEDS TO BE SET -->
+            </div>
+            <div id="desc">
+                <p>Welcome to our group projects page. Teams will be listed below as they are formed.</p>
+
+                <div id="project_tables">
+                    <!-- TO BE FILLED IN BY JAVASCRIPT -->
+                </div>
+                <hr />
+                <br />
+                <div id="leftFooter">
+                    <a><img alt="Left Footer" class="sunysb" src="./images/LeftFooter.png" style="float:left"></a>
+                </div>
+		
+                <div id="rightFooter">
+                    <a><img alt="Right Footer" class="sunysb" src="./images/RightFooter.png" style="float:right"></a>
+                </div>
+
+
+		<p style="font-size:9pt; text-align:center;">Web page created and maintained<br>
+                    by <span id="instructor_link"><a href=""></a></span>
+                <br /><br />
+            </div>
+        </div> 
+    </body>
+</html>

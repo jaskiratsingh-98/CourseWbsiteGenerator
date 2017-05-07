@@ -70,6 +70,7 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_INSTRUCTOR = "instructor";
     static final String JSON_DAYTIME = "dayTime";
     static final String JSON_LOCATION = "location";
+    static final String JSON_RECITATIONS = "recitations";
     static final String JSON_TA1 = "ta1";
     static final String JSON_TA2 = "ta2";
     static final String JSON_TYPE = "type";
@@ -88,7 +89,7 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_SCHD = "schedule";
     static final String JSON_STU = "students";
     static final String JSON_TEAMS = "teams";
-    static final String HOME_FILEPATH = "./scripts/HomeData.json";
+    static final String HOME_FILEPATH = "./js/HomeData.json";
     static final String CI_SUB = "subject";
     static final String CI_NUM = "number";
     static final String CI_SEM = "semester";
@@ -102,21 +103,21 @@ public class CSGFiles implements AppFileComponent {
     static final String SCH_HWS = "hws";
     static final String JSON_WORK = "work";
     static final String JSON_MONTH = "month";
-    static final String SCH_FILEPATH = "./scripts/ScheduleData.json";
+    static final String SCH_FILEPATH = "./js/ScheduleData.json";
     static final String JSON_UNDTA = "undergrad_tas";
     static final String JSON_GRADTA = "grad_tas";
     static final String MON_MON = "startingMondayMonth";
     static final String MON_DAY = "startingMondayDay";
     static final String FRI_MON = "endingFridayMonth";
     static final String FRI_DAY = "endingFridayDay";
-    static final String TAS_FILEPATH = "./scripts/SyllabusData.json";
-    static final String HWS_FILEPATH = "./scripts/HWsData.json";
+    static final String TAS_FILEPATH = "./js/SyllabusData.json";
+    static final String PJS_FILEPATH = "./js/ProjectsData.json";
+    static final String REC_FILEPATH = "./js/RecitationsData.json";
     static final String JSON_PRO = "projects";
-    static final String PRO_FILEPATH = "./scripts/ProjectsData.json";
     static final String JSON_SEM = "semester";
-    static final String SCRIPT_FOLER = "./scripts";
+    static final String SCRIPT_FOLER = "./js";
 
-    public CSGFiles(CSGApp initApp) {
+    public CSGFiles(CSGApp initApp){
         app = initApp;
     }
 
@@ -440,6 +441,26 @@ public class CSGFiles implements AppFileComponent {
 
         writeFile(officeHoursWriter, TAS_FILEPATH);
 
+        //Build Recitations JSON File
+        JsonArrayBuilder recitationsArrayBuilder = Json.createArrayBuilder();
+        ObservableList<Recitation> recs = dataManager.getRecitations();
+        for (Recitation ra : recs) {
+            JsonObject schJson = Json.createObjectBuilder()
+                    .add(JSON_SECTION, ra.getDayTime())
+                    .add(JSON_DAYTIME, ra.getDayTime())
+                    .add(JSON_LOCATION, ra.getLocation())
+                    .add(JSON_TA1, ra.getTa1())
+                    .add(JSON_TA2, ra.getTa2()).build();
+            recitationsArrayBuilder.add(schJson);
+        }
+        JsonArray recitationsArray = recitationsArrayBuilder.build();
+        
+        JsonObject recitationsWriter = Json.createObjectBuilder()
+                .add(JSON_RECITATIONS, recitationsArray)
+                .build();
+        
+        writeFile(recitationsWriter, REC_FILEPATH);
+
         //Build the Schedule JSON File
         //Build Holidays Array
         JsonArrayBuilder holidayArrayBuilder = Json.createArrayBuilder();
@@ -527,13 +548,6 @@ public class CSGFiles implements AppFileComponent {
 
         writeFile(scheduleWriter, SCH_FILEPATH);
 
-        //Build HWs JSONFile
-        JsonObject hwsWriter = Json.createObjectBuilder()
-                .add(SCH_HWS, hwsArray)
-                .build();
-
-        writeFile(hwsWriter, HWS_FILEPATH);
-
         //Build Projects JSONFile
         JsonArrayBuilder overallArrayBuilder = Json.createArrayBuilder();
         JsonArrayBuilder projectsArrayBuilder = Json.createArrayBuilder();
@@ -556,7 +570,7 @@ public class CSGFiles implements AppFileComponent {
                 projectsArrayBuilder.add(teamJson);
             }
             JsonArray projectsArray = projectsArrayBuilder.build();
-            
+
             JsonObject overallJson = Json.createObjectBuilder()
                     .add(JSON_SEM, dataManager.getCourseInfo().getSemester()
                             + dataManager.getCourseInfo().getYear())
@@ -565,17 +579,30 @@ public class CSGFiles implements AppFileComponent {
         }
 
         JsonArray overallArray = overallArrayBuilder.build();
-        
+
         JsonObject projectsWriter = Json.createObjectBuilder()
                 .add(JSON_WORK, overallArray)
                 .build();
 
-        writeFile(projectsWriter, PRO_FILEPATH);
+        writeFile(projectsWriter, PJS_FILEPATH);
+
+        String sr1 = SCRIPT_FOLER;
+        File src = new File(sr1);
+        File dest = new File(dataManager.getExportDir());
+
+        FileUtils.copyDirectoryToDirectory(src, dest);
         
-       String sr1 = SCRIPT_FOLER;
-       File src = new File(sr1);
-       FileUtils.copyDirectory(src, new File(filePath));
+        src = new File("./temp/images");
+        dest = new File(dataManager.getExportDir());
+        FileUtils.copyDirectoryToDirectory(src, dest);
         
+        src = new File("./temp/css");
+        dest = new File(dataManager.getExportDir());
+        FileUtils.copyDirectoryToDirectory(src, dest);
+        
+        AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Exported", "Work Exported!");
+
     }
 
     public void writeFile(JsonObject json, String filePath) {

@@ -556,10 +556,12 @@ public class CSGData implements AppDataComponent {
         }
         return false;
     }
-    
-    public boolean containsRecitation(String section){
-        for(Recitation ra: recitations){
-            if((ra.getSection()).equals(section)) return true;
+
+    public boolean containsRecitation(String section) {
+        for (Recitation ra : recitations) {
+            if ((ra.getSection()).equals(section)) {
+                return true;
+            }
         }
         return false;
     }
@@ -599,19 +601,24 @@ public class CSGData implements AppDataComponent {
 
     public void editSchedule(Schedule sch, String type, String date, String title,
             String topic, String time, String link, String criteria) {
-        if (containsSchedule(sch)) {
-            Schedule toEdit
-                    = schedule.get(schedule.indexOf(sch));
-            toEdit.setType(type);
-            toEdit.setDate(date);
-            toEdit.setTitle(title);
-            toEdit.setTopic(topic);
-            toEdit.setTime(time);
-            toEdit.setLink(link);
-            toEdit.setLink(criteria);
+        for (Schedule toEdit : schedule) {
+            if ((sch.getType().equals(toEdit.getType()))
+                    && (sch.getDate().equals(toEdit.getDate()))
+                    && (sch.getTitle().equals(toEdit.getTitle()))
+                    && (sch.getTopic().equals(toEdit.getTopic()))
+                    && (sch.getTime().equals(toEdit.getTime()))
+                    && (sch.getLink().equals(toEdit.getLink()))
+                    && (sch.getCriteria().equals(toEdit.getCriteria()))) {
+                toEdit.setType(type);
+                toEdit.setDate(date);
+                toEdit.setTitle(title);
+                toEdit.setTopic(topic);
+                toEdit.setTime(time);
+                toEdit.setLink(link);
+                toEdit.setCriteria(criteria);
+                return;
+            }
         }
-
-//        Collections.sort(schedule);
     }
 
     public boolean containsSchedule(Schedule sch) {
@@ -653,11 +660,14 @@ public class CSGData implements AppDataComponent {
 
     public void editTeam(Team team, String name, String color,
             String textColor, String link) {
-        if (containsTeam(team)) {
-            Team teamToEdit = teams.get(teams.indexOf(team));
-            teamToEdit.setName(name);
-            teamToEdit.setColor(color);
-            teamToEdit.setTextColor(textColor);
+        for (Team tm: teams){
+            if(tm.getName().equals(team.getName())){
+                tm.setName(name);
+                tm.setColor(color);
+                tm.setTextColor(textColor);
+                tm.setLink(link);
+                return;
+            }
         }
     }
 
@@ -670,12 +680,14 @@ public class CSGData implements AppDataComponent {
                 return true;
             }
         }
-          return false;
+        return false;
     }
-    
-    public boolean containsTeam(String name){
-        for(Team team: teams){
-            if(team.getName().equals(name))return true;
+
+    public boolean containsTeam(String name) {
+        for (Team team : teams) {
+            if (team.getName().equals(name)) {
+                return true;
+            }
         }
         return false;
     }
@@ -723,12 +735,14 @@ public class CSGData implements AppDataComponent {
 
     public void editStudent(Student stu, String firstName, String lastName,
             String team, String role) {
-        if (containsStudent(stu)) {
-            Student stuToEdit = students.get(students.indexOf(stu));
-            stuToEdit.setFirstName(firstName);
-            stuToEdit.setLastName(lastName);
-            stuToEdit.setRole(role);
-            stuToEdit.setTeam(team);
+        for(Student st: students){
+            if(st.getFirstName().equals(stu.getFirstName()) 
+                    && st.getLastName().equals(stu.getLastName())){
+                st.setFirstName(firstName);
+                st.setLastName(lastName);
+                st.setTeam(team);
+                st.setRole(role);
+            }
         }
     }
 
@@ -743,14 +757,24 @@ public class CSGData implements AppDataComponent {
         }
         return false;
     }
+    
+    public boolean containsStudent(String name, String last){
+        for (Student stu : students) {
+            if ((stu.getFirstName().equals(name))
+                    && (stu.getLastName().equals(last))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void removeStudent(Student stu) {
         if ((containsStudent(stu))) {
-            for(Student s: students){
-                if(s.getFirstName().equals(stu.getFirstName())
+            for (Student s : students) {
+                if (s.getFirstName().equals(stu.getFirstName())
                         && s.getLastName().equals(stu.getLastName())
                         && s.getTeam().equals(stu.getTeam())
-                        && s.getRole().equals(stu.getRole())){
+                        && s.getRole().equals(stu.getRole())) {
                     students.remove(s);
                     return;
                 }

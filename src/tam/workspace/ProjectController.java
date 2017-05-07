@@ -26,6 +26,8 @@ import tam.transaction.AddStudent;
 import tam.transaction.AddTeam;
 import tam.transaction.DeleteStudent;
 import tam.transaction.DeleteTeam;
+import tam.transaction.UpdateStudent;
+import tam.transaction.UpdateTeam;
 import static tam.workspace.TAController.jTPS;
 
 /**
@@ -103,10 +105,18 @@ public class ProjectController {
         TextField linkTF = tab.getLinkTextField();
         String link = linkTF.getText();
 
-        data.editTeam(team, name, color, textColor, link);
-        tab.getTeams().refresh();
-        tab.clearTeamItems();
-
+        if (data.containsTeam(name)) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Team Already Exists", "A team already exists with the same name.");
+        } else if (name.isEmpty() || link.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Empty Fields", "You must fill in all fields.");
+        } else {
+            jTPS_Transaction editTeam = new UpdateTeam(name, color, textColor, link, data, team, workspace);
+            jTPS.addTransaction(editTeam);
+            tab.getTeams().refresh();
+            tab.clearTeamItems();
+        }
     }
 
     public void removeTeam() {
@@ -179,10 +189,18 @@ public class ProjectController {
         String team = tab.getTeamComboBox().getValue().toString();
         String role = tab.getRoleTextField().getText();
 
-        data.editStudent(stu, firstName, lastName, team, role);
-        tab.getStudents().refresh();
-        tab.clearStuItems();
-
+        if (firstName.isEmpty() || lastName.isEmpty() || team.isEmpty() || role.isEmpty()) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Empty Fields", "You must fill in all fields.");
+        } else if (data.containsStudent(firstName, lastName)) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Student Exists", "A student with the same name exists in the same team.");
+        } else {
+            jTPS_Transaction editStu = new UpdateStudent(firstName, lastName, team, role, stu, data, workspace);
+            jTPS.addTransaction(editStu);
+            tab.getStudents().refresh();
+            tab.clearStuItems();
+        }
     }
 
     public void removeStudent() {

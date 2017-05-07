@@ -523,7 +523,7 @@ public class CSGFiles implements AppFileComponent {
             }
         }
         JsonArray referenceArray = referenceArrayBuilder.build();
-
+        
         //Build HWs Array
         JsonArrayBuilder hwsArrayBuilder = Json.createArrayBuilder();
         for (Schedule sa : sch) {

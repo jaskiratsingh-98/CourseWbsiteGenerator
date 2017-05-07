@@ -49,27 +49,27 @@ public class RecitationController {
         String dayTime = tab.getDayTimeTextField().getText();
         String location = tab.getLocationTextField().getText();
         ComboBox ta1CB = tab.getTa1ComboBox();
-        if(ta1CB.getValue()==null){
+        if (ta1CB.getValue() == null) {
             ta1 = "";
-        }else{
+        } else {
             ta1 = tab.getTa1ComboBox().getValue().toString();
-        }   
+        }
         ComboBox ta2CB = tab.getTa2ComboBox();
-        if(ta2CB.getValue() == null){
+        if (ta2CB.getValue() == null) {
             ta2 = "";
-        }else{
-            ta2 =ta2CB.getValue().toString();
+        } else {
+            ta2 = ta2CB.getValue().toString();
         }
 
         jTPS_Transaction addRec = new AddRecitation(section, instructor, dayTime, location, ta1, ta2, data);
 
         if (section.isEmpty() || instructor.isEmpty() || dayTime.isEmpty() || location.isEmpty()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show("Empty Fields", "You must fill in all fields.");
-        }else if(data.containsRecitation(section)){
+            dialog.show("Empty Fields", "You must fill in all necessary fields.");
+        } else if (data.containsRecitation(section)) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show("Section Already Exists", "A recitation with the same section number already exists.");
-        }else{
+        } else {
             jTPS.addTransaction(addRec);
             tab.clearFields();
         }
@@ -102,21 +102,36 @@ public class RecitationController {
         CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         CSGData data = (CSGData) app.getDataComponent();
         RecitationTab tab = workspace.getRecitationTab();
+        String ta1, ta2;
 
         String section = tab.getSectionTextField().getText();
         String instructor = tab.getInstructorTextField().getText();
         String dayTime = tab.getDayTimeTextField().getText();
         String location = tab.getLocationTextField().getText();
-        String ta1 = tab.getTa1ComboBox().getValue().toString();
-        String ta2 = tab.getTa2ComboBox().getValue().toString();
+        ComboBox ta1CB = tab.getTa1ComboBox();
+        if (ta1CB.getValue() == null) {
+            ta1 = "";
+        } else {
+            ta1 = tab.getTa1ComboBox().getValue().toString();
+        }
+        ComboBox ta2CB = tab.getTa2ComboBox();
+        if (ta2CB.getValue() == null) {
+            ta2 = "";
+        } else {
+            ta2 = ta2CB.getValue().toString();
+        }
 
-        jTPS_Transaction editRec = new UpdateRecitation(section, instructor, dayTime, location, ta1, ta2, rec, data, tab.getRecitations());
-
-        if (!(section.isEmpty() && instructor.isEmpty() && dayTime.isEmpty()
-                && location.isEmpty() && ta1.isEmpty() && ta2.isEmpty())) {
+        if (data.containsRecitation(section)) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Already Exists", "Recitation exists with section name.");
+        } else if ((section.isEmpty() || instructor.isEmpty() || dayTime.isEmpty()
+                || location.isEmpty())) {
+            AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+            dialog.show("Section Already Exists", "A recitation with the same section number already exists.");
+        } else {
+            jTPS_Transaction editRec = new UpdateRecitation(section, instructor, dayTime, location, ta1, ta2, rec, data, tab.getRecitations());
             jTPS.addTransaction(editRec);
             tab.clearFields();
-//            tab.getRecitations().refresh();
         }
     }
 

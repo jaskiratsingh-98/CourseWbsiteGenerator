@@ -44,6 +44,7 @@ import tam.data.Student;
 import tam.data.TeachingAssistant;
 import tam.data.Team;
 import tam.workspace.CSGWorkspace;
+import tam.workspace.CourseInfoTab;
 
 /**
  * This class serves as the file component for the TA manager app. It provides
@@ -242,6 +243,7 @@ public class CSGFiles implements AppFileComponent {
     public void saveData(AppDataComponent data, String filePath) throws IOException {
         // GET THE DATA
         CSGData dataManager = (CSGData) data;
+        CSGWorkspace workspace =(CSGWorkspace)app.getWorkspaceComponent();
 
         // NOW BUILD THE TA JSON OBJCTS TO SAVE
         JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();
@@ -327,16 +329,19 @@ public class CSGFiles implements AppFileComponent {
         JsonArray teamArray = teamsArrayBuilder.build();
 
         // THEN PUT IT ALL TOGETHER IN A JsonObject
+        
+        CourseInfoTab tab = workspace.getCourseTab();
+        
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_START_HOUR, "" + dataManager.getStartHour())
                 .add(JSON_END_HOUR, "" + dataManager.getEndHour())
-                .add(CI_SUB, "" + dataManager.getCourseInfo().getSubject())
-                .add(CI_NUM, "" + dataManager.getCourseInfo().getNumber())
-                .add(CI_SEM, "" + dataManager.getCourseInfo().getSemester())
-                .add(CI_YEAR, "" + dataManager.getCourseInfo().getYear())
-                .add(CI_TITLE, "" + dataManager.getCourseInfo().getTitle())
-                .add(CI_INS, "" + dataManager.getCourseInfo().getInsName())
-                .add(CI_LINK, "" + dataManager.getCourseInfo().getInsHome())
+                .add(CI_SUB, "" + tab.getSubjectComboBox().getValue().toString())
+                .add(CI_NUM, "" + tab.getNumberComboBox().getValue().toString())
+                .add(CI_SEM, "" + tab.getSemesterComboBox().getValue().toString())
+                .add(CI_YEAR, "" + tab.getYearComboBox().getValue().toString())
+                .add(CI_TITLE, "" + tab.getTitleTextField().getText())
+                .add(CI_INS, "" + tab.getNameTextField().getText())
+                .add(CI_LINK, "" + tab.getHomeTextField().getText())
                 .add(MON_MON, dataManager.getStartingMondayMonth())
                 .add(MON_DAY, dataManager.getStartingMondayDay())
                 .add(FRI_MON, dataManager.getEndingFridayMonth())
@@ -380,16 +385,18 @@ public class CSGFiles implements AppFileComponent {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
         CSGData dataManager = (CSGData) data;
-
+        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        CourseInfoTab tab = workspace.getCourseTab();
+        
         //Build the CourseInfo JSON File
         JsonObject courseInfoWriter = Json.createObjectBuilder()
-                .add(CI_SUB, "" + dataManager.getCourseInfo().getSubject())
-                .add(CI_NUM, "" + dataManager.getCourseInfo().getNumber())
-                .add(CI_SEM, "" + dataManager.getCourseInfo().getSemester())
-                .add(CI_YEAR, "" + dataManager.getCourseInfo().getYear())
-                .add(CI_TITLE, "" + dataManager.getCourseInfo().getTitle())
-                .add(CI_INS, "" + dataManager.getCourseInfo().getInsName())
-                .add(CI_LINK, "" + dataManager.getCourseInfo().getInsHome())
+                .add(CI_SUB, "" + tab.getSubjectComboBox().getValue().toString())
+                .add(CI_NUM, "" + tab.getNumberComboBox().getValue().toString())
+                .add(CI_SEM, "" + tab.getSemesterComboBox().getValue().toString())
+                .add(CI_YEAR, "" + tab.getYearComboBox().getValue().toString())
+                .add(CI_TITLE, "" + tab.getTitleTextField().getText())
+                .add(CI_INS, "" + tab.getNameTextField().getText())
+                .add(CI_LINK, "" + tab.getHomeTextField().getText())
                 .build();
 
         writeFile(courseInfoWriter, HOME_FILEPATH);

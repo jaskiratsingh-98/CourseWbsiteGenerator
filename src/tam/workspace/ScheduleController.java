@@ -56,7 +56,7 @@ public class ScheduleController {
         String link = tab.getLinkTextField().getText();
         String criteria = tab.getCriteriaTextField().getText();
 
-        if (type.isEmpty() || date==null || time.isEmpty() || title.isEmpty() || topic.isEmpty() || link.isEmpty() || criteria.isEmpty()) {
+        if (type.isEmpty() || date==null || title.isEmpty()) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show("Empty Fields", "You must fill in all fields.");
         } else {
@@ -87,7 +87,6 @@ public class ScheduleController {
         tab.getLinkTextField().setOnAction(e -> {
             updateSchedule(sch);
         });
-
         tab.getClear().setOnAction(e -> {
             tab.clearItems();
         });

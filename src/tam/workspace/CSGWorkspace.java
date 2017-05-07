@@ -92,7 +92,12 @@ public class CSGWorkspace extends AppWorkspaceComponent {
 
     @Override
     public void resetWorkspace() {
+        courseTab.clearItems();
         taTab.resetTAWorkspace();
+        recitationTab.clearFields();
+        scheduleTab.clearItems();
+        projectTab.clearTeamItems();
+        projectTab.clearStuItems();
     }
 
     @Override

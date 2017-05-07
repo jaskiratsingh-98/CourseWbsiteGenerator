@@ -401,5 +401,21 @@ public class CourseInfoTab {
     public ComboBox getChooseSheet() {
         return chooseSheet;
     }
+    
+    public void clearItems(){
+        subjectComboBox.setValue(null);
+        numberComboBox.setValue(null);
+        semesterComboBox.setValue(null);
+        yearComboBox.setValue(null);
+        titleTextField.setText("");
+        nameTextField.setText("");
+        homeTextField.setText("");
+        
+        bannerImageView.setImage(null);
+        rightImageView.setImage(null);
+        leftImageView.setImage(null);
+        
+        chooseSheet.setValue(null);
+    }
 
 }

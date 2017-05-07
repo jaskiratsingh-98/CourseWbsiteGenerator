@@ -746,7 +746,15 @@ public class CSGData implements AppDataComponent {
 
     public void removeStudent(Student stu) {
         if ((containsStudent(stu))) {
-            students.remove(students.indexOf(stu));
+            for(Student s: students){
+                if(s.getFirstName().equals(stu.getFirstName())
+                        && s.getLastName().equals(stu.getLastName())
+                        && s.getTeam().equals(stu.getTeam())
+                        && s.getRole().equals(stu.getRole())){
+                    students.remove(s);
+                    return;
+                }
+            }
         }
     }
 

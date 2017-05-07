@@ -23,6 +23,13 @@ public class UpdateSchedule implements jTPS_Transaction{
     private String time;
     private String link;
     private String criteria;
+    private String oldType;
+    private String oldDate;
+    private String oldTitle;
+    private String oldTopic;
+    private String oldTime;
+    private String oldLink;
+    private String oldCriteria;
     private Schedule sch;
     private CSGData data;
     private CSGWorkspace workspace;
@@ -37,6 +44,13 @@ public class UpdateSchedule implements jTPS_Transaction{
         this.link = link;
         this.criteria = criteria;
         this.sch = sch;
+        oldType = sch.getType();
+        oldDate = sch.getDate();
+        oldTitle = sch.getTitle();
+        oldTopic = sch.getTopic();
+        oldTime = sch.getTime();
+        oldLink = sch.getLink();
+        oldCriteria = sch.getCriteria();
         data = (CSGData)app.getDataComponent();
         workspace = (CSGWorkspace)app.getWorkspaceComponent();
     }
@@ -52,7 +66,7 @@ public class UpdateSchedule implements jTPS_Transaction{
     @Override
     public void undoTransaction() {
         Schedule sch1 = new Schedule(type, date, title, topic, time, link, criteria);
-        data.editSchedule(sch1, sch.getType(), sch.getDate(), sch.getTitle(), sch.getTopic(), sch.getTime(), sch.getLink(), sch.getCriteria());
+        data.editSchedule(sch1, oldType, oldDate, oldTitle, oldTopic, oldTime, oldLink, oldCriteria);
         workspace.getScheduleTab().getScheduleItems().refresh();
     }
     

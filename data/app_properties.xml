@@ -25,11 +25,11 @@
         <property name="ABOUT_ICON"          value="About.png"></property>  
         
         <!-- TOOLTIPS FOR BUTTONS -->
-        <property name="NEW_TOOLTIP"		value="Build a new TA Grid"></property>
-        <property name="LOAD_TOOLTIP"		value="Load an existing TA Grid"></property>
-        <property name="SAVE_TOOLTIP"		value="Save the current TA Grid"></property>
-        <property name="SAVE_AS_TOOLTIP"        value="Save TA Grid to new file"></property>
-        <property name="EXPORT_TOOLTIP"         value="Export Syllabus into a Directory"></property>
+        <property name="NEW_TOOLTIP"		value="Build a new workspace"></property>
+        <property name="LOAD_TOOLTIP"		value="Load an existing workspace"></property>
+        <property name="SAVE_TOOLTIP"		value="Save the current workspace"></property>
+        <property name="SAVE_AS_TOOLTIP"        value="Save workspace to new file"></property>
+        <property name="EXPORT_TOOLTIP"         value="Export Site into a Directory"></property>
         <property name="EXIT_TOOLTIP"		value="Exit the Application"></property>
         <property name="UNDO_TOOLTIP"		value="Undo Last Event"></property>
         <property name="REDO_TOOLTIP"		value="Redo Last Event"></property>

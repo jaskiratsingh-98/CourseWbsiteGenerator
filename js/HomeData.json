@@ -1,10 +1,10 @@
 
 {
-    "subject":"null",
-    "number":"null",
-    "semester":"null",
-    "year":"null",
-    "title":"null",
-    "instructor":"null",
-    "link":"null"
+    "subject":"",
+    "number":"",
+    "semester":"",
+    "year":"",
+    "title":"",
+    "instructor":"",
+    "link":""
 }

@@ -118,7 +118,7 @@ public class CSGFiles implements AppFileComponent {
     static final String JSON_SEM = "semester";
     static final String SCRIPT_FOLER = "./js";
 
-    public CSGFiles(CSGApp initApp){
+    public CSGFiles(CSGApp initApp) {
         app = initApp;
     }
 
@@ -243,7 +243,7 @@ public class CSGFiles implements AppFileComponent {
     public void saveData(AppDataComponent data, String filePath) throws IOException {
         // GET THE DATA
         CSGData dataManager = (CSGData) data;
-        CSGWorkspace workspace =(CSGWorkspace)app.getWorkspaceComponent();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
 
         // NOW BUILD THE TA JSON OBJCTS TO SAVE
         JsonArrayBuilder taArrayBuilder = Json.createArrayBuilder();
@@ -329,16 +329,41 @@ public class CSGFiles implements AppFileComponent {
         JsonArray teamArray = teamsArrayBuilder.build();
 
         // THEN PUT IT ALL TOGETHER IN A JsonObject
-        
         CourseInfoTab tab = workspace.getCourseTab();
-        
+
+        String subject;
+        String number;
+        String semester;
+        String year;
+
+        if (tab.getSubjectComboBox().getValue() == null) {
+            subject = "";
+        } else {
+            subject = tab.getSubjectComboBox().getValue().toString();
+        }
+        if (tab.getNumberComboBox().getValue() == null) {
+            number = "";
+        } else {
+            number = tab.getNumberComboBox().getValue().toString();
+        }
+        if (tab.getSemesterComboBox().getValue() == null) {
+            semester = "";
+        } else {
+            semester = tab.getSemesterComboBox().getValue().toString();
+        }
+        if (tab.getYearComboBox().getValue() == null) {
+            year = "";
+        } else {
+            year = tab.getYearComboBox().getValue().toString();
+        }
+
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_START_HOUR, "" + dataManager.getStartHour())
                 .add(JSON_END_HOUR, "" + dataManager.getEndHour())
-                .add(CI_SUB, "" + tab.getSubjectComboBox().getValue().toString())
-                .add(CI_NUM, "" + tab.getNumberComboBox().getValue().toString())
-                .add(CI_SEM, "" + tab.getSemesterComboBox().getValue().toString())
-                .add(CI_YEAR, "" + tab.getYearComboBox().getValue().toString())
+                .add(CI_SUB, "" + subject)
+                .add(CI_NUM, "" + number)
+                .add(CI_SEM, "" + semester)
+                .add(CI_YEAR, "" + year)
                 .add(CI_TITLE, "" + tab.getTitleTextField().getText())
                 .add(CI_INS, "" + tab.getNameTextField().getText())
                 .add(CI_LINK, "" + tab.getHomeTextField().getText())
@@ -385,15 +410,41 @@ public class CSGFiles implements AppFileComponent {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
         CSGData dataManager = (CSGData) data;
-        CSGWorkspace workspace = (CSGWorkspace)app.getWorkspaceComponent();
+        CSGWorkspace workspace = (CSGWorkspace) app.getWorkspaceComponent();
         CourseInfoTab tab = workspace.getCourseTab();
-        
+
+        String subject;
+        String number;
+        String semester;
+        String year;
+
+        if (tab.getSubjectComboBox().getValue() == null) {
+            subject = "";
+        } else {
+            subject = tab.getSubjectComboBox().getValue().toString();
+        }
+        if (tab.getNumberComboBox().getValue() == null) {
+            number = "";
+        } else {
+            number = tab.getNumberComboBox().getValue().toString();
+        }
+        if (tab.getSemesterComboBox().getValue() == null) {
+            semester = "";
+        } else {
+            semester = tab.getSemesterComboBox().getValue().toString();
+        }
+        if (tab.getYearComboBox().getValue() == null) {
+            year = "";
+        } else {
+            year = tab.getYearComboBox().getValue().toString();
+        }
+
         //Build the CourseInfo JSON File
         JsonObject courseInfoWriter = Json.createObjectBuilder()
-                .add(CI_SUB, "" + tab.getSubjectComboBox().getValue().toString())
-                .add(CI_NUM, "" + tab.getNumberComboBox().getValue().toString())
-                .add(CI_SEM, "" + tab.getSemesterComboBox().getValue().toString())
-                .add(CI_YEAR, "" + tab.getYearComboBox().getValue().toString())
+                .add(CI_SUB, "" + subject)
+                .add(CI_NUM, "" + number)
+                .add(CI_SEM, "" + semester)
+                .add(CI_YEAR, "" + year)
                 .add(CI_TITLE, "" + tab.getTitleTextField().getText())
                 .add(CI_INS, "" + tab.getNameTextField().getText())
                 .add(CI_LINK, "" + tab.getHomeTextField().getText())
@@ -453,7 +504,7 @@ public class CSGFiles implements AppFileComponent {
         ObservableList<Recitation> recs = dataManager.getRecitations();
         for (Recitation ra : recs) {
             JsonObject schJson = Json.createObjectBuilder()
-                    .add(JSON_SECTION, ra.getDayTime())
+                    .add(JSON_SECTION, ra.getSection())
                     .add(JSON_DAYTIME, ra.getDayTime())
                     .add(JSON_LOCATION, ra.getLocation())
                     .add(JSON_TA1, ra.getTa1())
@@ -461,11 +512,11 @@ public class CSGFiles implements AppFileComponent {
             recitationsArrayBuilder.add(schJson);
         }
         JsonArray recitationsArray = recitationsArrayBuilder.build();
-        
+
         JsonObject recitationsWriter = Json.createObjectBuilder()
                 .add(JSON_RECITATIONS, recitationsArray)
                 .build();
-        
+
         writeFile(recitationsWriter, REC_FILEPATH);
 
         //Build the Schedule JSON File
@@ -473,7 +524,7 @@ public class CSGFiles implements AppFileComponent {
         JsonArrayBuilder holidayArrayBuilder = Json.createArrayBuilder();
         ObservableList<Schedule> sch = dataManager.getSchedule();
         for (Schedule sa : sch) {
-            if (sa.getType().equals("Holiday")) {
+            if (sa.getType().equals("Holidays")) {
                 JsonObject schJson = Json.createObjectBuilder()
                         .add(JSON_DATE, sa.getDate())
                         .add(JSON_MONTH, sa.getMonth())
@@ -491,7 +542,7 @@ public class CSGFiles implements AppFileComponent {
         //Build Lectures Array
         JsonArrayBuilder lectureArrayBuilder = Json.createArrayBuilder();
         for (Schedule sa : sch) {
-            if (sa.getType().equals("Lecture")) {
+            if (sa.getType().equals("Lectures")) {
                 JsonObject schJson = Json.createObjectBuilder()
                         .add(JSON_DATE, sa.getDate())
                         .add(JSON_MONTH, sa.getMonth())
@@ -509,7 +560,7 @@ public class CSGFiles implements AppFileComponent {
         //Build References Array
         JsonArrayBuilder referenceArrayBuilder = Json.createArrayBuilder();
         for (Schedule sa : sch) {
-            if (sa.getType().equals("Reference")) {
+            if (sa.getType().equals("References")) {
                 JsonObject schJson = Json.createObjectBuilder()
                         .add(JSON_DATE, sa.getDate())
                         .add(JSON_MONTH, sa.getMonth())
@@ -523,11 +574,11 @@ public class CSGFiles implements AppFileComponent {
             }
         }
         JsonArray referenceArray = referenceArrayBuilder.build();
-        
+
         //Build HWs Array
         JsonArrayBuilder hwsArrayBuilder = Json.createArrayBuilder();
         for (Schedule sa : sch) {
-            if (sa.getType().equals("HW")) {
+            if (sa.getType().equals("HWs")) {
                 JsonObject schJson = Json.createObjectBuilder()
                         .add(JSON_DATE, sa.getDate())
                         .add(JSON_MONTH, sa.getMonth())
@@ -596,19 +647,42 @@ public class CSGFiles implements AppFileComponent {
         String sr1 = SCRIPT_FOLER;
         File src = new File(sr1);
         File dest = new File(dataManager.getExportDir());
+        FileUtils.copyDirectoryToDirectory(src, dest);
 
-        FileUtils.copyDirectoryToDirectory(src, dest);
+        src = new File("./temp/images/BannerImage.jpg");
+        dest = new File(dataManager.getExportDir() + "/images");
+        if(src.exists()) {
+            FileUtils.copyFileToDirectory(src, dest);
+        }
         
-        src = new File("./temp/images");
+        src = new File("./temp/images/LeftFooter.png");
+        dest = new File(dataManager.getExportDir() + "/images");
+        if (src.exists()){
+            FileUtils.copyFileToDirectory(src, dest);
+        }
+        src = new File("./temp/images/RightFooter.png");
+        dest = new File(dataManager.getExportDir() + "/images");
+        if(src.exists()){
+            FileUtils.copyFileToDirectory(src, dest);
+        }
+
+        src = new File("./temp/css/sea_wolf.css");
+        dest = new File(dataManager.getExportDir()+"/css");
+        if(src.exists()){
+            FileUtils.copyFileToDirectory(src, dest);
+        }
+
+        src = new File(dataManager.getTemplate());
+        File[] pages = src.listFiles();
         dest = new File(dataManager.getExportDir());
-        FileUtils.copyDirectoryToDirectory(src, dest);
-        
-        src = new File("./temp/css");
-        dest = new File(dataManager.getExportDir());
-        FileUtils.copyDirectoryToDirectory(src, dest);
-        
+        for (File f : pages) {
+            if (f.getAbsolutePath().endsWith(".html")) {
+                FileUtils.copyFileToDirectory(f, dest);
+            }
+        }
+
         AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
-            dialog.show("Exported", "Work Exported!");
+        dialog.show("Exported", "Work Exported!");
 
     }
 

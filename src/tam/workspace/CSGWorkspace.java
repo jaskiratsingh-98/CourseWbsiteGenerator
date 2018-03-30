@@ -118,7 +118,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         taTab.reloadTAWorkspace(dataComponent);
     }
 
-    @Override
+//    @Override
     public void undo() {
         Tab undoTab = tabPane.getSelectionModel().getSelectedItem();
         if (undoTab.equals(recitationTab.getTab())) {
@@ -132,7 +132,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         }
     }
 
-    @Override
+//    @Override
     public void redo() {
         Tab redoTab = tabPane.getSelectionModel().getSelectedItem();
         if (redoTab.equals(recitationTab.getTab())) {
@@ -146,7 +146,7 @@ public class CSGWorkspace extends AppWorkspaceComponent {
         }
     }
 
-    @Override
+//    @Override
     public void setCourses() {
 
     }

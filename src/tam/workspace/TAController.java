@@ -83,7 +83,7 @@ public class TAController {
     private void markWorkAsEdited() {
         // MARK WORK AS EDITED
         AppGUI gui = app.getGUI();
-        gui.getFileController().markAsEdited(gui);
+//        gui.getFileController().markAsEdited(gui);
     }
 
     public void handleEditTA() {

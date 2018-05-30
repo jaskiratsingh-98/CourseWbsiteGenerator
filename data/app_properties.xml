@@ -31,8 +31,8 @@
         <property name="SAVE_AS_TOOLTIP"        value="Save workspace to new file"></property>
         <property name="EXPORT_TOOLTIP"         value="Export Site into a Directory"></property>
         <property name="EXIT_TOOLTIP"		value="Exit the Application"></property>
-        <property name="UNDO_TOOLTIP"		value="Undo Last Event"></property>
-        <property name="REDO_TOOLTIP"		value="Redo Last Event"></property>
+        <property name="UNDO_TOOLTIP"		value="Undo"></property>
+        <property name="REDO_TOOLTIP"		value="Redo"></property>
         <property name="ABOUT_TOOLTIP"		value="About this Application"></property>
         
         <!-- ERROR MESSAGES -->
